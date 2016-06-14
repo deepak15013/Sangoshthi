@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) 2016. Kyle Montague
+  ~
+  ~ Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+  ~
+  ~ The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+  ~
+  ~ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+  -->
+
+<resources>
+    <string name="app_name">ألو صحتك</string>
+    <string name="action_cancel">إلغاء</string>
+    <string name="action_enter">أدخل</string>
+    <string name="action_finished">تم الانتهاء</string>
+    <string name="action_logout">خروج</string>
+    <string name="action_no">لا</string>
+    <string name="action_ok">موافق</string>
+    <string name="action_previous_clips">لقطات سابقة</string>
+    <string name="action_quit">إستقيل</string>
+    <string name="action_recorded_materials">لقطات مسجلة</string>
+    <string name="action_yes">نعم</string>
+    <string name="audio_recorder_delete_button">حذف</string>
+    <string name="audio_recorder_play_button">تشغيل</string>
+    <string name="audio_recorder_record_button">تسجيل</string>
+    <string name="error_cant_run">لا يمكنك تشغيل البرنامج الإذاعي عليك. إعداد البرنامج مسبقا</string>
+    <string name="error_cant_spread">لا يمكنك أن تقول للأخربن عن البرنامج الإذاعي. عليك  إعداد البرنامج مسبقا</string>
+    <string name="error_confirm_guest">عليك تأكيد إذا سوف يكون الضيف معك قبل المتابعة</string>
+    <string name="error_forgot_pin">نسيت الرقم السري</string>
+    <string name="error_internet_dropout">إنقطع الاتصال بشبكة الانترنت. أننا نحاول  إعادة الاتصال</string>
+    <string name="error_network_dropout">إنقطع الاتصال بشبكة الاهاتف. أننا نحاول  إعادة الاتصال</string>
+    <string name="error_no_audio">لم تحدد تسجيل صوتي  للتئشير</string>
+    <string name="action_continue">إستمر</string>
+    <string name="error_no_internet">إنقطع الاتصال بشبكة الانترنت</string>
+    <string name="error_no_network">إنقطع الاتصال بشبكة الاهاتف</string>
+    <string name="error_select_topic_icon">عليك تحديد صورة للمواضيع</string>
+    <string name="error_title">خطاء</string>
+    <string name="error_listener_dropout">إنقطع الاتصال بالمستمع. أننا نحاول  إعادة الاتصال به</string>
+    <string name="error_guest_dropout">إنقطع الاتصال بضيف. أننا نحاول  إعادة الاتصال به</string>
+    <string name="error_wrong_pin">رقم سري غير صحيح</string>
+    <string name="info_add_guest_confrim">سوف يكون الضيف معك؟</string>
+    <string name="info_add_guest_phone_number">رقم الهاتف</string>
+    <string name="info_call_guest_and_participants">سوف نقوم بالإتصال بك , ضيف البرنامج و ثم سوف نتصل بالمستمعين</string>
+    <string name="info_call_participants_only">سوف نتصل بالمستمعين الأن لبدء البرنامج الاذاعي</string>
+    <string name="info_call_please_wait">يرجى الانتظار بينما نصلك إلى البرنامج الاذاعي</string>
+    <string name="info_run_confirm">هل أنت مستعد لبدء البرنامج الاذاعي</string>
+    <string name="info_success_title">نجاح</string>
+    <string name="info_show_prepared">لقد تم إعداد البرنامج الاذاعي بنجاح!</string>
+    <string name="info_system_call">سوف نقوم بالإتصال بك الآن. يرجى مابعة التعليمات التي سوف تحصل عليها عبر الإتصال</string>
+    <string name="show_overview_stop">وقف البرنامج  الاذاعي</string>
+    <string name="number_input_enter_guest_number">أدخل رقم هاتف الضيف </string>
+    <string name="alert_title">إنذار</string>
+    <string name="error_too_many_attempts">لقد أدخلت الرقم السري الخطاء عدة مرات لتغير. كلمة المرور يرجى الإتصال ب</string>
+    <string name="error_topics_not_set">للإستمرار عليك تعيين المواضيع لهذا البرنامج</string>
+    <string name="info_load_previous_show">هل تريد الإستمرار </string>
+    <string name="info_trailer_success">سوف نرسل الإعلان للبرنامج قبل وقت بدء البرنامج</string>
+    <string name="info_verify_phone">قوم بتأكيد رقم هاتفك و ثم سوف نرسل لك الرقم السري عبر رسالة قصيرة</string>
+    <string name="show_overview_filler">تسجبلات سابقة</string>
+    <string name="error_no_icon">لم تحدد صورة  للتئشير</string>
+    <string name="Directory_Audio">سمعي</string>
+</resources>

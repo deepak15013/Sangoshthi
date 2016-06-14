@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="uk.ac.openlab.radio">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_CONTACTS"/>
+
+
+    <uses-feature
+        android:name="android.hardware.microphone"
+        android:required="true" />
+
+    <application
+        android:name=".AgileRadioApplication"
+        android:allowBackup="true"
+        android:icon="@drawable/ic_radio"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/Lebanon">
+        <activity
+            android:name=".activities.SplashActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Light.NoTitleBar.Fullscreen">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activities.SetupActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Base.Theme.AppCompat.Light.DarkActionBar"></activity>
+        <activity
+            android:name=".activities.MainActivity"
+            android:label="Radio - Prepare Show"
+            android:screenOrientation="portrait"></activity>
+
+        <!-- Audio Recorder Activity - (also needs to override the dialer to initialise calls to IVR -->
+        <activity
+            android:name=".activities.AudioRecorderActivity"
+            android:label="Audio Recorder"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".activities.ShowOverviewActivity"
+            android:label="Radio - Show Overview"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".activities.NumberInputActivity"
+            android:label="Radio - Number"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysVisible"></activity>
+        <activity
+            android:name=".activities.IconSelectionActivity"
+            android:label="Radio - Icons"
+            android:screenOrientation="portrait"></activity>
+
+        <!-- SERVICES / BROADCAST RECIEVERS -->
+        <receiver android:name=".services.FreeSwitchCallReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.PHONE_STATE" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.NEW_OUTGOING_CALL" />
+            </intent-filter>
+        </receiver>
+    </application>
+
+</manifest>

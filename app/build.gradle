@@ -1,0 +1,66 @@
+apply plugin: 'com.android.application'
+
+
+android {
+    compileSdkVersion 23
+    buildToolsVersion "23.0.2"
+
+    defaultConfig {
+        applicationId "uk.ac.openlab.radio"
+        minSdkVersion 16
+        targetSdkVersion 23
+        versionCode 1
+        versionName "0.1"
+    }
+
+    productFlavors {
+        india {
+            applicationIdSuffix = ".india"
+            versionName "0.1-india"
+            buildConfigField 'boolean', 'USE_SIP', "false"
+        }
+        lebanon {
+            applicationIdSuffix = ".lebanon"
+            versionName "0.1-lebanon"
+            buildConfigField 'boolean', 'USE_SIP', "false"
+
+
+        }
+        bbc {
+            applicationIdSuffix = ".bbc"
+            versionName "0.1-bbc"
+            buildConfigField 'boolean', 'USE_SIP', "true"
+        }
+    }
+
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    dataBinding {
+        enabled = true
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    testCompile 'junit:junit:4.12'
+
+    compile 'com.android.support:appcompat-v7:23.3.0'
+    compile 'org.zeromq:jeromq:0.3.4'
+    compile 'com.squareup.okhttp3:okhttp:3.2.0'
+    compile 'com.google.code.gson:gson:2.6.2'
+    compile 'com.android.support:recyclerview-v7:23.3.0'
+    compile 'com.googlecode.libphonenumber:libphonenumber:7.3.0'
+    compile 'com.github.paolorotolo:appintro:3.4.0'
+    compile 'com.android.support:support-v4:23.3.0'
+}

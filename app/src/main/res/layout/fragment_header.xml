@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+ <TextView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/title"
+    android:textSize="@dimen/heading1"
+    android:layout_margin="@dimen/activity_margin"
+    android:padding="6dp"
+    android:gravity="start"
+    android:background="@color/white"
+    android:text="Select a studio to join"
+    android:layout_width="match_parent"
+    android:layout_height="200dp" />

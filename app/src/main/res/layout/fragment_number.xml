@@ -1,0 +1,45 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="fragments.NumberFragment">
+
+    <LinearLayout
+        android:orientation="vertical" android:layout_width="match_parent"
+        android:background="@color/white"
+        android:layout_height="match_parent">
+
+
+        <TextView
+            android:id="@+id/title"
+            android:textSize="@dimen/heading1"
+            android:layout_margin="@dimen/activity_margin"
+            android:padding="6dp"
+            android:gravity="start"
+            android:text="@string/number_input_enter_guest_number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/activity_horizontal_margin"
+            android:layout_marginEnd="@dimen/activity_horizontal_margin"
+            android:orientation="horizontal">
+            <Spinner
+                android:layout_weight="2"
+                android:id="@+id/locale"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            </Spinner>
+            <EditText
+                android:layout_weight="1"
+                android:id="@+id/number_input"
+                android:inputType="phone"
+                android:textSize="@dimen/heading2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+</FrameLayout>

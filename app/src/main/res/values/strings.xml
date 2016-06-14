@@ -1,0 +1,221 @@
+<!--
+  ~ Copyright (c) 2016. Kyle Montague
+  ~
+  ~ Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+  ~
+  ~ The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+  ~
+  ~ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+  -->
+
+<resources>
+    <string name="app_name">Citizen Radio</string>
+
+    
+    <!-- Server Configuration -->
+    <!-- //FIXME remove hardcoding and pull from the server instead, then store in shared prefs -->
+
+
+    <string name="pref_ivr_host">tcp://citizenrad.io</string>
+    <integer name="pref_ivr_port">3005</integer>
+
+    <string name="pref_studio_host">tcp://citizenrad.io</string>
+
+    <string name="pref_studio_http_host">http://citizenrad.io</string>
+    <integer name="pref_studio_http_port">3000</integer>
+    <integer name="pref_studio_sub_port">3003</integer>
+    <integer name="pref_studio_control_port">3002</integer>
+
+
+    <!-- Studio Configuration -->
+    <string name="pref_telephone_number">PREF_TELEPHONE_NUMBER</string>
+    <string name="pref_studio_id">PREF_STUDIO_ID</string>
+    <string name="pref_join_code">PREF_JOIN_CODE</string>
+    <string name="pref_session_id">PREF_SESSION_ID</string>
+
+
+    
+    <!-- Directories -->
+    <string name="Directory_Audio">audio</string>
+
+    <string name="number_input_enter_guest_number">Enter the Guest\'s telephone number</string>
+    <string name="number_input_enter_listener_number">Enter the Listener\'s telephone number</string>
+    <string name="action_recorded_materials">Recorded Material</string>
+    <string name="action_previous_clips">Previous Clips</string>
+    <string name="action_finished">Finished</string>
+
+
+    <!-- Action Text -->
+    <string name="action_logout">Logout</string>
+    <string name="action_quit">Quit</string>
+    <string name="action_ok">OK</string>
+    <string name="action_enter">Enter</string>
+    <string name="action_cancel">Cancel</string>
+    <string name="action_yes">Yes</string>
+    <string name="action_no">No</string>
+    <string name="action_continue">Continue</string>
+
+    <!-- Error / Warning Messages & Information -->
+    <string name="error_title">error</string>
+    <string name="alert_title">alert</string>
+    <string name="error_no_internet">no internet connection</string>
+    <string name="error_no_network">no network connection</string>
+    <string name="error_forgot_pin">forgot PIN</string>
+    <string name="error_wrong_pin">incorrect PIN</string>
+    <!--//todo need to have something in the app that allows use to add the name and number of the local contact for resetting the pin-->
+    <string name="error_too_many_attempts">too many incorrect PIN attempts. To reset, please contact</string>
+    <string name="error_cant_run">you cannot run show, without preparing the show first</string>
+    <string name="error_cant_spread">you cannot Spread The Word, without preparing the show first</string>
+
+    <string name="error_confirm_guest">you need to confirm whether guest will be with you or not, before proceeding</string>
+    <string name="error_topics_not_set">you need to set the topics for the show before continuing</string>
+    <string name="error_no_icon">no icon selected for tag.</string>
+    <string name="error_no_audio">no audio selected for tag.</string>
+
+    <string name="error_select_topic_icon">you need to select an icon for the topics.</string>
+    <string name="error_internet_dropout">internet connection dropped, attempting to reconnect.</string>
+    <string name="error_network_dropout">network connection dropped, attempting to reconnect.</string>
+
+    <!--//todo where is this going to be used?-->
+    <string name="error_listener_dropout">The listener has dropped out. Trying to reconnect</string>
+    <string name="error_guest_dropout">The guest has dropped out. Trying to reconnect</string>
+
+    <string name="info_verify_phone">Confirm your phone number, and we will send PIN via SMS</string>
+    <string name="info_run_confirm">are you sure you are ready to run the show?</string>
+    <string name="info_load_previous_show">do you want to resume your planning from last time, or start fresh?</string>
+    <string name="info_show_prepared">show successfully prepared!</string>
+    <string name="info_success_title">Success</string>
+    <string name="info_trailer_success">We will send the trailer before the scheduled start time.</string>
+
+    <string name="info_system_call">We will give you a call now. Please follow instructions you will hear.</string>
+    <string name="info_call_participants_only">We will call you and the registered participants now.</string>
+    <string name="info_call_guest_and_participants">We will call you, the Guest and then the registered participants.</string>
+    <string name="info_call_please_wait">please wait while we connect you to the show.</string>
+
+
+    <!-- Main Menu Screen -->
+    <string name="main_menu_title">@string/app_name</string>
+
+    <string-array name="main_menu_titles">
+        <item>prepare show</item>
+        <item>spread the word</item>
+        <item>run show</item>
+    </string-array>
+
+    <!-- Icons [don't need translation] -->
+    <string-array name="main_menu_icons">
+        <item>@drawable/ic_person</item>
+        <item>@drawable/ic_done</item>
+        <item>@drawable/ic_phone_active</item>
+    </string-array>
+
+    <!-- Prepare Show Screen -->
+    <string name="prepare_show_title">Prepare Show</string>
+
+    <string-array name="prepare_show_titles">
+        <item>Add Guest</item>
+        <item>Record Topics</item>
+        <item>Record Trailers</item>
+    </string-array>
+
+        <!-- Icons [don't need translation] -->
+        <string-array name="prepare_show_icons">
+            <item>@drawable/ic_phone_active</item>
+            <item>@drawable/ic_phone_active</item>
+            <item>@drawable/ic_person</item>
+        </string-array>
+
+        <!-- Prepare // Add Guest Screen-->
+        <string name="info_add_guest_confrim">Will the Guest be with you?</string>
+        <string name="info_add_guest_phone_number">phone number</string>
+
+    <!-- Promote Show Screen -->
+    <string-array name="promote_show_titles">
+        <item>Set Show: Date/Time</item>
+        <item>Record Trailer</item>
+    </string-array>
+
+
+    <!-- Record Topics Screen -->
+    <string name="record_topics_title">Record Topics</string>
+
+    <string-array name="record_topics_titles">
+        <item>Topic 1</item>
+        <item>Topic 2</item>
+    </string-array>
+
+    <!-- Icons [don't need translation] -->
+    <string-array name="record_topics_icons">
+        <item>@drawable/ic_box</item>
+        <item>@drawable/ic_box</item>
+    </string-array>
+
+        <!-- Individual Topic Screen -->
+        <string-array name="topic_titles">
+            <item>select icon</item>
+            <item>record audio</item>
+        </string-array>
+
+    <!--Audio Recorder -->
+    <string name="audio_recorder_record_button">record</string>
+    <string name="audio_recorder_play_button">play</string>
+    <string name="audio_recorder_delete_button">delete</string>
+
+    <!--Show Overview -->
+    <string name="show_overview_stop">stop show</string>
+    <string name="show_overview_filler">filler material</string>
+
+
+    <!-- Topic Icon Page -->
+    <!-- //todo I haven't received the topics yet, so these are just holding text-->
+    <string-array name="topic_icon_titles">
+        <item>Item 1</item>
+        <item>Item 2</item>
+        <item>Item 3</item>
+        <item>Item 4</item>
+        <item>Item 5</item>
+        <item>Item 6</item>
+        <item>Item 7</item>
+        <item>Item 8</item>
+        <item>Item 9</item>
+    </string-array>
+
+    <!-- //todo need to add the icons into the app -->
+    <string-array name="topic_icons">
+        <item>@drawable/ic_box</item>
+        <item>@drawable/ic_phone_active</item>
+        <item>@drawable/ic_person</item>
+        <item>@drawable/ic_done</item>
+        <item>@drawable/ic_phone_active</item>
+        <item>@drawable/ic_person</item>
+        <item>@drawable/ic_phone_active</item>
+        <item>@drawable/ic_box</item>
+        <item>@drawable/ic_done</item>
+    </string-array>
+
+
+    <!-- ICON ATTRIBUTIONS -->
+    <string name="icon_attribution_prefix">Icon Attributions</string>
+    <string name="icon_attribution_suffix">from the Noun Project</string>
+    <string-array name="icon_attributions">
+        <item>Radio by Arthur Shlain</item>
+    </string-array>
+
+
+
+
+    <!--Transitions Stuff [do not translate]-->
+    <string name="transition_name_icon">transition:icon</string>
+    <string name="transition_name_title">transition:title</string>
+    <string name="transition_name_checkbox">transition:checkbox</string>
+
+    <string name="transition_name_listitem">transition:listitem</string>
+    <string name="text_presenter_telephone_number">Please enter the phone number for this device</string>
+    <string name="error_invalid_pin">Incorrect Pin</string>
+    <string name="error_invalid_number">Invalid Number</string>
+    <string name="text_enter_joincode">Please enter the studio joincode</string>
+    <string name="error_invalid_joincode">Invalid Joincode</string>
+    <string name="error_null">Please enter a value</string>
+    <string name="error_unable_to_connect">Unable to connect to</string>
+    <string name="error_check_network_contact_researchers">Check your network connection and try again. If this continues contact please contact the researchers.</string>
+</resources>

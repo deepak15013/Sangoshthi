@@ -1,0 +1,26 @@
+.gradle
+/local.properties
+/.idea/workspace.xml
+/.idea/libraries
+.DS_Store
+
+# Ignore build files
+/build
+/app/build
+/androidngnstack/build
+
+/captures
+
+# Built application files
+*.apk
+*.ap_
+
+# files for the dex VM
+*.dex
+
+# Java class files
+*.class
+
+# Android Studio files
+*.iml
+.idea
