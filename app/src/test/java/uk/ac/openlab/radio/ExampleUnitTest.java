@@ -11,8 +11,8 @@ import static org.junit.Assert.assertTrue;
  * To work on unit tests, switch the Test Artifact in the Build Variants view.
  */
 public class ExampleUnitTest {
-    String zmqHost = "tcp://freeswitch.di-test.com";
-    String sessionID = "53oi-rHKiB3bv2XG11saHxBZ0vG3cTum";
+    String zmqHost = "";
+    String sessionID = "";
 
 
     @Test

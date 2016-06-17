@@ -81,7 +81,7 @@ public class FreeSwitchApi {
      * @param state
      * @param callback
      */
-    public void setCallerMute(String uuid, MessageHelper.MuteState state, IMessageListener callback){
+    public void setCallerMute(IMessageListener callback, String uuid, String state){
         sendMessage(callback,MessageHelper.shared().muteState(uuid,state));
     }
 
@@ -151,6 +151,10 @@ public class FreeSwitchApi {
      */
     public void startShow(IMessageListener callback){
         sendMessage(callback, MessageHelper.shared().startShow());
+    }
+
+    public void endShow(IMessageListener callback) {
+        sendMessage(callback, MessageHelper.shared().endShow());
     }
 
     /**

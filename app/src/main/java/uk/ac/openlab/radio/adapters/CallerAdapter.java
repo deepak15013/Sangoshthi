@@ -137,7 +137,7 @@ public class CallerAdapter extends RecyclerView.Adapter<CallerAdapter.ViewHolder
     private void toggleMute(final int position) {
         Caller c = this.mDataset.get(position);
         MessageHelper.MuteState state = c.isMutestate()? MessageHelper.MuteState.unmute: MessageHelper.MuteState.mute;
-        FreeSwitchApi.shared().setCallerMute(c.getID(), state, muteListener); //todo remove hardcoding
+        //FreeSwitchApi.shared().setCallerMute(c.getID(), state, muteListener); //todo remove hardcoding
     }
 
     @Override

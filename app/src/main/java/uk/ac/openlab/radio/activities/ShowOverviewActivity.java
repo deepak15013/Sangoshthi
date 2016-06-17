@@ -3,39 +3,36 @@ package uk.ac.openlab.radio.activities;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Chronometer;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import java.util.ArrayList;
-import java.util.Timer;
-import java.util.TimerTask;
-import java.util.concurrent.TimeUnit;
-import java.util.logging.Handler;
+import java.util.Collections;
+import java.util.List;
 
 import uk.ac.openlab.radio.GlobalUtils;
 import uk.ac.openlab.radio.R;
 import uk.ac.openlab.radio.adapters.CallerAdapter;
+import uk.ac.openlab.radio.adapters.CallerListAdapter;
 import uk.ac.openlab.radio.adapters.CountdownAdapter;
-import uk.ac.openlab.radio.adapters.IRecyclerViewItemClickedListener;
 import uk.ac.openlab.radio.adapters.TopicAdapter;
-import uk.ac.openlab.radio.datatypes.Caller;
+import uk.ac.openlab.radio.datatypes.Callers;
 import uk.ac.openlab.radio.datatypes.Icon;
 import uk.ac.openlab.radio.datatypes.Topic;
 import uk.ac.openlab.radio.datatypes.TopicInfoResult;
-import uk.ac.openlab.radio.drawables.CallerButton;
 import uk.ac.openlab.radio.drawables.ChecklistItemView;
 import uk.ac.openlab.radio.drawables.TopicView;
 import uk.ac.openlab.radio.network.FreeSwitchApi;
 import uk.ac.openlab.radio.network.IMessageListener;
+import uk.ac.openlab.radio.network.MessageHelper;
 
 /**
  * Created by kylemontague on 21/03/16.
@@ -48,6 +45,10 @@ public class ShowOverviewActivity extends AppCompatActivity {
 
     Button startStopButton;
     Chronometer chronometer;
+
+    RecyclerView callerListRecyclerView;
+
+
     /*Button recordedMaterial;
     Button previousClips;*/
 
@@ -64,6 +65,9 @@ public class ShowOverviewActivity extends AppCompatActivity {
 
     private ChecklistItemView toolbarItemView;
 
+    static List<Callers> callersArrayList;
+    static CallerListAdapter callerListAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,6 +81,16 @@ public class ShowOverviewActivity extends AppCompatActivity {
         toolbarItemView.setIcon(R.drawable.ic_person);
 
         chronometer = (Chronometer) findViewById(R.id.show_chronometer);
+
+        callerListRecyclerView = (RecyclerView) findViewById(R.id.callerList);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 2);
+        gridLayoutManager.setOrientation(GridLayoutManager.VERTICAL);
+        callerListRecyclerView.setLayoutManager(gridLayoutManager);
+
+        callersArrayList = new ArrayList<>();
+
+        callerListAdapter = new CallerListAdapter(callersArrayList);
+        callerListRecyclerView.setAdapter(callerListAdapter);
 
         /*recordedMaterial = (Button)findViewById(R.id.button_material);
         recordedMaterial.setOnClickListener(new View.OnClickListener() {
@@ -145,7 +159,7 @@ public class ShowOverviewActivity extends AppCompatActivity {
 //        countdownView = (TextView)findViewById(R.id.countdown);
 
         //set up the call queue and adapters
-        mCallerRecyclerView = (RecyclerView)findViewById(R.id.caller_controls);
+        /*mCallerRecyclerView = (RecyclerView)findViewById(R.id.caller_controls);
         mCallerLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         mCallerRecyclerView.setLayoutManager(mCallerLayoutManager);
         mCallerAdapter = new CallerAdapter(new ArrayList<Caller>(), new IRecyclerViewItemClickedListener() {
@@ -156,16 +170,16 @@ public class ShowOverviewActivity extends AppCompatActivity {
         }, GlobalUtils.fetchColor(getApplicationContext(), R.attr.colorPrimary));
 
 
-        mCallerRecyclerView.setAdapter(mCallerAdapter);
+        mCallerRecyclerView.setAdapter(mCallerAdapter);*/
 
 
-        mTopicRecyclerView = (RecyclerView)findViewById(R.id.timeline);
-        mTopicLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        //mTopicRecyclerView = (RecyclerView)findViewById(R.id.timeline);
+       /* mTopicLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         mTopicRecyclerView.setLayoutManager(mTopicLayoutManager);
         mTopicAdapter = new TopicAdapter(new ArrayList<Topic>());
-        mTopicRecyclerView.setAdapter(mTopicAdapter);
+        mTopicRecyclerView.setAdapter(mTopicAdapter);*/
 
-        addDummyData();
+//        addDummyData();
 
         /*guest = (CallerButton)findViewById(R.id.button_guest);
         guest.setOnClickListener(new View.OnClickListener() {
@@ -192,6 +206,7 @@ public class ShowOverviewActivity extends AppCompatActivity {
 
 
         if(shouldDial) {
+            MessageHelper.shared().init(this);
             FreeSwitchApi.shared().initShow(new IMessageListener() {
                 @Override
                 public void success() {
@@ -214,6 +229,15 @@ public class ShowOverviewActivity extends AppCompatActivity {
                 }
             });
         }
+    }
+
+    public static void setCallerObjects (TopicInfoResult callers) {
+        Log.v("dks","calers: "+callers.getCallers().get(0).getPhone_number());
+        callersArrayList.clear();
+        callersArrayList.addAll(callers.getCallers());
+//        Collections.copy(callersArrayList, callers.getCallers());
+        callersArrayList.add((Callers) callers.getCallers());
+        callerListAdapter.notifyDataSetChanged();
     }
 
     private void updateInfo() {
@@ -245,9 +269,9 @@ public class ShowOverviewActivity extends AppCompatActivity {
                 TopicInfoResult status = gson.fromJson(message,TopicInfoResult.class);
 
                 if(status!=null) {
-                    ArrayList<Caller> callers = status.callers.getList();
-                    mCallerAdapter.setDataset(callers);
-                    Toast.makeText(getApplicationContext(),"Total:"+status.listeners,Toast.LENGTH_LONG).show();
+//                    ArrayList<Caller> callers = status.callers.getList();
+//                    mCallerAdapter.setDataset(callers);
+//                    Toast.makeText(getApplicationContext(),"Total:"+status.listeners,Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -292,7 +316,6 @@ public class ShowOverviewActivity extends AppCompatActivity {
 
                     chronometer.setBase(SystemClock.elapsedRealtime());
                     chronometer.start();
-                    Log.v("dks", "timer started");
 
                     startStopButton.setText("Stop show");
 
@@ -316,7 +339,29 @@ public class ShowOverviewActivity extends AppCompatActivity {
         }
         else {
             Toast.makeText(ShowOverviewActivity.this, "stop show", Toast.LENGTH_SHORT).show();
-            chronometer.stop();
+
+            FreeSwitchApi.shared().endShow(new IMessageListener() {
+                @Override
+                public void success() {
+                    chronometer.stop();
+                    startStopButton.setText("start show");
+                }
+
+                @Override
+                public void fail() {
+
+                }
+
+                @Override
+                public void error() {
+
+                }
+
+                @Override
+                public void message(String message) {
+
+                }
+            });
         }
     }
 

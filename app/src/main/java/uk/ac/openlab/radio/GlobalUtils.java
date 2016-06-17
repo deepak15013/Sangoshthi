@@ -22,6 +22,7 @@ import android.support.annotation.DrawableRes;
 import android.support.annotation.StringRes;
 import android.support.annotation.StyleRes;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.util.TypedValue;
 
 import java.io.File;
@@ -94,9 +95,13 @@ public class GlobalUtils {
     }
 
     public boolean setStudioID(String studioID){
+        Log.v("dks","updating studioId: "+studioID);
         this.studioID = studioID;
-        if(sharedPreferences == null)
+        if(sharedPreferences == null) {
+            Log.v("dks", "shared pref null");
             return false;
+        }
+
         return sharedPreferences.edit().putString(PREF_STUDIO_ID,this.studioID).commit();
     }
 

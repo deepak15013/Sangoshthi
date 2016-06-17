@@ -96,6 +96,7 @@ public class SplashActivity extends Activity {
                     });
 
                 }else{
+
                     startPreparation();
                 }
 
@@ -126,6 +127,7 @@ public class SplashActivity extends Activity {
 
 
     protected void startPreparation(){
+        finish();
         Intent i = new Intent(this, MainActivity.class);
         startActivity(i);
     }

@@ -9,6 +9,7 @@ import com.google.gson.GsonBuilder;
 import org.zeromq.ZMQ;
 
 import java.util.ArrayList;
+import java.util.StringTokenizer;
 
 import uk.ac.openlab.radio.activities.ShowOverviewActivity;
 import uk.ac.openlab.radio.adapters.CallerAdapter;
@@ -42,12 +43,20 @@ public class ZMQSubscriber {
                     String message = new String(msg);
                     Log.v("dks","String: "+message);
 
-                    Gson gson = new GsonBuilder().create();
-                    TopicInfoResult status = gson.fromJson(message,TopicInfoResult.class);
+                    String[] result = message.split(",",2);
 
-                    if(status!=null) {
-                        ArrayList<Caller> callers = status.callers.getList();
-                        ShowOverviewActivity.mCallerAdapter.setDataset(callers);
+                    Log.v("dks",result[0]);
+                    Log.v("dks",result[1]);
+
+                    Gson gson = new GsonBuilder().create();
+                    TopicInfoResult callerObjects = gson.fromJson(result[1],TopicInfoResult.class);
+
+                    if(callerObjects != null) {
+
+                        ShowOverviewActivity.setCallerObjects(callerObjects);
+
+                        //ArrayList<Caller> callers = status.callers.getList();
+                        //ShowOverviewActivity.mCallerAdapter.setDataset(callers);
                         //mCallerAdapter.setDataset(callers);
 //                        Toast.makeText(getApplicationContext(),"Total:"+status.listeners,Toast.LENGTH_LONG).show();
                     }

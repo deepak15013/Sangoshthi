@@ -11,7 +11,7 @@ public class CallerListResult extends Hashtable<String, Caller>{
     //callers
     //listeners
 
-    public ArrayList<Caller> getList(){
+    public ArrayList<Caller> getList() {
         ArrayList<Caller> callers = new ArrayList<Caller>(this.values());
         ArrayList<String> keys = new ArrayList<String>(this.keySet());
 

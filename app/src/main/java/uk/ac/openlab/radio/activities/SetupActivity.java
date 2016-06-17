@@ -102,10 +102,14 @@ public class SetupActivity extends AppIntro2 implements NumberFragment.OnFragmen
                         @Override
                         public void message(String message) {
                             Log.v("tag","getShowId message");
-                            Log.v("tag", "message "+message);
+                            Log.v("tag", "message: "+message);
                             if(message.contains("show_")) {
 
-                                GlobalUtils.shared().setStudioID(message);
+
+                                Boolean updated = GlobalUtils.shared().setStudioID(message);
+                                if(updated) {
+                                    Log.v("dks","studioid updated successfully");
+                                }
 
                                 SharedPreferences.Editor e = PreferenceManager.getDefaultSharedPreferences(getBaseContext()).edit();
                                 e.putBoolean("firstStart", false);
