@@ -348,8 +348,6 @@ public class CloudStudioApi {
         client.newCall(request).enqueue(callback);
     }
 
-
-
     public class CloudControlMQ{
 
         ZMQ.Context context = ZMQ.context(1);
@@ -391,6 +389,7 @@ public class CloudStudioApi {
 
         Context mContext;
         boolean isConnected = false;
+
         public CloudSubscriberMQ(Context context) {
             this.mContext = context;
             new Thread(new Runnable() {

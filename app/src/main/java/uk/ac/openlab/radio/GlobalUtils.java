@@ -47,8 +47,6 @@ public class GlobalUtils {
     public static String PAYLOAD_KEY = "RHD_PAYLOAD";
 
 
-
-
     private SharedPreferences sharedPreferences;
     private String sessionID = null;
     private String studioID = null;

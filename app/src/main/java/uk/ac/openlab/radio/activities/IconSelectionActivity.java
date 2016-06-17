@@ -16,6 +16,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.Toast;
@@ -30,6 +31,8 @@ import uk.ac.openlab.radio.adapters.RHDTopicIcons;
 import uk.ac.openlab.radio.datatypes.Topic;
 
 public class IconSelectionActivity extends AppCompatActivity {
+
+    private static final String TAG = IconSelectionActivity.class.getSimpleName();
 
     public static final int CAMERA_IMAGE_CAPTURE = R.integer.camera_image_capture;
     GridView gridView;
@@ -47,6 +50,7 @@ public class IconSelectionActivity extends AppCompatActivity {
         setTheme(GlobalUtils.appTheme());
         setContentView(R.layout.activity_icon_selection);
 
+        Log.d(TAG,"inside");
 
         if (savedInstanceState != null)
             fileName = savedInstanceState.getString("image-file");

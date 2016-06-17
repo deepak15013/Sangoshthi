@@ -11,14 +11,19 @@
 package uk.ac.openlab.radio.activities;
 
 import android.app.Activity;
+import android.app.backup.RestoreObserver;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.InputType;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -34,11 +39,14 @@ import uk.ac.openlab.radio.adapters.LocaleAdapter;
 import uk.ac.openlab.radio.datatypes.Caller;
 import uk.ac.openlab.radio.drawables.ChecklistItemView;
 import uk.ac.openlab.radio.network.CloudStudioApi;
+import uk.ac.openlab.radio.network.FreeSwitchApi;
 import uk.ac.openlab.radio.network.IMessageListener;
 import uk.ac.openlab.radio.network.MessageListenerHandler;
 import uk.ac.openlab.radio.utilities.ContactManager;
 
 public class NumberInputActivity extends AppCompatActivity {
+
+    private static final String TAG = NumberInputActivity.class.getSimpleName();
 
     public static final int REQUEST_CODE = 1002;
 
@@ -64,7 +72,12 @@ public class NumberInputActivity extends AppCompatActivity {
     Phonenumber.PhoneNumber phoneNumber;
     String lang;
 
-    private final MessageListenerHandler messageHandler = new MessageListenerHandler(
+    RadioGroup rgRoleCategory;
+    RadioButton rbRoleCategory;
+
+    LinearLayout llRoleCategory;
+
+    /*private final MessageListenerHandler messageHandler = new MessageListenerHandler(
             new IMessageListener() {
                 @Override
                 public void success() {
@@ -87,7 +100,7 @@ public class NumberInputActivity extends AppCompatActivity {
                 }
 
             },
-            GlobalUtils.PAYLOAD_KEY);
+            GlobalUtils.PAYLOAD_KEY);*/
 
 
 
@@ -103,14 +116,26 @@ public class NumberInputActivity extends AppCompatActivity {
         PROMOTE
     }
 
-
+    Boolean showRadio;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setTheme(GlobalUtils.appTheme());
         setContentView(R.layout.activity_number_input);
 
+        Log.d(TAG,"inside");
+
+        llRoleCategory = (LinearLayout) findViewById(R.id.ll_role_category);
+
+        rgRoleCategory = (RadioGroup) findViewById(R.id.rg_role_category);
+
         localeSpinner = (Spinner) findViewById(R.id.locale);
+
+         showRadio = getIntent().getBooleanExtra("RADIO",true);
+
+        if(!showRadio) {
+            llRoleCategory.setVisibility(View.GONE);
+        }
 
         editText = (EditText) findViewById(R.id.number_input);
         editText.requestFocus();
@@ -127,7 +152,8 @@ public class NumberInputActivity extends AppCompatActivity {
                         setResult(Activity.RESULT_OK, i);
                         finish();
 
-                    }else{
+                    }
+                    else{
                         //todo handle the null or invalid input
                         editText.setError(getString(isPin()?R.string.error_invalid_pin:R.string.error_invalid_number));
                         editText.requestFocus();
@@ -148,7 +174,7 @@ public class NumberInputActivity extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
 
-            String msg = getString(extras.getInt(EXTRA_TEXT,R.string.number_input_enter_guest_number));
+            String msg = getString(extras.getInt(EXTRA_TEXT, R.string.number_input_enter_guest_number));
             int modeID = extras.getInt(EXTRA_MODE, InputMode.ADD_GUEST.ordinal());
             textView.setText(msg);
             mode = InputMode.values()[modeID];
@@ -205,6 +231,7 @@ public class NumberInputActivity extends AppCompatActivity {
     }
 
     private boolean validateNumber(){
+        Log.v("dks","is valid number");
         String number = editText.getText().toString();
         Locale locale = (Locale)localeSpinner.getSelectedItem();
         try {
@@ -222,6 +249,7 @@ public class NumberInputActivity extends AppCompatActivity {
     long timeout = 10000;
     private boolean validateCode() {
         String code = editText.getText().toString();
+        Log.d(TAG,"validating code: "+code);
         if(code.length() > 0) {
             asyncWait = true;
             IMessageListener listener = new IMessageListener() {
@@ -292,6 +320,45 @@ public class NumberInputActivity extends AppCompatActivity {
 
 
     private void addCallerNumber(Caller.TYPE role){
-        CloudStudioApi.shared().addPerson(GlobalUtils.shared().studioID(),""+phoneNumber.getNationalNumber(),""+phoneNumber.getCountryCode(),role.name(), role.name());
+        //CloudStudioApi.shared().addPerson(GlobalUtils.shared().studioID(),""+phoneNumber.getNationalNumber(),""+phoneNumber.getCountryCode(),role.name(), role.name());
+
+        int selectedId = rgRoleCategory.getCheckedRadioButtonId();
+        rbRoleCategory = (RadioButton) findViewById(selectedId);
+
+        String roleCategory = null;
+        if(showRadio) {
+            roleCategory = rbRoleCategory.getText().toString();
+        }
+        else if(role.name().equals("GUEST")) {
+            roleCategory = "GUEST";
+        }
+        else if(role.name().equals("PRESENTER")) {
+            roleCategory = "PRESENTER";
+        }
+
+
+
+        FreeSwitchApi.shared().addListener(new IMessageListener() {
+            @Override
+            public void success() {
+                Log.v("tag", "listener added successfully");
+            }
+
+            @Override
+            public void fail() {
+                Log.v("tag", "host creation failed");
+            }
+
+            @Override
+            public void error() {
+                Log.v("tag", "host creation error");
+            }
+
+            @Override
+            public void message(String message) {
+                Log.v("tag", "message: "+message);
+            }
+        }, String.valueOf(phoneNumber.getCountryCode()), String.valueOf(phoneNumber.getNationalNumber()), role.name(), roleCategory);
+
     }
 }

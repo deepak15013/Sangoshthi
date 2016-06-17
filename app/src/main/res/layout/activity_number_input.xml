@@ -45,4 +45,34 @@
 
     </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/ll_role_category"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:gravity="center">
+
+        <RadioGroup
+            android:id="@+id/rg_role_category"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/rb_asha"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ASHA"
+                android:checked="true"/>
+
+            <RadioButton
+                android:id="@+id/rb_others"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="OTHERS"/>
+
+        </RadioGroup>
+
+    </LinearLayout>
+
 </LinearLayout>

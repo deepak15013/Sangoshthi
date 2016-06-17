@@ -1,11 +1,14 @@
 package uk.ac.openlab.radio.activities;
 
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Chronometer;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -13,7 +16,10 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
+import java.util.logging.Handler;
 
 import uk.ac.openlab.radio.GlobalUtils;
 import uk.ac.openlab.radio.R;
@@ -26,6 +32,7 @@ import uk.ac.openlab.radio.datatypes.Icon;
 import uk.ac.openlab.radio.datatypes.Topic;
 import uk.ac.openlab.radio.datatypes.TopicInfoResult;
 import uk.ac.openlab.radio.drawables.CallerButton;
+import uk.ac.openlab.radio.drawables.ChecklistItemView;
 import uk.ac.openlab.radio.drawables.TopicView;
 import uk.ac.openlab.radio.network.FreeSwitchApi;
 import uk.ac.openlab.radio.network.IMessageListener;
@@ -35,27 +42,27 @@ import uk.ac.openlab.radio.network.IMessageListener;
  */
 public class ShowOverviewActivity extends AppCompatActivity {
 
-
     public static String EXTRA_SHOULD_DIAL = "EXTRA_SHOULD_DIAL";
 
-    TextView countdownView;
+//    TextView countdownView;
+
     Button startStopButton;
-    Button recordedMaterial;
-    Button previousClips;
-    CallerButton guest;
+    Chronometer chronometer;
+    /*Button recordedMaterial;
+    Button previousClips;*/
+
+//    CallerButton guest;
     private RecyclerView mCallerRecyclerView;
-    private CallerAdapter mCallerAdapter;
+    public static CallerAdapter mCallerAdapter;
     private RecyclerView.LayoutManager mCallerLayoutManager;
 
     private RecyclerView mTopicRecyclerView;
     private TopicAdapter mTopicAdapter;
     private RecyclerView.LayoutManager mTopicLayoutManager;
 
-
     private CountdownAdapter mCountdownAdapter;
 
-
-
+    private ChecklistItemView toolbarItemView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,8 +70,15 @@ public class ShowOverviewActivity extends AppCompatActivity {
         setTheme(GlobalUtils.appTheme());
         setContentView(R.layout.activity_show_overview);
 
+        toolbarItemView = (ChecklistItemView) findViewById(R.id.toolbar_item);
+        assert toolbarItemView != null;
+        toolbarItemView.setTitle("Show Dashboard");
+        toolbarItemView.hideCheckbox(true);
+        toolbarItemView.setIcon(R.drawable.ic_person);
 
-        recordedMaterial = (Button)findViewById(R.id.button_material);
+        chronometer = (Chronometer) findViewById(R.id.show_chronometer);
+
+        /*recordedMaterial = (Button)findViewById(R.id.button_material);
         recordedMaterial.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -90,9 +104,9 @@ public class ShowOverviewActivity extends AppCompatActivity {
                     }
                 },"1");//todo remove hardcoded value
             }
-        });
+        });*/
 
-        previousClips = (Button)findViewById(R.id.button_clips);
+        /*previousClips = (Button)findViewById(R.id.button_clips);
         previousClips.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -118,7 +132,7 @@ public class ShowOverviewActivity extends AppCompatActivity {
                     }
                 });
             }
-        });
+        });*/
 
         startStopButton = (Button)findViewById(R.id.start_stop_button);
         startStopButton.setOnClickListener(new View.OnClickListener() {
@@ -128,7 +142,7 @@ public class ShowOverviewActivity extends AppCompatActivity {
             }
         });
 
-        countdownView = (TextView)findViewById(R.id.countdown);
+//        countdownView = (TextView)findViewById(R.id.countdown);
 
         //set up the call queue and adapters
         mCallerRecyclerView = (RecyclerView)findViewById(R.id.caller_controls);
@@ -153,19 +167,19 @@ public class ShowOverviewActivity extends AppCompatActivity {
 
         addDummyData();
 
-        guest = (CallerButton)findViewById(R.id.button_guest);
+        /*guest = (CallerButton)findViewById(R.id.button_guest);
         guest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 updateInfo();
             }
-        });
+        });*/
 
 
         // FIXME: 26/04/16 - remove hardcoded duration and pull from the object itself.
-        mCountdownAdapter = new CountdownAdapter(2*60*1000,1000);
+        /*mCountdownAdapter = new CountdownAdapter(2*60*1000,1000);
         mCountdownAdapter.registerListener(clockListener);
-        mCountdownAdapter.registerListener(topicTimeListener);
+        mCountdownAdapter.registerListener(topicTimeListener);*/
 
 
 
@@ -224,6 +238,9 @@ public class ShowOverviewActivity extends AppCompatActivity {
 
             @Override
             public void message(String message) {
+
+                Log.v("dks","message for parse: "+message);
+
                 Gson gson = new GsonBuilder().create();
                 TopicInfoResult status = gson.fromJson(message,TopicInfoResult.class);
 
@@ -261,40 +278,51 @@ public class ShowOverviewActivity extends AppCompatActivity {
 
     }
 
+
     boolean hasFinished = false;
     private void startStop() {
 
-        FreeSwitchApi.shared().startShow(new IMessageListener() {
-            @Override
-            public void success() {
-//                if(!hasFinished){
-//                    mCountdownAdapter.start();
-//                }
-            }
+        if(startStopButton.getText().toString().equalsIgnoreCase("start show")) {
+            Toast.makeText(ShowOverviewActivity.this, "start show", Toast.LENGTH_SHORT).show();
 
-            @Override
-            public void fail() {
+            FreeSwitchApi.shared().startShow(new IMessageListener() {
+                @Override
+                public void success() {
+                    Log.v("dks","show started");
 
-            }
+                    chronometer.setBase(SystemClock.elapsedRealtime());
+                    chronometer.start();
+                    Log.v("dks", "timer started");
 
-            @Override
-            public void error() {
+                    startStopButton.setText("Stop show");
 
-            }
+                }
 
-            @Override
-            public void message(String message) {
+                @Override
+                public void fail() {
 
-            }
-        });
+                }
 
+                @Override
+                public void error() {
 
+                }
 
+                @Override
+                public void message(String message) {
+                    Log.v("dks","show_start_message: "+message);
+                }
+            });
+        }
+        else {
+            Toast.makeText(ShowOverviewActivity.this, "stop show", Toast.LENGTH_SHORT).show();
+            chronometer.stop();
+        }
     }
 
 
 
-    CountdownAdapter.CountdownListener clockListener = new CountdownAdapter.CountdownListener() {
+    /*CountdownAdapter.CountdownListener clockListener = new CountdownAdapter.CountdownListener() {
         @Override
         public void registered(long duration) {
             countdownView.setText(countdownRemaining(duration));
@@ -326,7 +354,7 @@ public class ShowOverviewActivity extends AppCompatActivity {
                             TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(remaining))
             );
         }
-    };
+    };*/
 
 
     float stepShrink = 5;
@@ -342,8 +370,8 @@ public class ShowOverviewActivity extends AppCompatActivity {
         @Override
         public void finished() {
             //add end show button to the canvas
-            startStopButton.setVisibility(View.VISIBLE);
-            startStopButton.setText("End Show");
+            /*startStopButton.setVisibility(View.VISIBLE);
+            startStopButton.setText("End Show");*/
             hasFinished = true;
         }
 
@@ -358,8 +386,8 @@ public class ShowOverviewActivity extends AppCompatActivity {
         @Override
         public void started(long remaining) {
             //remove the start show button and initialise the topics.
-            startStopButton.setVisibility(View.GONE);
-            startStopButton.setText("Start Show");
+            /*startStopButton.setVisibility(View.GONE);
+            startStopButton.setText("Start Show");*/
         }
     };
 

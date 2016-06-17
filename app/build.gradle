@@ -23,8 +23,6 @@ android {
             applicationIdSuffix = ".lebanon"
             versionName "0.1-lebanon"
             buildConfigField 'boolean', 'USE_SIP', "false"
-
-
         }
         bbc {
             applicationIdSuffix = ".bbc"

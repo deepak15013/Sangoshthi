@@ -11,20 +11,20 @@
 <resources>
     <string name="app_name">Citizen Radio</string>
 
-    
+
     <!-- Server Configuration -->
     <!-- //FIXME remove hardcoding and pull from the server instead, then store in shared prefs -->
 
 
-    <string name="pref_ivr_host">tcp://citizenrad.io</string>
-    <integer name="pref_ivr_port">3005</integer>
+    <string name="pref_ivr_host">tcp://52.38.67.78</string>
+    <integer name="pref_ivr_port">6002</integer>
 
-    <string name="pref_studio_host">tcp://citizenrad.io</string>
+    <string name="pref_studio_host">tcp://52.38.67.78</string>
 
-    <string name="pref_studio_http_host">http://citizenrad.io</string>
-    <integer name="pref_studio_http_port">3000</integer>
-    <integer name="pref_studio_sub_port">3003</integer>
-    <integer name="pref_studio_control_port">3002</integer>
+    <string name="pref_studio_http_host">tcp://52.38.67.78</string>
+    <integer name="pref_studio_http_port">6002</integer>
+    <integer name="pref_studio_sub_port">6003</integer>
+    <integer name="pref_studio_control_port">6003</integer>
 
 
     <!-- Studio Configuration -->
@@ -34,7 +34,6 @@
     <string name="pref_session_id">PREF_SESSION_ID</string>
 
 
-    
     <!-- Directories -->
     <string name="Directory_Audio">audio</string>
 
@@ -114,25 +113,33 @@
 
     <string-array name="prepare_show_titles">
         <item>Add Guest</item>
-        <item>Record Topics</item>
+        <item>Edit Listeners</item>
         <item>Record Trailers</item>
     </string-array>
 
-        <!-- Icons [don't need translation] -->
-        <string-array name="prepare_show_icons">
-            <item>@drawable/ic_phone_active</item>
-            <item>@drawable/ic_phone_active</item>
-            <item>@drawable/ic_person</item>
-        </string-array>
+    <!-- Icons [don't need translation] -->
+    <string-array name="prepare_show_icons">
+        <item>@drawable/ic_phone_active</item>
+        <item>@drawable/ic_phone_active</item>
+        <item>@drawable/ic_person</item>
+    </string-array>
 
-        <!-- Prepare // Add Guest Screen-->
-        <string name="info_add_guest_confrim">Will the Guest be with you?</string>
-        <string name="info_add_guest_phone_number">phone number</string>
+    <!-- Prepare // Add Guest Screen-->
+    <string name="info_add_guest_confrim">Will the Guest be with you?</string>
+    <string name="info_add_guest_phone_number">phone number</string>
 
     <!-- Promote Show Screen -->
     <string-array name="promote_show_titles">
         <item>Set Show: Date/Time</item>
         <item>Record Trailer</item>
+    </string-array>
+
+    <!-- Edit Listeners Screen -->
+    <string name="edit_listeners_title">Edit Listeners</string>
+
+    <string-array name="edit_listeners_titles">
+        <item>Add Listeners</item>
+        <item>Show Listeners</item>
     </string-array>
 
 
@@ -150,11 +157,11 @@
         <item>@drawable/ic_box</item>
     </string-array>
 
-        <!-- Individual Topic Screen -->
-        <string-array name="topic_titles">
-            <item>select icon</item>
-            <item>record audio</item>
-        </string-array>
+    <!-- Individual Topic Screen -->
+    <string-array name="topic_titles">
+        <item>select icon</item>
+        <item>record audio</item>
+    </string-array>
 
     <!--Audio Recorder -->
     <string name="audio_recorder_record_button">record</string>
@@ -200,8 +207,6 @@
     <string-array name="icon_attributions">
         <item>Radio by Arthur Shlain</item>
     </string-array>
-
-
 
 
     <!--Transitions Stuff [do not translate]-->

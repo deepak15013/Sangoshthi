@@ -1,6 +1,6 @@
 package uk.ac.openlab.radio.templates;
 
-import com.google.repacked.antlr.v4.runtime.misc.NotNull;
+//import com.google.repacked.antlr.v4.runtime.misc.NotNull;
 
 import uk.ac.openlab.radio.datatypes.Caller;
 import uk.ac.openlab.radio.datatypes.Topic;
@@ -20,14 +20,20 @@ public class TwoTopicShow implements ShowStructure {
     String type = "Two Topic Talk Show";
     JoinCode[] joinCodes;
 
-
-
-    public TwoTopicShow(@NotNull Topic topic1, @NotNull Topic topic2, @NotNull Caller guest,  @NotNull String[] twitterTerms, JoinCode[] joinCodes){
+    public TwoTopicShow(Topic topic1, Topic topic2, Caller guest,  String[] twitterTerms, JoinCode[] joinCodes){
         this.guests = new Caller[]{guest};
         this.topics = new Topic[]{topic1,topic2};
         this.twitterTerms = twitterTerms;
         this.joinCodes = joinCodes;
     }
+
+    // @NotNull Deprecated -dks
+    /*public TwoTopicShow(@NotNull Topic topic1, @NotNull Topic topic2, @NotNull Caller guest,  @NotNull String[] twitterTerms, JoinCode[] joinCodes){
+        this.guests = new Caller[]{guest};
+        this.topics = new Topic[]{topic1,topic2};
+        this.twitterTerms = twitterTerms;
+        this.joinCodes = joinCodes;
+    }*/
 
 //    public TwoTopicShow(@NotNull Topic[] topics, @NotNull String[] trailers, @NotNull Caller[] guests, @NotNull String[] twitterTerms, JoinCode[] joinCodes) {
 //        this.topics = topics;

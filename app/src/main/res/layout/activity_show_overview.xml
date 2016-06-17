@@ -14,6 +14,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <include layout="@layout/checklist_toolbar" />
 
 
@@ -22,30 +23,41 @@
             android:orientation="horizontal"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp">
-            <uk.ac.openlab.radio.drawables.CallerButton
+
+            <!--<uk.ac.openlab.radio.drawables.CallerButton
                 android:id="@+id/button_guest"
                 app:callerType="guest"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textOn=""
                 android:textOff=""
-                android:padding="16dp"        />
+                android:padding="16dp"/>-->
+
             <Button
             android:visibility="visible"
             android:id="@+id/start_stop_button"
             android:text="start show"
             android:layout_width="wrap_content"
             android:layout_height="match_parent" />
-            <TextView
+
+            <Chronometer
+                android:id="@+id/show_chronometer"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:format="%s"
+                android:textSize="28sp"
+                android:padding="20dp"
+                android:gravity="center|end"/>
+
+            <!--<TextView
                 android:id="@+id/countdown"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:textSize="28sp"
-                android:paddingStart="@dimen/button_padding"
-                android:paddingEnd="@dimen/button_padding"
-                android:paddingTop="@dimen/button_padding"
-                android:gravity="end"
-                android:text="5:00"/>
+                android:padding="20dp"
+                android:gravity="center|end"
+                android:text="5:00"/-->>
+
         </LinearLayout>
 
         <android.support.v7.widget.RecyclerView
@@ -65,7 +77,7 @@
             android:layout_height="match_parent"
             android:orientation="horizontal" />
 
-    <LinearLayout
+    <!--<LinearLayout
         android:layout_weight="1.5"
         android:layout_gravity="bottom"
         android:layout_width="match_parent"
@@ -91,6 +103,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="PlayPreviousClips"/>
-    </LinearLayout>
+    </LinearLayout>-->
 
 </LinearLayout>

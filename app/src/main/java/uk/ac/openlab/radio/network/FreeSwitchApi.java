@@ -33,15 +33,23 @@ public class FreeSwitchApi {
         isInit = true;
     }
 
+    public void checkShowStatus(IMessageListener callback) {
+        sendMessage(callback, MessageHelper.shared().checkShowStatus());
+    }
+
+    public void getShowId(IMessageListener callback) {
+        sendMessage(callback, MessageHelper.shared().getShowId());
+    }
+
 
     /**
      * Communicate with FreeSwitch server to verify that the session id and studio id are valid.
      * IMPORTANT, this is needed to ensure future commands can be actioned.
      * @param callback
      */
-    public void authenticate(IMessageListener callback){
+    /*public void authenticate(IMessageListener callback){
         sendMessage(callback,MessageHelper.shared().authenticate());
-    }
+    }*/
 
     /**
      * Tell FreeSwitch to call this number to begin preparing the show.
@@ -49,6 +57,22 @@ public class FreeSwitchApi {
      */
     public void prepareShow(IMessageListener callback){
        sendMessage(callback,MessageHelper.shared().startPrep());
+    }
+
+    public void createShow(IMessageListener callback, String date, String time, String code) {
+        sendMessage(callback, MessageHelper.shared().createShow(date, time, code));
+    }
+
+    public void addListener(IMessageListener callback, String locale, String phone, String role, String roleCategory) {
+        sendMessage(callback, MessageHelper.shared().addListener(locale, phone, role, roleCategory));
+    }
+
+    public void showListeners(IMessageListener callback) {
+        sendMessage(callback, MessageHelper.shared().showListeners());
+    }
+
+    public void createHost(IMessageListener callback, String status) {
+        sendMessage(callback, MessageHelper.shared().createHost(status));
     }
 
     /**
@@ -182,7 +206,6 @@ public class FreeSwitchApi {
                     isConnected = true;
                 }
             }).start();
-
         }
 
         public ZeroMQMessageTask messageTask(Handler uiThreadHandler){

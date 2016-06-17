@@ -1,0 +1,262 @@
+package uk.ac.openlab.radio.activities;
+
+import android.app.DatePickerDialog;
+import android.app.Dialog;
+import android.app.TimePickerDialog;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
+import android.support.v4.app.DialogFragment;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.text.format.DateFormat;
+import android.util.Log;
+import android.view.View;
+import android.widget.DatePicker;
+import android.widget.EditText;
+import android.widget.TimePicker;
+import android.widget.Toast;
+
+import java.util.Calendar;
+
+import uk.ac.openlab.radio.GlobalUtils;
+import uk.ac.openlab.radio.R;
+import uk.ac.openlab.radio.network.CloudStudioApi;
+import uk.ac.openlab.radio.network.FreeSwitchApi;
+import uk.ac.openlab.radio.network.IMessageListener;
+import uk.ac.openlab.radio.network.MessageHelper;
+
+public class CreateShow extends AppCompatActivity {
+
+    private static EditText editText;
+    private static EditText etTime;
+    private EditText etCode;
+
+    private DatePicker datePicker;
+    private int year, month, day, hour, minute;
+    private Calendar calendar;
+
+    FreeSwitchApi freeSwitchApi;
+    IMessageListener prepListener;
+
+    String status;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_create_show);
+
+        status = getIntent().getStringExtra("STATUS");
+
+        editText = (EditText) findViewById(R.id.editText);
+        etTime = (EditText) findViewById(R.id.et_time);
+        etCode = (EditText) findViewById(R.id.et_code);
+
+        calendar = Calendar.getInstance();
+        year = calendar.get(Calendar.YEAR);
+        month = calendar.get(Calendar.MONTH);
+        day = calendar.get(Calendar.DAY_OF_MONTH);
+        hour = calendar.get(Calendar.HOUR_OF_DAY);
+        minute = calendar.get(Calendar.MINUTE);
+
+        showdate(year, month, day);
+        showTime(hour, minute);
+    }
+
+    public static void showdate(int year, int month, int day) {
+        editText.setText(new StringBuilder().append(day).append("/").append(month).append("/").append(year));
+    }
+
+    public void dateChooser(View view) {
+        Log.v("TAG", "dateChooser");
+        DialogFragment newFragment = new DatePickerFragment();
+        newFragment.show(getSupportFragmentManager(), "datePicker");
+        //new DatePickerDialog(getApplicationContext(), myDateListener, year, month, day);
+    }
+
+    private DatePickerDialog.OnDateSetListener myDateListener = new DatePickerDialog.OnDateSetListener() {
+        @Override
+        public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+            showdate(year, monthOfYear,dayOfMonth);
+        }
+    };
+
+    public void timeChooser(View view) {
+        DialogFragment newFragment = new TimePickerFragment();
+        newFragment.show(getSupportFragmentManager(), "timePicker");
+    }
+
+    public static void showTime(int hourOfDay, int minute) {
+        etTime.setText(new StringBuilder().append(hourOfDay).append(":").append(minute));
+    }
+
+    public void createOnClick(View view) {
+        Toast.makeText(this, "Create Show", Toast.LENGTH_SHORT).show();
+
+        // TODO: 14/6/16 creating a new show in server using zmq
+
+        final Intent intent = new Intent(this, MainActivity.class);
+
+        MessageHelper.shared().init(getApplicationContext());
+        CloudStudioApi.shared().init(getApplicationContext());
+        FreeSwitchApi.shared().init(getApplicationContext());
+
+        FreeSwitchApi.shared().createHost(new IMessageListener() {
+            @Override
+            public void success() {
+                Log.v("tag", "host created successfully");
+            }
+
+            @Override
+            public void fail() {
+                Log.v("tag", "host creation failed");
+            }
+
+            @Override
+            public void error() {
+                Log.v("tag", "host creation error");
+            }
+
+            @Override
+            public void message(String message) {
+                Log.v("tag", "message: "+message);
+            }
+        }, status);
+
+        FreeSwitchApi.shared().createShow(new IMessageListener() {
+            @Override
+            public void success() {
+
+                // -dks
+                SharedPreferences.Editor e = PreferenceManager.getDefaultSharedPreferences(getBaseContext()).edit();
+                e.putBoolean("firstStart", false);
+                e.apply();
+
+                finish();
+                Log.v("tag", "success");
+                startActivity(intent);
+            }
+
+            @Override
+            public void fail() {
+                Log.v("tag", "fail");
+            }
+
+            @Override
+            public void error() {
+                Log.v("tag", "error");
+            }
+
+            @Override
+            public void message(String message) {
+                Log.v("tag", "message "+message);
+                if(message.contains("show_")) {
+
+                    GlobalUtils.shared().setStudioID(message);
+
+                    SharedPreferences.Editor e = PreferenceManager.getDefaultSharedPreferences(getBaseContext()).edit();
+                    e.putBoolean("firstStart", false);
+                    e.apply();
+                    finish();
+
+                    startActivity(intent);
+
+                }
+            }
+        }, editText.getText().toString(), etTime.getText().toString(), etCode.getText().toString());
+
+
+        /*final IMessageListener authListener = new IMessageListener() {
+            @Override
+            public void success() {
+                Toast.makeText(getApplicationContext(),"Authenticated",Toast.LENGTH_SHORT).show();
+                freeSwitchApi.createShow(prepListener, editText.getText().toString(), etTime.getText().toString(), etCode.getText().toString());
+            }
+
+            @Override
+            public void fail() {
+                Toast.makeText(getApplicationContext(),"Failed to Auth",Toast.LENGTH_SHORT).show();
+
+            }
+
+            @Override
+            public void error() {
+                Toast.makeText(getApplicationContext(),"Error with Auth command",Toast.LENGTH_SHORT).show();
+
+            }
+
+            @Override
+            public void message(String message) {
+
+            }
+        };
+
+        IMessageListener prepListener = new IMessageListener() {
+            @Override
+            public void success() {
+                Toast.makeText(getApplicationContext(),"Initiated Prep",Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void fail() {
+                Toast.makeText(getApplicationContext(),"Failed to init prep",Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void error() {
+
+            }
+
+            @Override
+            public void message(String message) {
+
+            }
+        };
+
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);*/
+
+    }
+}
+
+class DatePickerFragment extends DialogFragment
+        implements DatePickerDialog.OnDateSetListener {
+
+    @Override
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
+        // Use the current date as the default date in the picker
+        final Calendar c = Calendar.getInstance();
+        int year = c.get(Calendar.YEAR);
+        int month = c.get(Calendar.MONTH);
+        int day = c.get(Calendar.DAY_OF_MONTH);
+
+        // Create a new instance of DatePickerDialog and return it
+        return new DatePickerDialog(getActivity(), this, year, month, day);
+    }
+
+    public void onDateSet(DatePicker view, int year, int month, int day) {
+        // Do something with the date chosen by the user
+        CreateShow.showdate(year, month, day);
+    }
+}
+
+class TimePickerFragment extends DialogFragment
+        implements TimePickerDialog.OnTimeSetListener {
+
+    @Override
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
+        // Use the current time as the default values for the picker
+        final Calendar c = Calendar.getInstance();
+        int hour = c.get(Calendar.HOUR_OF_DAY);
+        int minute = c.get(Calendar.MINUTE);
+
+        // Create a new instance of TimePickerDialog and return it
+        return new TimePickerDialog(getActivity(), this, hour, minute,
+                DateFormat.is24HourFormat(getActivity()));
+    }
+
+    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+        // Do something with the time chosen by the user
+        CreateShow.showTime(hourOfDay, minute);
+    }
+}

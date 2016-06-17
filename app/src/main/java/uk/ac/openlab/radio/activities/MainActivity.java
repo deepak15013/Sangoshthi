@@ -21,6 +21,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -34,11 +35,14 @@ import uk.ac.openlab.radio.adapters.IRecyclerViewItemClickedListener;
 import uk.ac.openlab.radio.adapters.RHDCheckLists;
 import uk.ac.openlab.radio.datatypes.CheckListItem;
 import uk.ac.openlab.radio.drawables.ChecklistItemView;
+import uk.ac.openlab.radio.network.CloudStudioApi;
 import uk.ac.openlab.radio.network.FreeSwitchApi;
 import uk.ac.openlab.radio.network.IMessageListener;
+import uk.ac.openlab.radio.services.ZMQSubscriber;
 
 public class MainActivity extends AppCompatActivity implements IRecyclerViewItemClickedListener {
 
+    private static final String TAG = MainActivity.class.getSimpleName();
 
     public static final String EXTRA_TITLES_ID = "EXTRA_TITLES_ID";
     public static final String EXTRA_ICONS_ID = "EXTRA_ICONS_ID";
@@ -66,6 +70,7 @@ public class MainActivity extends AppCompatActivity implements IRecyclerViewItem
         setTheme(GlobalUtils.appTheme());
         setContentView(R.layout.activity_checklist);
 
+        Log.d(TAG,"inside");
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbarItemView = (ChecklistItemView)toolbar.findViewById(R.id.toolbar_item);
@@ -108,36 +113,11 @@ public class MainActivity extends AppCompatActivity implements IRecyclerViewItem
 
 
         FreeSwitchApi.shared().init(getApplicationContext());
-        FreeSwitchApi.shared().authenticate(new IMessageListener() {
-            @Override
-            public void success() {
-
-            }
-
-            @Override
-            public void fail() {
-
-            }
-
-            @Override
-            public void error() {
-
-            }
-
-            @Override
-            public void message(String message) {
-
-            }
-        });
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-
-
-
-
     }
 
     @Override
@@ -182,7 +162,12 @@ public class MainActivity extends AppCompatActivity implements IRecyclerViewItem
             case R.string.record_topics_title:
                 button.setText(R.string.action_finished);
                 break;
+            case R.string.edit_listeners_title:
+                toolbarItemView.hideCheckbox(true);
+                button.setText(R.string.action_finished);
+                break;
             default:
+                Log.v("tag","view.gone");
                 button.setVisibility(View.GONE);
                 return;
         }
@@ -199,6 +184,8 @@ public class MainActivity extends AppCompatActivity implements IRecyclerViewItem
                 return prepareShowListener;
             case R.string.record_topics_title:
                 return recordTopicsListener;
+            case R.string.edit_listeners_title:
+                return editListenersTitle;
             default:
                 return this;
         }
@@ -262,7 +249,11 @@ public class MainActivity extends AppCompatActivity implements IRecyclerViewItem
                     break;
                 case 2:
                     //run show
+                    ZMQSubscriber zmqSubscriber = new ZMQSubscriber();
+                    zmqSubscriber.startSubscriber();
+
                     i = new Intent(MainActivity.this,ShowOverviewActivity.class);
+
                     startActivity(i);
                     break;
             }
@@ -285,6 +276,8 @@ public class MainActivity extends AppCompatActivity implements IRecyclerViewItem
 
 
             switch(position){
+
+                // Add Guest
                 case 0:
                     i = new Intent(MainActivity.this,NumberInputActivity.class);
                     i.putExtra(NumberInputActivity.EXTRA_TEXT,R.string.number_input_enter_guest_number);
@@ -292,17 +285,29 @@ public class MainActivity extends AppCompatActivity implements IRecyclerViewItem
                     i.putExtra(EXTRA_TITLE_ITEM_TEXT,item.getTitle());
                     i.putExtra(EXTRA_TITLE_ITEM_ICON,item.getIcon());
                     i.putExtra(EXTRA_TITLE_ITEM_STATE,item.isComplete());
+                    i.putExtra("RADIO",false);
                     options = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this, new Pair<View, String>(view, getString(R.string.transition_name_listitem)));
                     ActivityCompat.startActivityForResult(MainActivity.this,i,NumberInputActivity.REQUEST_CODE,options.toBundle());
                     break;
+
+                //Edit Listeners
                 case 1:
-                    //record topics
                     i = new Intent(MainActivity.this,MainActivity.class);
-                    i.putExtra(EXTRA_TITLES_ID,R.array.record_topics_titles);
+                    i.putExtra(EXTRA_TITLES_ID,R.array.edit_listeners_titles);
+                    i.putExtra(EXTRA_ICONS_ID, R.array.record_topics_icons);
+                    i.putExtra(EXTRA_PAGE_ID,R.string.edit_listeners_title);
+                    i.putExtra(EXTRA_TITLE_ITEM_TEXT,item.getTitle());
+                    i.putExtra(EXTRA_TITLE_ITEM_ICON,item.getIcon());
+                    i.putExtra(EXTRA_TITLE_ITEM_STATE,item.isComplete());
+                    options = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this, new Pair<View, String>(view, getString(R.string.transition_name_listitem)));
+                    ActivityCompat.startActivity(MainActivity.this, i, options.toBundle());
+                    /*i.putExtra(EXTRA_TITLES_ID,R.array.record_topics_titles);
                     i.putExtra(EXTRA_ICONS_ID,R.array.record_topics_icons);
-                    i.putExtra(EXTRA_PAGE_ID,R.string.record_topics_title);
-                    startActivity(i);
+                    i.putExtra(EXTRA_PAGE_ID,R.string.record_topics_title);*/
+
+                    //startActivity(i);
                     break;
+
                 case 2:
                     //record trailer
                     i = new Intent(MainActivity.this,AudioRecorderActivity.class);
@@ -329,6 +334,40 @@ public class MainActivity extends AppCompatActivity implements IRecyclerViewItem
                     i = new Intent(MainActivity.this,AudioRecorderActivity.class);
                     //todo add recorder setup params
                     ActivityCompat.startActivityForResult(MainActivity.this,i,AudioRecorderActivity.REQUEST_CODE,null);
+                    break;
+
+            }
+        }
+    };
+
+    private IRecyclerViewItemClickedListener editListenersTitle = new IRecyclerViewItemClickedListener() {
+        @Override
+        public void recyclerViewItemClicked(View view, int position) {
+            Intent i = null;
+            selectedIndex = position;
+
+            CheckListItem item = adapter.getItem(position);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+                view.setTransitionName(getString(R.string.transition_name_listitem));
+
+            switch (position) {
+                case 0:
+                    Toast.makeText(MainActivity.this, "Add listeners", Toast.LENGTH_SHORT).show();
+                    i = new Intent(MainActivity.this,NumberInputActivity.class);
+                    i.putExtra(NumberInputActivity.EXTRA_TEXT,R.string.number_input_enter_listener_number);
+                    i.putExtra(NumberInputActivity.EXTRA_MODE,NumberInputActivity.InputMode.ADD_LISTENER.ordinal());
+                    i.putExtra(EXTRA_TITLE_ITEM_TEXT,item.getTitle());
+                    i.putExtra(EXTRA_TITLE_ITEM_ICON,item.getIcon());
+                    i.putExtra(EXTRA_TITLE_ITEM_STATE,item.isComplete());
+                    options = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this, new Pair<View, String>(view, getString(R.string.transition_name_listitem)));
+                    ActivityCompat.startActivityForResult(MainActivity.this,i,NumberInputActivity.REQUEST_CODE,options.toBundle());
+                    break;
+
+                case 1:
+                    Toast.makeText(MainActivity.this, "Show Listeners", Toast.LENGTH_SHORT).show();
+
+                    i = new Intent(MainActivity.this, ShowListenersActivity.class);
+                    startActivity(i);
                     break;
 
             }

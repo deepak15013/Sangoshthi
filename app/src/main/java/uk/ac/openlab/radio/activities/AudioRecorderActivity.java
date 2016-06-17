@@ -41,9 +41,9 @@ import uk.ac.openlab.radio.network.IMessageListener;
  */
 public class AudioRecorderActivity extends AppCompatActivity {
 
+    private static final String TAG = AudioRecorderActivity.class.getSimpleName();
+
     boolean localCapture = false;//todo change this to use the build variant instead
-
-
 
     Toolbar toolbar;
     RecordingView recordingView;
@@ -74,6 +74,8 @@ public class AudioRecorderActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setTheme(GlobalUtils.appTheme());
         setContentView(R.layout.activity_audio_recorder);
+
+        Log.d(TAG,"inside");
 
         // Set a toolbar to replace the action bar.
         toolbar = (Toolbar) findViewById(R.id.toolbar);
