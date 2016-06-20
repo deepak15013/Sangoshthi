@@ -87,6 +87,10 @@ public class FreeSwitchApi {
         sendMessage(callback, MessageHelper.shared().deleteCategoryListeners(role_category));
     }
 
+    public void spreadWord(IMessageListener callback, String date, String time, String listener_category) {
+        sendMessage(callback, MessageHelper.shared().spreadWord(date, time, listener_category));
+    }
+
     /**
      * Tell FreeSwitch to mute / unmute a caller using their UUID from the conference.
      * @param uuid

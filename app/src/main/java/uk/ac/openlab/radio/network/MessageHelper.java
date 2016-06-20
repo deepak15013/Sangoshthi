@@ -38,6 +38,7 @@ public class MessageHelper {
 
     private final String FS_DELETE_LISTENER = "del_listeners";
     private final String FS_DELETE_ALL = "del_all";
+    private final String FS_SPREAD_WORD = "spread_word";
 
     private final String FS_ACTION_START_PREP = "init_call";
     private final String FS_ACTION_START_RECORD = "start_record";
@@ -183,7 +184,11 @@ public class MessageHelper {
     }
 
     public String deleteCategoryListeners(String role_category) {
-        return String.format("{\"cmd\":\"%s\", \"studio\" : \"%s\", \"role\": \"%s\", \"role_category\" : \"%s\" }", FS_DELETE_ALL, this.studio_id, "LISTENER", role_category);
+        return String.format("{\"cmd\":\"%s\", \"studio\" : \"%s\", \"category\": \"%s\", \"role_category\" : \"%s\" }", FS_DELETE_ALL, this.studio_id, "LISTENER", role_category);
+    }
+
+    public String spreadWord(String date, String time, String listenerCategory) {
+        return String.format("{\"cmd\":\"%s\", \"studio\" : \"%s\", \"date\": \"%s\", \"time\" : \"%s\", \"listener_category\" : \"%s\" }", FS_SPREAD_WORD, this.studio_id, date, time, listenerCategory);
     }
 
 }
