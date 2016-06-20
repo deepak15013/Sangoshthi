@@ -42,7 +42,7 @@ public class SpreadTheWordActivity extends AppCompatActivity {
 
         toolbarItemView = (ChecklistItemView) findViewById(R.id.toolbar_item);
         assert toolbarItemView != null;
-        toolbarItemView.setTitle("Spread The Word");
+        toolbarItemView.setTitle("Spread the Word");
         toolbarItemView.hideCheckbox(true);
 
         etSpreadDate = (EditText) findViewById(R.id.et_spread_date);

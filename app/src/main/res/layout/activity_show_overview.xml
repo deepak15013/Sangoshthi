@@ -21,7 +21,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:orientation="horizontal"
-            android:layout_height="wrap_content"
+            android:layout_height="75dp"
             android:layout_marginBottom="10dp">
 
             <!--<uk.ac.openlab.radio.drawables.CallerButton
@@ -34,11 +34,40 @@
                 android:padding="16dp"/>-->
 
             <Button
-            android:visibility="visible"
-            android:id="@+id/start_stop_button"
-            android:text="start show"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent" />
+                android:visibility="visible"
+                android:id="@+id/start_stop_button"
+                android:text="start show"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent" />
+
+            <Button
+                android:id="@+id/btn_start_quiz"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="Start quiz"
+                android:onClick="overviewActivityStartQuiz"/>
+
+            <LinearLayout
+                android:id="@+id/ll_show_timer"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:visibility="invisible">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Quiz time" />
+
+                <Chronometer
+                    android:id="@+id/chrono_quiz_timer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:format="%s"
+                    android:textSize="20sp" />
+
+            </LinearLayout>
 
             <Chronometer
                 android:id="@+id/show_chronometer"

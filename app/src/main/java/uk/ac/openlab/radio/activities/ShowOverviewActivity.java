@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Chronometer;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -82,6 +83,10 @@ public class ShowOverviewActivity extends AppCompatActivity {
         toolbarItemView.setIcon(R.drawable.ic_person);
 
         chronometer = (Chronometer) findViewById(R.id.show_chronometer);
+
+        btnStartQuiz = (Button) findViewById(R.id.btn_start_quiz);
+        chronoQuizTimer = (Chronometer) findViewById(R.id.chrono_quiz_timer);
+        llShowTimer = (LinearLayout) findViewById(R.id.ll_show_timer);
 
         callerListRecyclerView = (RecyclerView) findViewById(R.id.callerList);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 2);
@@ -442,4 +447,29 @@ public class ShowOverviewActivity extends AppCompatActivity {
             startStopButton.setText("Start Show");*/
         }
     };
+
+    Button btnStartQuiz;
+    Chronometer chronoQuizTimer;
+    LinearLayout llShowTimer;
+    public void overviewActivityStartQuiz(View view) {
+
+        if(btnStartQuiz.getText().toString().equalsIgnoreCase("start quiz")) {
+            Toast.makeText(ShowOverviewActivity.this, "Quiz started", Toast.LENGTH_SHORT).show();
+            btnStartQuiz.setText("Stop Quiz");
+
+            llShowTimer.setVisibility(LinearLayout.VISIBLE);
+
+            chronoQuizTimer.setBase(SystemClock.elapsedRealtime());
+            chronoQuizTimer.start();
+        }
+        else if(btnStartQuiz.getText().toString().equalsIgnoreCase("stop quiz")) {
+            btnStartQuiz.setText("Results");
+
+            chronoQuizTimer.stop();
+        } else if(btnStartQuiz.getText().toString().equalsIgnoreCase("results")) {
+            Toast.makeText(ShowOverviewActivity.this, "Show Results", Toast.LENGTH_SHORT).show();
+
+            llShowTimer.setVisibility(LinearLayout.INVISIBLE);
+        }
+    }
 }
