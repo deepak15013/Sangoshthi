@@ -239,9 +239,8 @@ public class MainActivity extends AppCompatActivity implements IRecyclerViewItem
                 case 1:
                     //spread the word
 
-                    Toast.makeText(MainActivity.this, "Spread the word", Toast.LENGTH_SHORT).show();
-                    /*i = new Intent(MainActivity.this, SpreadTheWord.class);
-                    startActivity(i);*/
+                    i = new Intent(MainActivity.this, SpreadTheWordActivity.class);
+                    startActivity(i);
 
                     /*i = new Intent(MainActivity.this,NumberInputActivity.class);
                     i.putExtra(NumberInputActivity.EXTRA_TEXT,R.string.number_input_enter_listener_number);
