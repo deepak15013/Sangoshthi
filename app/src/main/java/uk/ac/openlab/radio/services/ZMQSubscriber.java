@@ -55,6 +55,7 @@ public class ZMQSubscriber {
 
                         ShowOverviewActivity.setCallerObjects(callerObjects);
 
+
                         //ArrayList<Caller> callers = status.callers.getList();
                         //ShowOverviewActivity.mCallerAdapter.setDataset(callers);
                         //mCallerAdapter.setDataset(callers);

@@ -75,6 +75,10 @@ public class FreeSwitchApi {
         sendMessage(callback, MessageHelper.shared().createHost(status));
     }
 
+    public void createTrailer(IMessageListener callback) {
+        sendMessage(callback, MessageHelper.shared().createTrailer());
+    }
+
     /**
      * Tell FreeSwitch to mute / unmute a caller using their UUID from the conference.
      * @param uuid

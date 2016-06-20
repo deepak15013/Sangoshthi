@@ -114,7 +114,7 @@
     <string-array name="prepare_show_titles">
         <item>Add Guest</item>
         <item>Edit Listeners</item>
-        <item>Record Trailers</item>
+        <item>Create Trailers</item>
     </string-array>
 
     <!-- Icons [don't need translation] -->

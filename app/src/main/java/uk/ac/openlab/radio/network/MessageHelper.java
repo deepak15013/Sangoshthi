@@ -34,6 +34,7 @@ public class MessageHelper {
     private final String FS_ADD_PERSON = "add_person";
     private final String FS_SHOW_LISTENERS = "show_listeners";
     private final String FS_END_SHOW = "end_show";
+    private final String FS_CREATE_TRAILER = "create_trailer";
 
     private final String FS_ACTION_START_PREP = "init_call";
     private final String FS_ACTION_START_RECORD = "start_record";
@@ -110,6 +111,10 @@ public class MessageHelper {
         return String.format("{\"cmd\":\"%s\", \"action\" : \"%s\", \"studio\" : \"%s\", \"session\" : \"%s\" }", FS_CMD_PREPARE_SHOW,FS_ACTION_START_PREP,this.studio_id, this.session_id);
     }
 
+    public String createTrailer() {
+        return String.format("{\"cmd\":\"%s\", \"studio\" : \"%s\"}", FS_CREATE_TRAILER,this.studio_id);
+    }
+
     public String startRecord(int duration){
         return String.format(Locale.ENGLISH,"{\"cmd\":\"%s\", \"action\" : \"%s\", \"params\" : { \"max_length\" : \"%d\" } , \"studio\": \"%s\", \"session\" : \"%s\" }", FS_CMD_PREPARE_SHOW,FS_ACTION_START_RECORD,duration, this.studio_id, this.session_id);
     }
@@ -142,7 +147,7 @@ public class MessageHelper {
 
     public String muteState(String uuid, String state){
         //return String.format(Locale.ENGLISH,"{\"cmd\":\"%s\", \"studio\" : \"%s\", \"session\" : \"%s\", \"timestamp\" : \"%d\", \"params\" : { \"uuid\" : \"%s\", \"state\" : \"%s\" } }", FS_CMD_MUTE_STATE, this.studio_id, this.session_id, System.currentTimeMillis(), uuid, state.name());
-        return String.format("{\"cmd\":\"%s\", \"studio\" : \"%s\", \"uuid\" : \"%s\", \"state\" : \"%s\" }", FS_CMD_MUTE_STATE, uuid, this.session_id, state);
+        return String.format("{\"cmd\":\"%s\", \"studio\" : \"%s\", \"uuid\" : \"%s\", \"state\" : \"%s\" }", FS_CMD_MUTE_STATE, this.studio_id, uuid, state);
     }
 
     public String initShow(){

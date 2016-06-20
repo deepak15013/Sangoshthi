@@ -1,5 +1,6 @@
 package uk.ac.openlab.radio.activities;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
@@ -46,7 +47,7 @@ public class ShowOverviewActivity extends AppCompatActivity {
     Button startStopButton;
     Chronometer chronometer;
 
-    RecyclerView callerListRecyclerView;
+    public static RecyclerView callerListRecyclerView;
 
 
     /*Button recordedMaterial;
@@ -65,8 +66,8 @@ public class ShowOverviewActivity extends AppCompatActivity {
 
     private ChecklistItemView toolbarItemView;
 
-    static List<Callers> callersArrayList;
-    static CallerListAdapter callerListAdapter;
+    public static List<Callers> callersArrayList;
+    public static CallerListAdapter callerListAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -156,6 +157,8 @@ public class ShowOverviewActivity extends AppCompatActivity {
             }
         });
 
+
+
 //        countdownView = (TextView)findViewById(R.id.countdown);
 
         //set up the call queue and adapters
@@ -235,9 +238,13 @@ public class ShowOverviewActivity extends AppCompatActivity {
         Log.v("dks","calers: "+callers.getCallers().get(0).getPhone_number());
         callersArrayList.clear();
         callersArrayList.addAll(callers.getCallers());
-//        Collections.copy(callersArrayList, callers.getCallers());
-        callersArrayList.add((Callers) callers.getCallers());
-        callerListAdapter.notifyDataSetChanged();
+
+        callerListRecyclerView.post(new Runnable() {
+            @Override
+            public void run() {
+                callerListAdapter.notifyDataSetChanged();
+            }
+        });
     }
 
     private void updateInfo() {
@@ -435,8 +442,4 @@ public class ShowOverviewActivity extends AppCompatActivity {
             startStopButton.setText("Start Show");*/
         }
     };
-
-
-
-
 }

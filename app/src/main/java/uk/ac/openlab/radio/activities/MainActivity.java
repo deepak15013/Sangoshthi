@@ -310,8 +310,32 @@ public class MainActivity extends AppCompatActivity implements IRecyclerViewItem
 
                 case 2:
                     //record trailer
-                    i = new Intent(MainActivity.this,AudioRecorderActivity.class);
-                    startActivity(i);
+
+                    FreeSwitchApi.shared().createTrailer(new IMessageListener() {
+                        @Override
+                        public void success() {
+                            Toast.makeText(MainActivity.this, "Request processing", Toast.LENGTH_SHORT).show();
+                        }
+
+                        @Override
+                        public void fail() {
+                            Toast.makeText(MainActivity.this, "Something's wrong. Please try again later", Toast.LENGTH_SHORT).show();
+                        }
+
+                        @Override
+                        public void error() {
+                            Toast.makeText(MainActivity.this, "Something's wrong. Please try again later", Toast.LENGTH_SHORT).show();
+                        }
+
+                        @Override
+                        public void message(String message) {
+                            Toast.makeText(MainActivity.this, "Something's wrong. Please try again later", Toast.LENGTH_SHORT).show();
+                            Log.v("dks","message: "+message);
+                        }
+                    });
+
+                    /*i = new Intent(MainActivity.this,AudioRecorderActivity.class);
+                    startActivity(i);*/
                     break;
             }
         }
