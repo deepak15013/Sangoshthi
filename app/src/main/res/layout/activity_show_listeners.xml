@@ -1,25 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
+    android:layout_height="wrap_content"
+    android:fillViewport="true"
     tools:context="uk.ac.openlab.radio.activities.ShowListenersActivity">
 
-    <include layout="@layout/checklist_toolbar" />
-
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="16dp"
-        android:gravity="center">
+        android:orientation="vertical">
 
-        <ListView
-            android:id="@+id/lv_show_listeners"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-        </ListView>
+        <include layout="@layout/checklist_toolbar" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="ASHA"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:padding="8dp"/>
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="delete all"
+                    android:layout_alignParentRight="true"
+                    android:onClick="deleteAshaListeners"/>
+
+            </RelativeLayout>
+
+            <ListView
+                android:id="@+id/lv_asha_listeners"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="OTHERS"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:padding="8dp"/>
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="delete all"
+                    android:layout_alignParentRight="true"
+                    android:onClick="deleteOtherListeners"/>
+
+            </RelativeLayout>
+
+            <ListView
+                android:id="@+id/lv_other_listeners"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"/>
+
+        </LinearLayout>
 
     </LinearLayout>
 
-</LinearLayout>
+
+
+</ScrollView>

@@ -42,5 +42,9 @@
 
     </style>
 
+    <style name="Lebanon.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="Lebanon.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
 
 </resources>

@@ -1,11 +1,11 @@
 package uk.ac.openlab.radio.activities;
 
-import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
+import android.view.ViewGroup;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 
 import org.json.JSONArray;
@@ -26,9 +26,9 @@ public class ShowListenersActivity extends AppCompatActivity {
 
     ChecklistItemView toolbarItemView;
 
-    ListView lvShowListeners;
+    ListView lvAshaListeners, lvOtherListeners;
 
-    ShowListenersAdapter adapter;
+    ShowListenersAdapter ashaAdapter, othersAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,10 +44,13 @@ public class ShowListenersActivity extends AppCompatActivity {
         ashaArrayList = new ArrayList<>();
         othersArrayList = new ArrayList<>();
 
-        ashaArrayList.add("9425592627");
+        /*ashaArrayList.add("9425592627");
         ashaArrayList.add("7587034008");
+        othersArrayList.add("9999");
+        othersArrayList.add("1111");*/
 
-        lvShowListeners = (ListView) findViewById(R.id.lv_show_listeners);
+        lvAshaListeners = (ListView) findViewById(R.id.lv_asha_listeners);
+        lvOtherListeners = (ListView) findViewById(R.id.lv_other_listeners);
 
         getListeners();
         //showListView();
@@ -75,18 +78,77 @@ public class ShowListenersActivity extends AppCompatActivity {
                 Log.v("tag", "message: "+message);
                 parse(message);
                 showListView();
+
             }
         });
     }
 
     public void removeListener (View v) {
-        String itemToRemove = (String)v.getTag();
-        adapter.remove(itemToRemove);
+        final String itemToRemove = (String)v.getTag();
+
+        if(ashaArrayList.contains(itemToRemove)) {
+
+            FreeSwitchApi.shared().deleteListener(new IMessageListener() {
+                @Override
+                public void success() {
+                    ashaAdapter.remove(itemToRemove);
+                    ashaArrayList.remove(itemToRemove);
+                }
+
+                @Override
+                public void fail() {
+
+                }
+
+                @Override
+                public void error() {
+
+                }
+
+                @Override
+                public void message(String message) {
+
+                }
+            }, itemToRemove);
+        }
+        else if(othersArrayList.contains(itemToRemove)) {
+            FreeSwitchApi.shared().deleteListener(new IMessageListener() {
+                @Override
+                public void success() {
+                    othersAdapter.remove(itemToRemove);
+                    othersArrayList.remove(itemToRemove);
+                }
+
+                @Override
+                public void fail() {
+
+                }
+
+                @Override
+                public void error() {
+
+                }
+
+                @Override
+                public void message(String message) {
+
+                }
+            }, itemToRemove);
+        }
+        else
+            Log.v("dks","item not found");
+
     }
 
     private void showListView() {
-        adapter = new ShowListenersAdapter(ShowListenersActivity.this, R.layout.show_listeners_item, ashaArrayList);
-        lvShowListeners.setAdapter(adapter);
+        ashaAdapter = new ShowListenersAdapter(ShowListenersActivity.this, R.layout.show_listeners_item, ashaArrayList);
+        lvAshaListeners.setAdapter(ashaAdapter);
+        othersAdapter = new ShowListenersAdapter(ShowListenersActivity.this, R.layout.show_listeners_item, othersArrayList);
+        lvOtherListeners.setAdapter(othersAdapter);
+
+        ListUtils.setDynamicHeight(lvAshaListeners);
+        ListUtils.setDynamicHeight(lvOtherListeners);
+
     }
 
     private void parse(String message) {
@@ -128,5 +190,79 @@ public class ShowListenersActivity extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
         finish();
+    }
+
+    public void deleteAshaListeners(View view) {
+
+        FreeSwitchApi.shared().deleteCategoryListener(new IMessageListener() {
+            @Override
+            public void success() {
+                ashaArrayList.clear();
+                ashaAdapter.clear();
+            }
+
+            @Override
+            public void fail() {
+
+            }
+
+            @Override
+            public void error() {
+
+            }
+
+            @Override
+            public void message(String message) {
+
+            }
+        }, "ASHA");
+    }
+
+    public void deleteOtherListeners(View view) {
+
+        FreeSwitchApi.shared().deleteCategoryListener(new IMessageListener() {
+            @Override
+            public void success() {
+                othersArrayList.clear();
+                othersAdapter.clear();
+            }
+
+            @Override
+            public void fail() {
+
+            }
+
+            @Override
+            public void error() {
+
+            }
+
+            @Override
+            public void message(String message) {
+
+            }
+        }, "OTHER");
+    }
+
+}
+
+class ListUtils {
+    public static void setDynamicHeight(ListView mListView) {
+        ListAdapter mListAdapter = mListView.getAdapter();
+        if (mListAdapter == null) {
+            // when ashaAdapter is null
+            return;
+        }
+        int height = 0;
+        int desiredWidth = View.MeasureSpec.makeMeasureSpec(mListView.getWidth(), View.MeasureSpec.UNSPECIFIED);
+        for (int i = 0; i < mListAdapter.getCount(); i++) {
+            View listItem = mListAdapter.getView(i, null, mListView);
+            listItem.measure(desiredWidth, View.MeasureSpec.UNSPECIFIED);
+            height += listItem.getMeasuredHeight();
+        }
+        ViewGroup.LayoutParams params = mListView.getLayoutParams();
+        params.height = height + (mListView.getDividerHeight() * (mListAdapter.getCount() - 1));
+        mListView.setLayoutParams(params);
+        mListView.requestLayout();
     }
 }

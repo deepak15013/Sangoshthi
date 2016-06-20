@@ -36,6 +36,9 @@ public class MessageHelper {
     private final String FS_END_SHOW = "end_show";
     private final String FS_CREATE_TRAILER = "create_trailer";
 
+    private final String FS_DELETE_LISTENER = "del_listeners";
+    private final String FS_DELETE_ALL = "del_all";
+
     private final String FS_ACTION_START_PREP = "init_call";
     private final String FS_ACTION_START_RECORD = "start_record";
     private final String FS_ACTION_STOP_RECORD = "stop_record";
@@ -175,5 +178,12 @@ public class MessageHelper {
         return String.format("{\"cmd\":\"%s\", \"action\" : \"%s\", \"studio\": \"%s\", \"session\" : \"%s\" }", FS_CMD_MEDIA_CONTROL, FS_ACTION_STOP_PLAYBACK, this.studio_id, this.session_id);
     }
 
+    public String deleteListener (String phone) {
+        return String.format("{\"cmd\":\"%s\", \"studio\" : \"%s\", \"phone\": \"%s\"}", FS_DELETE_LISTENER, this.studio_id, phone);
+    }
+
+    public String deleteCategoryListeners(String role_category) {
+        return String.format("{\"cmd\":\"%s\", \"studio\" : \"%s\", \"role\": \"%s\", \"role_category\" : \"%s\" }", FS_DELETE_ALL, this.studio_id, "LISTENER", role_category);
+    }
 
 }

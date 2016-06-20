@@ -21,6 +21,7 @@ import java.util.Calendar;
 
 import uk.ac.openlab.radio.GlobalUtils;
 import uk.ac.openlab.radio.R;
+import uk.ac.openlab.radio.drawables.ChecklistItemView;
 import uk.ac.openlab.radio.network.CloudStudioApi;
 import uk.ac.openlab.radio.network.FreeSwitchApi;
 import uk.ac.openlab.radio.network.IMessageListener;
@@ -41,10 +42,17 @@ public class CreateShow extends AppCompatActivity {
 
     String status;
 
+    private ChecklistItemView toolbarItemView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_show);
+
+        toolbarItemView = (ChecklistItemView) findViewById(R.id.toolbar_item);
+        assert toolbarItemView != null;
+        toolbarItemView.setTitle("Create Show");
+        toolbarItemView.hideCheckbox(true);
 
         status = getIntent().getStringExtra("STATUS");
 

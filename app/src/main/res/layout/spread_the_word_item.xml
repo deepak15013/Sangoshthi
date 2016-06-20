@@ -1,12 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="uk.ac.openlab.radio.activities.CreateShow">
-
-    <include layout="@layout/checklist_toolbar"/>
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -21,11 +17,11 @@
             android:text="Date: "/>
 
         <EditText
+            android:id="@+id/et_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:inputType="date"
-            android:ems="10"
-            android:id="@+id/editText" />
+            android:ems="10" />
 
         <ImageButton
             android:layout_width="wrap_content"
@@ -61,37 +57,5 @@
             android:onClick="timeChooser"/>
 
     </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:layout_marginTop="20dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Code: "/>
-
-        <EditText
-            android:id="@+id/et_code"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:inputType="number"
-            android:maxEms="4"
-            android:ems="4" />
-
-    </LinearLayout>
-
-    <Button
-        android:id="@+id/btn_create"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:text="Create Show"
-        android:textStyle="bold"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="20dp"
-        android:onClick="createOnClick"/>
 
 </LinearLayout>

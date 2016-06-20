@@ -198,7 +198,7 @@ public class MainActivity extends AppCompatActivity implements IRecyclerViewItem
 
 //        if(requestCode == RESULT_OK){
 //            //mark the item as ticked.
-//            adapter.setState(selectedIndex,true);
+//           adapter.setState(selectedIndex,true);
 //        }
 
         switch (requestCode){
@@ -238,14 +238,19 @@ public class MainActivity extends AppCompatActivity implements IRecyclerViewItem
                     break;
                 case 1:
                     //spread the word
-                    i = new Intent(MainActivity.this,NumberInputActivity.class);
+
+                    Toast.makeText(MainActivity.this, "Spread the word", Toast.LENGTH_SHORT).show();
+                    /*i = new Intent(MainActivity.this, SpreadTheWord.class);
+                    startActivity(i);*/
+
+                    /*i = new Intent(MainActivity.this,NumberInputActivity.class);
                     i.putExtra(NumberInputActivity.EXTRA_TEXT,R.string.number_input_enter_listener_number);
                     i.putExtra(NumberInputActivity.EXTRA_MODE,NumberInputActivity.InputMode.ADD_LISTENER.ordinal());
                     i.putExtra(EXTRA_TITLE_ITEM_TEXT,item.getTitle());
                     i.putExtra(EXTRA_TITLE_ITEM_ICON,item.getIcon());
                     i.putExtra(EXTRA_TITLE_ITEM_STATE,item.isComplete());
                     options = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this, new Pair<View, String>(view, getString(R.string.transition_name_listitem)));
-                    ActivityCompat.startActivityForResult(MainActivity.this,i,NumberInputActivity.REQUEST_CODE,options.toBundle());
+                    ActivityCompat.startActivityForResult(MainActivity.this,i,NumberInputActivity.REQUEST_CODE,options.toBundle());*/
                     break;
                 case 2:
                     //run show
