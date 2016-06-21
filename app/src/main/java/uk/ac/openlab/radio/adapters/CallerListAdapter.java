@@ -129,7 +129,58 @@ public class CallerListAdapter extends RecyclerView.Adapter<CallerListAdapter.Vi
         holder.ibVote.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.v("dks", "clicked vote: "+callers.getPhone_number());
+
+                if(!callers.isVoteStarted()) {
+                    FreeSwitchApi.shared().startListenerRating(new IMessageListener() {
+                        @Override
+                        public void success() {
+                            Log.v("dks","rating started");
+                            holder.ibVote.setImageResource(R.drawable.ic_vote_icon_false);
+                            callers.setVoteStarted(true);
+                        }
+
+                        @Override
+                        public void fail() {
+
+                        }
+
+                        @Override
+                        public void error() {
+
+                        }
+
+                        @Override
+                        public void message(String message) {
+
+                        }
+                    }, callers.getPhone_number());
+                } else {
+                    FreeSwitchApi.shared().stopListenerRating(new IMessageListener() {
+                        @Override
+                        public void success() {
+                            Log.v("dks","rating stopped");
+                            holder.ibVote.setImageResource(R.drawable.ic_vote_icon);
+                            callers.setVoteStarted(false);
+                        }
+
+                        @Override
+                        public void fail() {
+
+                        }
+
+                        @Override
+                        public void error() {
+
+                        }
+
+                        @Override
+                        public void message(String message) {
+
+                        }
+                    }, callers.getPhone_number());
+                }
+
+
             }
         });
 

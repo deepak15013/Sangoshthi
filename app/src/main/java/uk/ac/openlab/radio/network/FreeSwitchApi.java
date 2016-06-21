@@ -91,16 +91,24 @@ public class FreeSwitchApi {
         sendMessage(callback, MessageHelper.shared().spreadWord(date, time, listener_category));
     }
 
-    public void startQuiz(IMessageListener callback) {
-        sendMessage(callback, MessageHelper.shared().startQuiz());
+    public void startQuiz(IMessageListener callback, String quizId, String startTime) {
+        sendMessage(callback, MessageHelper.shared().startQuiz(quizId, startTime));
     }
 
-    public void stopQuiz(IMessageListener callback) {
-        sendMessage(callback, MessageHelper.shared().stopQuiz());
+    public void stopQuiz(IMessageListener callback, String stopTime) {
+        sendMessage(callback, MessageHelper.shared().stopQuiz(stopTime));
     }
 
     public void showResults(IMessageListener callback) {
         sendMessage(callback, MessageHelper.shared().showResults());
+    }
+
+    public void startListenerRating(IMessageListener callback, String phoneNum) {
+        sendMessage(callback, MessageHelper.shared().startListenerRating(phoneNum));
+    }
+
+    public void stopListenerRating(IMessageListener callback, String phoneNum) {
+        sendMessage(callback, MessageHelper.shared().stopListenerRating(phoneNum));
     }
 
     /**

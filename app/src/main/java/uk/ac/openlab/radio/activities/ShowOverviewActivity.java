@@ -1,6 +1,7 @@
 package uk.ac.openlab.radio.activities;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
@@ -11,13 +12,16 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 import uk.ac.openlab.radio.GlobalUtils;
@@ -70,6 +74,8 @@ public class ShowOverviewActivity extends AppCompatActivity {
     public static List<Callers> callersArrayList;
     public static CallerListAdapter callerListAdapter;
 
+    private static TextView tvTotalCallers;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -97,6 +103,8 @@ public class ShowOverviewActivity extends AppCompatActivity {
 
         callerListAdapter = new CallerListAdapter(callersArrayList);
         callerListRecyclerView.setAdapter(callerListAdapter);
+
+        tvTotalCallers = (TextView) findViewById(R.id.tv_total_callers);
 
         /*recordedMaterial = (Button)findViewById(R.id.button_material);
         recordedMaterial.setOnClickListener(new View.OnClickListener() {
@@ -243,6 +251,8 @@ public class ShowOverviewActivity extends AppCompatActivity {
         Log.v("dks","calers: "+callers.getCallers().get(0).getPhone_number());
         callersArrayList.clear();
         callersArrayList.addAll(callers.getCallers());
+
+        tvTotalCallers.setText("Total callers "+callersArrayList.size());
 
         callerListRecyclerView.post(new Runnable() {
             @Override
@@ -457,6 +467,13 @@ public class ShowOverviewActivity extends AppCompatActivity {
 
             Toast.makeText(ShowOverviewActivity.this, "Quiz starting", Toast.LENGTH_SHORT).show();
 
+            String timeStamp = new SimpleDateFormat("dd_MM_yyyy_hh_mm").format(new Date());
+            String quizId = "quiz_"+timeStamp;
+            Log.v("dks","quizId: "+quizId);
+
+            String startTime = new SimpleDateFormat("hh:mm:ss").format(new Date());
+            Log.v("dks","startTime: "+startTime);
+
             FreeSwitchApi.shared().startQuiz(new IMessageListener() {
                 @Override
                 public void success() {
@@ -482,9 +499,11 @@ public class ShowOverviewActivity extends AppCompatActivity {
                 public void message(String message) {
 
                 }
-            });
+            }, quizId, startTime);
         }
         else if(btnStartQuiz.getText().toString().equalsIgnoreCase("stop quiz")) {
+
+            String stopTime = new SimpleDateFormat("hh:mm:ss").format(new Date());
 
             FreeSwitchApi.shared().stopQuiz(new IMessageListener() {
                 @Override
@@ -506,7 +525,7 @@ public class ShowOverviewActivity extends AppCompatActivity {
                 public void message(String message) {
 
                 }
-            });
+            }, stopTime);
 
             chronoQuizTimer.stop();
         } else if(btnStartQuiz.getText().toString().equalsIgnoreCase("results")) {
@@ -529,7 +548,9 @@ public class ShowOverviewActivity extends AppCompatActivity {
 
                 @Override
                 public void message(String message) {
-
+                    Intent intent = new Intent(ShowOverviewActivity.this, ShowResultsActivity.class);
+                    intent.putExtra("MESSAGE",message);
+                    startActivity(intent);
                 }
             });
 

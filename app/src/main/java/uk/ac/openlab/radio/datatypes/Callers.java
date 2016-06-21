@@ -12,6 +12,7 @@ public class Callers {
     String conf_member_id;
     boolean mute_state;
     String current_role;
+    boolean voteStarted;
 
     public Callers(String uuid, String phone_number, String current_studio, String conf_member_id, boolean mute_state, String current_role) {
         this.uuid = uuid;
@@ -20,6 +21,7 @@ public class Callers {
         this.conf_member_id = conf_member_id;
         this.mute_state = mute_state;
         this.current_role = current_role;
+        this.voteStarted = false;
     }
 
     public String getUuid() {
@@ -68,5 +70,13 @@ public class Callers {
 
     public void setCurrent_role(String current_role) {
         this.current_role = current_role;
+    }
+
+    public boolean isVoteStarted() {
+        return voteStarted;
+    }
+
+    public void setVoteStarted(boolean voteStarted) {
+        this.voteStarted = voteStarted;
     }
 }

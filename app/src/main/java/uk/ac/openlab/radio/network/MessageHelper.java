@@ -42,6 +42,8 @@ public class MessageHelper {
     private final String FS_START_QUIZ = "start_quiz";
     private final String FS_STOP_QUIZ = "stop_quiz";
     private final String FS_SHOW_RESULTS = "show_results";
+    private final String FS_START_LISTENER_RATING = "start_listener_rating";
+    private final String FS_STOP_LISTENER_RATING = "stop_listener_rating";
 
     private final String FS_ACTION_START_PREP = "init_call";
     private final String FS_ACTION_START_RECORD = "start_record";
@@ -194,16 +196,24 @@ public class MessageHelper {
         return String.format("{\"cmd\":\"%s\", \"studio\" : \"%s\", \"date\": \"%s\", \"time\" : \"%s\", \"listener_category\" : \"%s\" }", FS_SPREAD_WORD, this.studio_id, date, time, listenerCategory);
     }
 
-    public String startQuiz() {
-        return String.format("{\"cmd\":\"%s\", \"studio\" : \"%s\"}", FS_START_QUIZ, this.studio_id);
+    public String startQuiz(String quizId, String startTime) {
+        return String.format("{\"cmd\":\"%s\", \"studio\" : \"%s\", \"quiz_id\" : \"%s\", \"quiz_start_time\" : \"%s\"}", FS_START_QUIZ, this.studio_id, quizId, startTime);
     }
 
-    public String stopQuiz() {
-        return String.format("{\"cmd\":\"%s\", \"studio\" : \"%s\"}", FS_STOP_QUIZ, this.studio_id);
+    public String stopQuiz(String stopTime) {
+        return String.format("{\"cmd\":\"%s\", \"quiz_stop_time\" : \"%s\"}", FS_STOP_QUIZ, stopTime);
     }
 
     public String showResults() {
         return String.format("{\"cmd\":\"%s\", \"studio\" : \"%s\"}", FS_SHOW_RESULTS, this.studio_id);
+    }
+
+    public String startListenerRating(String phoneNum) {
+        return String.format("{\"cmd\":\"%s\", \"studio\" : \"%s\"}", FS_START_LISTENER_RATING, phoneNum);
+    }
+
+    public String stopListenerRating(String phoneNum) {
+        return String.format("{\"cmd\":\"%s\", \"studio\" : \"%s\"}", FS_STOP_LISTENER_RATING, phoneNum);
     }
 
 }
