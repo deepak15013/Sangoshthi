@@ -126,9 +126,9 @@ public class ShowOverviewActivity extends AppCompatActivity {
 
         tvTotalCallers = (TextView) findViewById(R.id.tv_total_callers);
 
-        mVisualizerView = (VisualizerView) findViewById(R.id.myvisualizerview);
+        //mVisualizerView = (VisualizerView) findViewById(R.id.myvisualizerview);
 
-        initAudio();
+        //initAudio();
 
 
         /*chartTimeline = (HorizontalBarChart) findViewById(R.id.chart_timeline);
@@ -320,7 +320,7 @@ public class ShowOverviewActivity extends AppCompatActivity {
         }
     }
 
-    private void initAudio() {
+    /*private void initAudio() {
         setVolumeControlStream(AudioManager.STREAM_MUSIC);
         mMediaPlayer = MediaPlayer.create(this, R.raw.test);
 
@@ -360,7 +360,7 @@ public class ShowOverviewActivity extends AppCompatActivity {
                                                  byte[] bytes, int samplingRate) {
                     }
                 }, Visualizer.getMaxCaptureRate() / 2, true, false);
-    }
+    }*/
 
     public static void setCallerObjects (final TopicInfoResult callers) {
         //Log.v("dks","calers: "+callers.getCallers().get(0).getPhone_number());
