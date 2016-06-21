@@ -21,8 +21,8 @@ public class FreeSwitchCallReceiver extends CallHandlerReceiver {
     protected void onIncomingCallReceived(Context ctx, String number, Date start) {
         GlobalUtils.shared().init(ctx);
 
-        if(GlobalUtils.shared().citizenRadioNumber().equalsIgnoreCase(number))
-            Toast.makeText(ctx,"Incoming call from FreeSwitch",Toast.LENGTH_LONG).show();
+       /* if(GlobalUtils.shared().citizenRadioNumber().equalsIgnoreCase(number))
+            Toast.makeText(ctx,"Incoming call from FreeSwitch",Toast.LENGTH_LONG).show();*/
     }
 
     @Override
