@@ -91,6 +91,18 @@ public class FreeSwitchApi {
         sendMessage(callback, MessageHelper.shared().spreadWord(date, time, listener_category));
     }
 
+    public void startQuiz(IMessageListener callback) {
+        sendMessage(callback, MessageHelper.shared().startQuiz());
+    }
+
+    public void stopQuiz(IMessageListener callback) {
+        sendMessage(callback, MessageHelper.shared().stopQuiz());
+    }
+
+    public void showResults(IMessageListener callback) {
+        sendMessage(callback, MessageHelper.shared().showResults());
+    }
+
     /**
      * Tell FreeSwitch to mute / unmute a caller using their UUID from the conference.
      * @param uuid

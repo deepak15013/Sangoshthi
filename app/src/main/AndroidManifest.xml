@@ -77,7 +77,8 @@
         <activity
             android:name=".activities.ShowListenersActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".activities.SpreadTheWordActivity"></activity>
+        <activity android:name=".activities.SpreadTheWordActivity" />
+        <activity android:name=".activities.ShowResultsActivity"></activity>
     </application>
 
 </manifest>

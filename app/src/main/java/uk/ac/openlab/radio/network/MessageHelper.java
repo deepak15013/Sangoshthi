@@ -39,6 +39,9 @@ public class MessageHelper {
     private final String FS_DELETE_LISTENER = "del_listeners";
     private final String FS_DELETE_ALL = "del_all";
     private final String FS_SPREAD_WORD = "spread_word";
+    private final String FS_START_QUIZ = "start_quiz";
+    private final String FS_STOP_QUIZ = "stop_quiz";
+    private final String FS_SHOW_RESULTS = "show_results";
 
     private final String FS_ACTION_START_PREP = "init_call";
     private final String FS_ACTION_START_RECORD = "start_record";
@@ -189,6 +192,18 @@ public class MessageHelper {
 
     public String spreadWord(String date, String time, String listenerCategory) {
         return String.format("{\"cmd\":\"%s\", \"studio\" : \"%s\", \"date\": \"%s\", \"time\" : \"%s\", \"listener_category\" : \"%s\" }", FS_SPREAD_WORD, this.studio_id, date, time, listenerCategory);
+    }
+
+    public String startQuiz() {
+        return String.format("{\"cmd\":\"%s\", \"studio\" : \"%s\"}", FS_START_QUIZ, this.studio_id);
+    }
+
+    public String stopQuiz() {
+        return String.format("{\"cmd\":\"%s\", \"studio\" : \"%s\"}", FS_STOP_QUIZ, this.studio_id);
+    }
+
+    public String showResults() {
+        return String.format("{\"cmd\":\"%s\", \"studio\" : \"%s\"}", FS_SHOW_RESULTS, this.studio_id);
     }
 
 }

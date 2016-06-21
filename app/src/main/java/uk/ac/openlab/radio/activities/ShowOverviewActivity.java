@@ -454,21 +454,86 @@ public class ShowOverviewActivity extends AppCompatActivity {
     public void overviewActivityStartQuiz(View view) {
 
         if(btnStartQuiz.getText().toString().equalsIgnoreCase("start quiz")) {
-            Toast.makeText(ShowOverviewActivity.this, "Quiz started", Toast.LENGTH_SHORT).show();
-            btnStartQuiz.setText("Stop Quiz");
 
-            llShowTimer.setVisibility(LinearLayout.VISIBLE);
+            Toast.makeText(ShowOverviewActivity.this, "Quiz starting", Toast.LENGTH_SHORT).show();
 
-            chronoQuizTimer.setBase(SystemClock.elapsedRealtime());
-            chronoQuizTimer.start();
+            FreeSwitchApi.shared().startQuiz(new IMessageListener() {
+                @Override
+                public void success() {
+                    btnStartQuiz.setText("Stop Quiz");
+
+                    llShowTimer.setVisibility(LinearLayout.VISIBLE);
+
+                    chronoQuizTimer.setBase(SystemClock.elapsedRealtime());
+                    chronoQuizTimer.start();
+                }
+
+                @Override
+                public void fail() {
+
+                }
+
+                @Override
+                public void error() {
+
+                }
+
+                @Override
+                public void message(String message) {
+
+                }
+            });
         }
         else if(btnStartQuiz.getText().toString().equalsIgnoreCase("stop quiz")) {
-            btnStartQuiz.setText("Results");
+
+            FreeSwitchApi.shared().stopQuiz(new IMessageListener() {
+                @Override
+                public void success() {
+                    btnStartQuiz.setText("Results");
+                }
+
+                @Override
+                public void fail() {
+
+                }
+
+                @Override
+                public void error() {
+
+                }
+
+                @Override
+                public void message(String message) {
+
+                }
+            });
 
             chronoQuizTimer.stop();
         } else if(btnStartQuiz.getText().toString().equalsIgnoreCase("results")) {
-            Toast.makeText(ShowOverviewActivity.this, "Show Results", Toast.LENGTH_SHORT).show();
 
+            FreeSwitchApi.shared().showResults(new IMessageListener() {
+                @Override
+                public void success() {
+
+                }
+
+                @Override
+                public void fail() {
+
+                }
+
+                @Override
+                public void error() {
+
+                }
+
+                @Override
+                public void message(String message) {
+
+                }
+            });
+
+            Toast.makeText(ShowOverviewActivity.this, "Show Results", Toast.LENGTH_SHORT).show();
             llShowTimer.setVisibility(LinearLayout.INVISIBLE);
         }
     }
