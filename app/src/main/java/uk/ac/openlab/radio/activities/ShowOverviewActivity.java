@@ -2,6 +2,10 @@ package uk.ac.openlab.radio.activities;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
+import android.media.audiofx.Visualizer;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
@@ -15,6 +19,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.github.mikephil.charting.charts.HorizontalBarChart;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -36,6 +45,7 @@ import uk.ac.openlab.radio.datatypes.Topic;
 import uk.ac.openlab.radio.datatypes.TopicInfoResult;
 import uk.ac.openlab.radio.drawables.ChecklistItemView;
 import uk.ac.openlab.radio.drawables.TopicView;
+import uk.ac.openlab.radio.drawables.VisualizerView;
 import uk.ac.openlab.radio.network.FreeSwitchApi;
 import uk.ac.openlab.radio.network.IMessageListener;
 import uk.ac.openlab.radio.network.MessageHelper;
@@ -76,6 +86,16 @@ public class ShowOverviewActivity extends AppCompatActivity {
 
     private static TextView tvTotalCallers;
 
+    private HorizontalBarChart chartTimeline;
+
+    ArrayList<BarEntry> entries;
+    BarDataSet dataset;
+
+    VisualizerView mVisualizerView;
+
+    private MediaPlayer mMediaPlayer;
+    private Visualizer mVisualizer;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -105,6 +125,49 @@ public class ShowOverviewActivity extends AppCompatActivity {
         callerListRecyclerView.setAdapter(callerListAdapter);
 
         tvTotalCallers = (TextView) findViewById(R.id.tv_total_callers);
+
+        mVisualizerView = (VisualizerView) findViewById(R.id.myvisualizerview);
+
+        initAudio();
+
+
+        /*chartTimeline = (HorizontalBarChart) findViewById(R.id.chart_timeline);
+
+        entries = new ArrayList<>();
+        entries.add(new BarEntry(1, 0));
+        *//*entries.add(new BarEntry(8f, 1));
+        entries.add(new BarEntry(6f, 2));
+        entries.add(new BarEntry(12f, 3));
+        entries.add(new BarEntry(18f, 4));
+        entries.add(new BarEntry(9f, 5));*//*
+
+        dataset = new BarDataSet(entries, "# of Calls");
+        //BarData data = new BarData(getXAxisValues(), getDataSet());
+
+        ArrayList<String> labels = new ArrayList<String>();
+        labels.add("");
+        *//*labels.add("February");
+        labels.add("March");
+        labels.add("April");
+        labels.add("May");
+        labels.add("June");*//*
+
+        BarData data = new BarData(labels, dataset);
+        chartTimeline.setData(data);
+        chartTimeline.setDescription("");
+        chartTimeline.getAxisLeft().setDrawLabels(false);
+        chartTimeline.getAxisRight().setDrawLabels(false);
+        chartTimeline.getXAxis().setDrawLabels(false);
+        chartTimeline.getLegend().setEnabled(false);
+        //chartTimeline.setAutoScaleMinMaxEnabled(true);
+
+        //chartTimeline.setData(dataset);
+        //chartTimeline.setDescription("My Chart");
+
+        //chartTimeline.animateXY(2000, 2000);
+
+        chartTimeline.invalidate();
+*/
 
         /*recordedMaterial = (Button)findViewById(R.id.button_material);
         recordedMaterial.setOnClickListener(new View.OnClickListener() {
@@ -247,19 +310,77 @@ public class ShowOverviewActivity extends AppCompatActivity {
         }
     }
 
-    public static void setCallerObjects (TopicInfoResult callers) {
-        Log.v("dks","calers: "+callers.getCallers().get(0).getPhone_number());
-        callersArrayList.clear();
-        callersArrayList.addAll(callers.getCallers());
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (isFinishing() && mMediaPlayer != null) {
+            mVisualizer.release();
+            mMediaPlayer.release();
+            mMediaPlayer = null;
+        }
+    }
 
-        tvTotalCallers.setText("Total callers "+callersArrayList.size());
+    private void initAudio() {
+        setVolumeControlStream(AudioManager.STREAM_MUSIC);
+        mMediaPlayer = MediaPlayer.create(this, R.raw.test);
 
-        callerListRecyclerView.post(new Runnable() {
-            @Override
-            public void run() {
-                callerListAdapter.notifyDataSetChanged();
+        setupVisualizerFxAndUI();
+        // Make sure the visualizer is enabled only when you actually want to
+        // receive data, and
+        // when it makes sense to receive data.
+        mVisualizer.setEnabled(true);
+        // When the stream ends, we don't need to collect any more data. We
+        // don't do this in
+        // setupVisualizerFxAndUI because we likely want to have more,
+        // non-Visualizer related code
+        // in this callback.
+        mMediaPlayer
+                .setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                    public void onCompletion(MediaPlayer mediaPlayer) {
+                        mVisualizer.setEnabled(false);
+                    }
+                });
+        mMediaPlayer.start();
+
+    }
+
+    private void setupVisualizerFxAndUI() {
+
+        // Create the Visualizer object and attach it to our media player.
+        mVisualizer = new Visualizer(mMediaPlayer.getAudioSessionId());
+        mVisualizer.setCaptureSize(Visualizer.getCaptureSizeRange()[1]);
+        mVisualizer.setDataCaptureListener(
+                new Visualizer.OnDataCaptureListener() {
+                    public void onWaveFormDataCapture(Visualizer visualizer,
+                                                      byte[] bytes, int samplingRate) {
+                        mVisualizerView.updateVisualizer(bytes);
+                    }
+
+                    public void onFftDataCapture(Visualizer visualizer,
+                                                 byte[] bytes, int samplingRate) {
+                    }
+                }, Visualizer.getMaxCaptureRate() / 2, true, false);
+    }
+
+    public static void setCallerObjects (final TopicInfoResult callers) {
+        //Log.v("dks","calers: "+callers.getCallers().get(0).getPhone_number());
+
+        try {
+            if(callersArrayList != null) {
+                callersArrayList.clear();
+                callersArrayList.addAll(callers.getCallers());
+
+                callerListRecyclerView.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        callerListAdapter.notifyDataSetChanged();
+                        tvTotalCallers.setText("Total callers "+(callers.getListeners()-1));
+                    }
+                });
             }
-        });
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        }
     }
 
     private void updateInfo() {
@@ -339,6 +460,9 @@ public class ShowOverviewActivity extends AppCompatActivity {
                     chronometer.setBase(SystemClock.elapsedRealtime());
                     chronometer.start();
 
+                    /*getChronometerValue();
+                    showRunning = true;*/
+
                     startStopButton.setText("Stop show");
 
                 }
@@ -367,6 +491,7 @@ public class ShowOverviewActivity extends AppCompatActivity {
                 public void success() {
                     chronometer.stop();
                     startStopButton.setText("start show");
+                    //showRunning = false;
                 }
 
                 @Override
@@ -387,6 +512,46 @@ public class ShowOverviewActivity extends AppCompatActivity {
         }
     }
 
+   /* public volatile boolean showRunning = true;
+
+    int secondElapsed;
+    public void getChronometerValue() {
+        Thread thread = new Thread (new Runnable() {
+            @Override
+            public void run() {
+                while(showRunning) {
+                    long elapsedMillis = SystemClock.elapsedRealtime() - chronometer.getBase();
+                    Log.v("dks","elapsedMillis: "+elapsedMillis);
+
+                    secondElapsed = (int) (elapsedMillis/1000);
+
+                    entries.clear();
+                    entries.add(new BarEntry(secondElapsed, 0));
+
+                    chartTimeline.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            chartTimeline.setX(secondElapsed+3);
+
+                            dataset.notifyDataSetChanged();
+                            chartTimeline.notifyDataSetChanged();
+                            chartTimeline.invalidate();
+
+                        }
+                    });
+                    //addEntry(secondElapsed);
+
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
+        thread.start();
+    }
+*/
 
 
     /*CountdownAdapter.CountdownListener clockListener = new CountdownAdapter.CountdownListener() {
@@ -558,4 +723,5 @@ public class ShowOverviewActivity extends AppCompatActivity {
             llShowTimer.setVisibility(LinearLayout.INVISIBLE);
         }
     }
+
 }

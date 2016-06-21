@@ -164,7 +164,7 @@ public class MessageHelper {
     }
 
     public String startShow(){
-        return String.format("{\"cmd\":\"%s\", \"studio\" : \"%s\", \"session\" : \"%s\" }", FS_CMD_DIAL_LISTENERS,this.studio_id, this.session_id);
+        return String.format("{\"cmd\":\"%s\", \"studio\" : \"%s\"}", FS_CMD_DIAL_LISTENERS,this.studio_id);
     }
 
     public String endShow() {
@@ -209,11 +209,11 @@ public class MessageHelper {
     }
 
     public String startListenerRating(String phoneNum) {
-        return String.format("{\"cmd\":\"%s\", \"studio\" : \"%s\"}", FS_START_LISTENER_RATING, phoneNum);
+        return String.format("{\"cmd\":\"%s\", \"phone_number\" : \"%s\"}", FS_START_LISTENER_RATING, phoneNum);
     }
 
     public String stopListenerRating(String phoneNum) {
-        return String.format("{\"cmd\":\"%s\", \"studio\" : \"%s\"}", FS_STOP_LISTENER_RATING, phoneNum);
+        return String.format("{\"cmd\":\"%s\", \"phone_number\" : \"%s\"}", FS_STOP_LISTENER_RATING, phoneNum);
     }
 
 }

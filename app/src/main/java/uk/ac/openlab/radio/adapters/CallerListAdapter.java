@@ -78,6 +78,7 @@ public class CallerListAdapter extends RecyclerView.Adapter<CallerListAdapter.Vi
                             holder.ibMuteUnmute.setImageResource(R.drawable.ic_phone_active);
                             callers.setMute_state(false);
 
+                            holder.cmTalk.setVisibility(View.VISIBLE);
                             holder.cmTalk.setBase(SystemClock.elapsedRealtime());
                             holder.cmTalk.start();
                         }
@@ -103,6 +104,8 @@ public class CallerListAdapter extends RecyclerView.Adapter<CallerListAdapter.Vi
                     FreeSwitchApi.shared().setCallerMute(new IMessageListener() {
                         @Override
                         public void success() {
+
+                            holder.cmTalk.setVisibility(View.GONE);
                             holder.ibMuteUnmute.setImageResource(R.drawable.ic_phone_muted);
                             holder.cmTalk.stop();
                         }

@@ -48,6 +48,8 @@ public class ZMQSubscriber {
                     Log.v("dks",result[0]);
                     Log.v("dks",result[1]);
 
+
+
                     Gson gson = new GsonBuilder().create();
                     TopicInfoResult callerObjects = gson.fromJson(result[1],TopicInfoResult.class);
 
@@ -60,12 +62,6 @@ public class ZMQSubscriber {
                         //ShowOverviewActivity.mCallerAdapter.setDataset(callers);
                         //mCallerAdapter.setDataset(callers);
 //                        Toast.makeText(getApplicationContext(),"Total:"+status.listeners,Toast.LENGTH_LONG).show();
-                    }
-
-                    try {
-                        Thread.sleep(1000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
                     }
                 }
 

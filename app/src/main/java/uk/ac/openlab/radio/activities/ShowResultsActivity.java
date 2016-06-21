@@ -25,5 +25,7 @@ public class ShowResultsActivity extends AppCompatActivity {
         String resultsJson = getIntent().getStringExtra("MESSAGE");
         Log.v("dks","resultsJSON: "+resultsJson);
 
+
+
     }
 }
