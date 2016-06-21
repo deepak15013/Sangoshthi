@@ -48,8 +48,6 @@ public class ZMQSubscriber {
                     Log.v("dks",result[0]);
                     Log.v("dks",result[1]);
 
-
-
                     Gson gson = new GsonBuilder().create();
                     TopicInfoResult callerObjects = gson.fromJson(result[1],TopicInfoResult.class);
 

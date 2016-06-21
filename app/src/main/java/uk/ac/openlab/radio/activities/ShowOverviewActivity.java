@@ -366,17 +366,24 @@ public class ShowOverviewActivity extends AppCompatActivity {
         //Log.v("dks","calers: "+callers.getCallers().get(0).getPhone_number());
 
         try {
-            if(callersArrayList != null) {
-                callersArrayList.clear();
-                callersArrayList.addAll(callers.getCallers());
+            if(callers.getCallers() != null) {
+                if(callersArrayList != null) {
+                    callersArrayList.clear();
+                    callersArrayList.addAll(callers.getCallers());
 
-                callerListRecyclerView.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        callerListAdapter.notifyDataSetChanged();
+                    callerListRecyclerView.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            callerListAdapter.notifyDataSetChanged();
+                            tvTotalCallers.setText("Total callers "+(callers.getListeners()-1));
+                        }
+                    });
+                }
+                else {
+                    if(callers.getListeners() >= 0) {
                         tvTotalCallers.setText("Total callers "+(callers.getListeners()-1));
                     }
-                });
+                }
             }
         } catch (NullPointerException e) {
             e.printStackTrace();
