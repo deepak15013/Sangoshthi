@@ -379,10 +379,9 @@ public class ShowOverviewActivity extends AppCompatActivity {
                         }
                     });
                 }
-                else {
-                    if(callers.getListeners() >= 0) {
-                        tvTotalCallers.setText("Total callers "+(callers.getListeners()-1));
-                    }
+            } else {
+                if(callers.getListeners() >= 0) {
+                    tvTotalCallers.setText("Total callers "+(callers.getListeners()-1));
                 }
             }
         } catch (NullPointerException e) {
