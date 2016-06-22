@@ -121,15 +121,21 @@
         android:layout_height="80dp"
         android:gravity="center">
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="---Timeline---"
+            android:textSize="30sp"/>
+
         <!--<com.github.mikephil.charting.charts.HorizontalBarChart
             android:id="@+id/chart_timeline"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>-->
 
-        <uk.ac.openlab.radio.drawables.VisualizerView
+        <!--<uk.ac.openlab.radio.drawables.VisualizerView
             android:id="@+id/myvisualizerview"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent" />-->
 
     </LinearLayout>
 
