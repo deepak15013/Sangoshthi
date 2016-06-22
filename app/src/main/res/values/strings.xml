@@ -142,6 +142,14 @@
         <item>Show Listeners</item>
     </string-array>
 
+    <string name="create_trailer_title">Create Trailer</string>
+
+    <string-array name="create_trailer">
+        <item>Recording Request</item>
+        <item>Play Trailer</item>
+        <item>Delete Trailer</item>
+    </string-array>
+
 
     <!-- Record Topics Screen -->
     <string name="record_topics_title">Record Topics</string>

@@ -88,6 +88,8 @@ public class MainActivity extends AppCompatActivity implements IRecyclerViewItem
             int titles = extras.getInt(EXTRA_TITLES_ID,R.array.main_menu_titles);
             int icons = extras.getInt(EXTRA_ICONS_ID,R.array.main_menu_icons);
             pageID = extras.getInt(EXTRA_PAGE_ID,R.string.main_menu_title);
+            Log.v("dks","pageId: "+pageID);
+            Log.v("dks","page: "+getString(pageID));
             String title = extras.getString(EXTRA_TITLE_ITEM_TEXT);
             boolean state = extras.getBoolean(EXTRA_TITLE_ITEM_STATE);
             int iconRes = extras.getInt(EXTRA_TITLE_ITEM_ICON);
@@ -114,6 +116,7 @@ public class MainActivity extends AppCompatActivity implements IRecyclerViewItem
         layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
+
 
         button=  (Button)findViewById(R.id.bottomButton);
         setupUI(pageID);
@@ -172,6 +175,10 @@ public class MainActivity extends AppCompatActivity implements IRecyclerViewItem
                 toolbarItemView.hideCheckbox(true);
                 button.setText(R.string.action_finished);
                 break;
+            case R.string.create_trailer_title:
+                toolbarItemView.hideCheckbox(true);
+                button.setText(R.string.action_finished);
+                break;
             default:
                 Log.v("tag","view.gone");
                 button.setVisibility(View.GONE);
@@ -192,6 +199,8 @@ public class MainActivity extends AppCompatActivity implements IRecyclerViewItem
                 return recordTopicsListener;
             case R.string.edit_listeners_title:
                 return editListenersTitle;
+            case R.string.create_trailer_title:
+                return createTrailerTitle;
             default:
                 return this;
         }
@@ -321,7 +330,27 @@ public class MainActivity extends AppCompatActivity implements IRecyclerViewItem
                 case 2:
                     //record trailer
 
-                    FreeSwitchApi.shared().createTrailer(new IMessageListener() {
+                    i = new Intent(MainActivity.this,MainActivity.class);
+                    i.putExtra(EXTRA_TITLES_ID,R.array.create_trailer);
+                    i.putExtra(EXTRA_ICONS_ID,R.array.prepare_show_icons);
+                    i.putExtra(EXTRA_PAGE_ID,R.string.create_trailer_title);
+                    i.putExtra(EXTRA_TITLE_ITEM_TEXT,item.getTitle());
+                    i.putExtra(EXTRA_TITLE_ITEM_ICON,item.getIcon());
+                    i.putExtra(EXTRA_TITLE_ITEM_STATE,item.isComplete());
+                    options = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this, new Pair<View, String>(view, getString(R.string.transition_name_listitem)));
+                    ActivityCompat.startActivity(MainActivity.this, i, options.toBundle());
+
+                    /*i = new Intent(MainActivity.this, MainActivity.class);
+                    i.putExtra(EXTRA_TITLES_ID,R.array.create_trailer);
+                    i.putExtra(EXTRA_ICONS_ID,R.array.record_topics_icons);
+                    i.putExtra(EXTRA_PAGE_ID,R.string.create_trailer_title);
+                    i.putExtra(EXTRA_TITLE_ITEM_TEXT,item.getTitle());
+                    i.putExtra(EXTRA_TITLE_ITEM_ICON,item.getIcon());
+                    i.putExtra(EXTRA_TITLE_ITEM_STATE,item.isComplete());
+                    options = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this, new Pair<View, String>(view, getString(R.string.transition_name_listitem)));
+                    ActivityCompat.startActivity(MainActivity.this, i, options.toBundle());*/
+
+                    /*FreeSwitchApi.shared().createTrailer(new IMessageListener() {
                         @Override
                         public void success() {
                             Toast.makeText(MainActivity.this, "Request processing", Toast.LENGTH_SHORT).show();
@@ -342,7 +371,7 @@ public class MainActivity extends AppCompatActivity implements IRecyclerViewItem
                             Toast.makeText(MainActivity.this, "Something's wrong. Please try again later", Toast.LENGTH_SHORT).show();
                             Log.v("dks","message: "+message);
                         }
-                    });
+                    });*/
 
                     /*i = new Intent(MainActivity.this,AudioRecorderActivity.class);
                     startActivity(i);*/
@@ -404,6 +433,55 @@ public class MainActivity extends AppCompatActivity implements IRecyclerViewItem
                     startActivity(i);
                     break;
 
+            }
+        }
+    };
+
+    private IRecyclerViewItemClickedListener createTrailerTitle = new IRecyclerViewItemClickedListener() {
+        @Override
+        public void recyclerViewItemClicked(View view, int position) {
+            Intent i =  null;
+            selectedIndex = position;
+
+            CheckListItem item = adapter.getItem(position);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+                view.setTransitionName(getString(R.string.transition_name_listitem));
+
+            switch (position) {
+                case 0:
+                    FreeSwitchApi.shared().createTrailer(new IMessageListener() {
+                        @Override
+                        public void success() {
+                            Toast.makeText(MainActivity.this, "Request processing", Toast.LENGTH_SHORT).show();
+                        }
+
+                        @Override
+                        public void fail() {
+                            Toast.makeText(MainActivity.this, "Something's wrong. Please try again later", Toast.LENGTH_SHORT).show();
+                        }
+
+                        @Override
+                        public void error() {
+                            Toast.makeText(MainActivity.this, "Something's wrong. Please try again later", Toast.LENGTH_SHORT).show();
+                        }
+
+                        @Override
+                        public void message(String message) {
+                            Toast.makeText(MainActivity.this, "Something's wrong. Please try again later", Toast.LENGTH_SHORT).show();
+                            Log.v("dks","message: "+message);
+                        }
+                    });
+                    break;
+
+                case 1:
+                    // TODO: Play trailer request
+                    Toast.makeText(MainActivity.this, "coming soon", Toast.LENGTH_SHORT).show();
+                    break;
+
+                case 2:
+                    // TODO: Delete trailer request
+                    Toast.makeText(MainActivity.this, "coming soon", Toast.LENGTH_SHORT).show();
+                    break;
             }
         }
     };
