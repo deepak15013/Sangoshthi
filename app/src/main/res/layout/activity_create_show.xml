@@ -62,28 +62,6 @@
 
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:layout_marginTop="20dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Code: "/>
-
-        <EditText
-            android:id="@+id/et_code"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:inputType="number"
-            android:maxEms="4"
-            android:ems="4" />
-
-    </LinearLayout>
-
     <Button
         android:id="@+id/btn_create"
         android:layout_width="250dp"

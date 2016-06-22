@@ -78,6 +78,7 @@ public class MessageHelper {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
         this.session_id = preferences.getString(GlobalUtils.PREF_SESSION_ID,null);
         this.studio_id = preferences.getString(GlobalUtils.PREF_STUDIO_ID,null);
+        Log.v("dks","studio id updated in pref: "+this.studio_id);
         this.host_phone_num = preferences.getString(GlobalUtils.PREF_TELEPHONE_NUMBER, null);
         this.host_area_code = preferences.getString(GlobalUtils.PREF_AREA_CODE, null);
     }
@@ -98,8 +99,8 @@ public class MessageHelper {
         return String.format("{\"cmd\":\"%s\" }",FS_GET_SHOW_ID);
     }
 
-    public String createShow(String date, String time, String code) {
-        String create = String.format("{\"cmd\":\"%s\", \"date\" : \"%s\", \"time\" : \"%s\", \"code\" : \"%s\" }", FS_CREATE_SHOW, date, time, code);
+    public String createShow(String date, String time) {
+        String create = String.format("{\"cmd\":\"%s\", \"date\" : \"%s\", \"time\" : \"%s\"}", FS_CREATE_SHOW, date, time);
         Log.v("Create Show String: ", create);
         return create;
     }

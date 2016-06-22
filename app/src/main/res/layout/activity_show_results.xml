@@ -8,10 +8,73 @@
 
     <include layout="@layout/checklist_toolbar" />
 
-    <com.github.mikephil.charting.charts.CombinedChart
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/prompt_num_of_option" />
+
+            <Spinner
+                android:id="@+id/spnNumOfOptions"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:entries="@array/quiz_option_array"
+                android:prompt="@string/prompt_num_of_option"
+                android:layout_margin="10dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/prompt_correct_option" />
+
+            <Spinner
+                android:id="@+id/spnCorrectOption"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:entries="@array/quiz_option_array"
+                android:prompt="@string/prompt_correct_option"
+                android:layout_margin="10dp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_create_results"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:text="Create Results"
+        android:textStyle="bold"
+        android:layout_marginBottom="20dp"
+        android:layout_gravity="center_horizontal"
+        android:background="#FF6600"/>
+
+    <com.github.mikephil.charting.charts.BarChart
         android:id="@+id/chart_quiz_results"
         android:layout_width="match_parent"
-        android:layout_height="300dp" />
+        android:layout_height="match_parent"
+        android:visibility="gone"/>
 
 
 

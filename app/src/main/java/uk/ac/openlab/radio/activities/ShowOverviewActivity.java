@@ -2,12 +2,14 @@ package uk.ac.openlab.radio.activities;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.audiofx.Visualizer;
 import android.os.Bundle;
 import android.os.SystemClock;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -381,7 +383,12 @@ public class ShowOverviewActivity extends AppCompatActivity {
                 }
             } else {
                 if(callers.getListeners() >= 0) {
-                    tvTotalCallers.setText("Total callers "+(callers.getListeners()-1));
+                    callerListRecyclerView.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            tvTotalCallers.setText("Total callers "+(callers.getListeners()-1));
+                        }
+                    });
                 }
             }
         } catch (NullPointerException e) {
@@ -495,8 +502,17 @@ public class ShowOverviewActivity extends AppCompatActivity {
             FreeSwitchApi.shared().endShow(new IMessageListener() {
                 @Override
                 public void success() {
+                    Log.v("dks","show ended");
                     chronometer.stop();
-                    startStopButton.setText("start show");
+                    startStopButton.setText("Show Done");
+
+                    SharedPreferences.Editor e = PreferenceManager.getDefaultSharedPreferences(getBaseContext()).edit();
+                    e.putBoolean("firstStart", true);
+                    e.apply();
+
+                    android.os.Process.killProcess(android.os.Process.myPid());
+                    System.exit(1);
+
                     //showRunning = false;
                 }
 

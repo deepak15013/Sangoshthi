@@ -38,6 +38,7 @@ import uk.ac.openlab.radio.drawables.ChecklistItemView;
 import uk.ac.openlab.radio.network.CloudStudioApi;
 import uk.ac.openlab.radio.network.FreeSwitchApi;
 import uk.ac.openlab.radio.network.IMessageListener;
+import uk.ac.openlab.radio.network.MessageHelper;
 import uk.ac.openlab.radio.services.ZMQSubscriber;
 
 public class MainActivity extends AppCompatActivity implements IRecyclerViewItemClickedListener {
@@ -70,6 +71,8 @@ public class MainActivity extends AppCompatActivity implements IRecyclerViewItem
         setTheme(GlobalUtils.appTheme());
         setContentView(R.layout.activity_checklist);
 
+        MessageHelper.shared().init(getApplicationContext());
+
         Log.d(TAG,"inside");
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -96,7 +99,7 @@ public class MainActivity extends AppCompatActivity implements IRecyclerViewItem
             adapter = RHDCheckLists.listFromXML(this,getListener(pageID),titles,icons);
 
         }else{
-            //defualt to using the main menu
+            //default to using the main menu
             adapter = RHDCheckLists.mainMenu(getApplicationContext(), getListener(pageID));
             toolbarItemView.setTitle(pageID);
             toolbarItemView.setIcon(GlobalUtils.iconWithTint(getApplicationContext(),R.drawable.ic_radio,R.color.white));//todo swap for rhd logo
@@ -110,7 +113,6 @@ public class MainActivity extends AppCompatActivity implements IRecyclerViewItem
 
         button=  (Button)findViewById(R.id.bottomButton);
         setupUI(pageID);
-
 
         FreeSwitchApi.shared().init(getApplicationContext());
     }
@@ -402,4 +404,8 @@ public class MainActivity extends AppCompatActivity implements IRecyclerViewItem
         }
     };
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
 }

@@ -31,7 +31,6 @@ public class CreateShow extends AppCompatActivity {
 
     private static EditText editText;
     private static EditText etTime;
-    private EditText etCode;
 
     private DatePicker datePicker;
     private int year, month, day, hour, minute;
@@ -58,7 +57,6 @@ public class CreateShow extends AppCompatActivity {
 
         editText = (EditText) findViewById(R.id.editText);
         etTime = (EditText) findViewById(R.id.et_time);
-        etCode = (EditText) findViewById(R.id.et_code);
 
         calendar = Calendar.getInstance();
         year = calendar.get(Calendar.YEAR);
@@ -72,6 +70,7 @@ public class CreateShow extends AppCompatActivity {
     }
 
     public static void showdate(int year, int month, int day) {
+        month = month+1;
         editText.setText(new StringBuilder().append(day).append("/").append(month).append("/").append(year));
     }
 
@@ -168,7 +167,7 @@ public class CreateShow extends AppCompatActivity {
 
                 }
             }
-        }, editText.getText().toString(), etTime.getText().toString(), etCode.getText().toString());
+        }, editText.getText().toString(), etTime.getText().toString());
 
     }
 

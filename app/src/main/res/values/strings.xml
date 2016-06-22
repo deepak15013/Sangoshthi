@@ -200,6 +200,16 @@
         <item>@drawable/ic_done</item>
     </string-array>
 
+    <string name="prompt_num_of_option">Num of options</string>
+    <string name="prompt_correct_option">Correct option</string>
+
+    <string-array name="quiz_option_array" >
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+    </string-array>
+
 
     <!-- ICON ATTRIBUTIONS -->
     <string name="icon_attribution_prefix">Icon Attributions</string>
