@@ -105,6 +105,8 @@ public class CallerListAdapter extends RecyclerView.Adapter<CallerListAdapter.Vi
                         @Override
                         public void success() {
 
+                            callers.setMute_state(true);
+
                             holder.cmTalk.setVisibility(View.GONE);
                             holder.ibMuteUnmute.setImageResource(R.drawable.ic_phone_muted);
                             holder.cmTalk.stop();
