@@ -71,6 +71,10 @@ public class MainActivity extends AppCompatActivity implements IRecyclerViewItem
         setTheme(GlobalUtils.appTheme());
         setContentView(R.layout.activity_checklist);
 
+        if(getIntent().getBooleanExtra("EXIT",false)) {
+            finish();
+        }
+
         MessageHelper.shared().init(getApplicationContext());
 
         Log.d(TAG,"inside");

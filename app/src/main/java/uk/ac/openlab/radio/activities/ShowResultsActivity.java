@@ -9,18 +9,16 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.utils.ColorTemplate;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import uk.ac.openlab.radio.R;
 import uk.ac.openlab.radio.drawables.ChecklistItemView;
@@ -61,15 +59,15 @@ public class ShowResultsActivity extends AppCompatActivity {
 
                 int numOfOption, correctOption;
                 if(numOfOptionString != null && correctOptionString != null) {
-                    numOfOption = Integer.getInteger(numOfOptionString);
-                    correctOption = Integer.getInteger(correctOptionString);
+                    numOfOption = Integer.parseInt(numOfOptionString);
+                    correctOption = Integer.parseInt(correctOptionString);
                     Log.v("dks","numOfOption: "+numOfOption+"corect: "+correctOption);
 
                     ArrayList<Integer> values = new ArrayList<>();
                     try {
                         JSONObject jsonObject = new JSONObject(resultsJson);
                         for(int i=1;i<=numOfOption;i++) {
-                            int value = Integer.getInteger(jsonObject.optString(String.valueOf(i)));
+                            int value = Integer.parseInt(jsonObject.optString(String.valueOf(i)));
                             values.add(value);
                         }
                     } catch (JSONException e) {
@@ -77,6 +75,9 @@ public class ShowResultsActivity extends AppCompatActivity {
                     }
 
                     BarChart quizChart = (BarChart) findViewById(R.id.chart_quiz_results);
+
+                    assert quizChart != null;
+                    quizChart.setVisibility(View.VISIBLE);
 
                     ArrayList<BarEntry> entries = new ArrayList<>();
 
@@ -96,9 +97,17 @@ public class ShowResultsActivity extends AppCompatActivity {
 
                     quizChart.setData(data);
                     quizChart.setDescription("Quiz Results");
+                    YAxis leftAxis = quizChart.getAxisLeft();
+                    YAxis rightAxis = quizChart.getAxisRight();
+
+                    leftAxis.setAxisMinValue(0);
+                    rightAxis.setAxisMinValue(0);
+                    quizChart.notifyDataSetChanged();
+                    quizChart.invalidate();
+
                 }
                 else {
-                    Toast.makeText(ShowResultsActivity.this, "Please enter num of option and correct option", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ShowResultsActivity.this, "Please enter number of option and the correct option", Toast.LENGTH_SHORT).show();
                 }
             }
         });

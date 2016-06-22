@@ -15,7 +15,7 @@
     <include layout="@layout/checklist_toolbar" />
 
     <TextView
-        android:id="@+id/title"
+        android:id="@+id/tv_title_string"
         android:textSize="@dimen/heading1"
         android:layout_margin="@dimen/activity_margin"
         android:padding="6dp"

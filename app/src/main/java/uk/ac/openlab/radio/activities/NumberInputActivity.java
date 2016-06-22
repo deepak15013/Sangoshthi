@@ -167,16 +167,18 @@ public class NumberInputActivity extends AppCompatActivity {
 
 
 
-        textView = (TextView) findViewById(R.id.title);
+        textView = (TextView) findViewById(R.id.tv_title_string);
         toolbarItemView = (ChecklistItemView) findViewById(R.id.toolbar_item);
 
 
         Bundle extras = getIntent().getExtras();
+
         if (extras != null) {
 
             String msg = getString(extras.getInt(EXTRA_TEXT, R.string.number_input_enter_guest_number));
             int modeID = extras.getInt(EXTRA_MODE, InputMode.ADD_GUEST.ordinal());
             textView.setText(msg);
+
             mode = InputMode.values()[modeID];
             String title = extras.getString(MainActivity.EXTRA_TITLE_ITEM_TEXT, null);
             int icon = extras.getInt(MainActivity.EXTRA_TITLE_ITEM_ICON);

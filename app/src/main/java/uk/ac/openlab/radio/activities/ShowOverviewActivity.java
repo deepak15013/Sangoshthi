@@ -510,8 +510,11 @@ public class ShowOverviewActivity extends AppCompatActivity {
                     e.putBoolean("firstStart", true);
                     e.apply();
 
-                    android.os.Process.killProcess(android.os.Process.myPid());
-                    System.exit(1);
+                    Intent intent = new Intent(ShowOverviewActivity.this, MainActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    intent.putExtra("EXIT",true);
+                    startActivity(intent);
+                    finish();
 
                     //showRunning = false;
                 }
