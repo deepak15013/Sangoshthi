@@ -20,12 +20,14 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.i18n.phonenumbers.NumberParseException;
 import com.google.i18n.phonenumbers.PhoneNumberUtil;
@@ -76,34 +78,7 @@ public class NumberInputActivity extends AppCompatActivity {
     RadioButton rbRoleCategory;
 
     LinearLayout llRoleCategory;
-
-    /*private final MessageListenerHandler messageHandler = new MessageListenerHandler(
-            new IMessageListener() {
-                @Override
-                public void success() {
-
-                }
-
-                @Override
-                public void fail() {
-
-                }
-
-                @Override
-                public void error() {
-
-                }
-
-                @Override
-                public void message(String message) {
-
-                }
-
-            },
-            GlobalUtils.PAYLOAD_KEY);*/
-
-
-
+    Button btnAddNumber;
 
     public enum InputMode {
         ADD_LISTENER,
@@ -131,7 +106,9 @@ public class NumberInputActivity extends AppCompatActivity {
 
         localeSpinner = (Spinner) findViewById(R.id.locale);
 
-         showRadio = getIntent().getBooleanExtra("RADIO",true);
+        showRadio = getIntent().getBooleanExtra("RADIO",true);
+
+        btnAddNumber = (Button) findViewById(R.id.btn_add_number);
 
         if(!showRadio) {
             llRoleCategory.setVisibility(View.GONE);
@@ -140,28 +117,34 @@ public class NumberInputActivity extends AppCompatActivity {
         editText = (EditText) findViewById(R.id.number_input);
         editText.requestFocus();
 
-        editText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+        btnAddNumber.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(isValid()){
+                    handleInput();
+
+                    editText.setText("");
+
+
+                }
+                else{
+                    //todo handle the null or invalid input
+                    editText.setError(getString(isPin()?R.string.error_invalid_pin:R.string.error_invalid_number));
+                    editText.requestFocus();
+                }
+            }
+        });
+
+        /*editText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
                     //todo validate number
-                    if(isValid()){
-                        handleInput();
-                        Intent i = new Intent();
-                        i.putExtra(EXTRA_RESULT_VALUE,phoneNumber.getCountryCode()+""+phoneNumber.getNationalNumber());
-                        setResult(Activity.RESULT_OK, i);
-                        finish();
 
-                    }
-                    else{
-                        //todo handle the null or invalid input
-                        editText.setError(getString(isPin()?R.string.error_invalid_pin:R.string.error_invalid_number));
-                        editText.requestFocus();
-                    }
                 }
                 return false;
             }
-        });
+        });*/
 
 
 
@@ -338,12 +321,11 @@ public class NumberInputActivity extends AppCompatActivity {
             roleCategory = "PRESENTER";
         }
 
-
-
         FreeSwitchApi.shared().addListener(new IMessageListener() {
             @Override
             public void success() {
                 Log.v("tag", "listener added successfully");
+                Toast.makeText(NumberInputActivity.this, "Number added successfully", Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -361,6 +343,13 @@ public class NumberInputActivity extends AppCompatActivity {
                 Log.v("tag", "message: "+message);
             }
         }, String.valueOf(phoneNumber.getCountryCode()), String.valueOf(phoneNumber.getNationalNumber()), role.name(), roleCategory);
+    }
 
+    @Override
+    public void onBackPressed() {
+        Intent i = new Intent();
+        i.putExtra(EXTRA_RESULT_VALUE,phoneNumber.getCountryCode()+""+phoneNumber.getNationalNumber());
+        setResult(Activity.RESULT_OK, i);
+        finish();
     }
 }
