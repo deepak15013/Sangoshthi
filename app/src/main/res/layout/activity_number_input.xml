@@ -75,12 +75,4 @@
 
     </LinearLayout>
 
-    <Button
-        android:id="@+id/btn_add_number"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:text="Add"
-        android:layout_gravity="center"
-        android:layout_marginTop="20dp"/>
-
 </LinearLayout>
