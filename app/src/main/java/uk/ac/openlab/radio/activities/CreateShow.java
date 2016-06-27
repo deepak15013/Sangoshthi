@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TimePicker;
@@ -31,6 +32,7 @@ public class CreateShow extends AppCompatActivity {
 
     private static EditText editText;
     private static EditText etTime;
+    private CheckBox cbMockShow;
 
     private DatePicker datePicker;
     private int year, month, day, hour, minute;
@@ -57,6 +59,7 @@ public class CreateShow extends AppCompatActivity {
 
         editText = (EditText) findViewById(R.id.editText);
         etTime = (EditText) findViewById(R.id.et_time);
+        cbMockShow = (CheckBox) findViewById(R.id.cb_mock_show);
 
         calendar = Calendar.getInstance();
         year = calendar.get(Calendar.YEAR);
@@ -104,6 +107,14 @@ public class CreateShow extends AppCompatActivity {
         MessageHelper.shared().init(getApplicationContext());
         CloudStudioApi.shared().init(getApplicationContext());
         FreeSwitchApi.shared().init(getApplicationContext());
+
+        String category;
+        if(cbMockShow.isChecked()) {
+            category = "mock";
+        }
+        else {
+            category = "real";
+        }
 
         FreeSwitchApi.shared().createHost(new IMessageListener() {
             @Override
@@ -167,7 +178,7 @@ public class CreateShow extends AppCompatActivity {
 
                 }
             }
-        }, editText.getText().toString(), etTime.getText().toString());
+        }, editText.getText().toString(), etTime.getText().toString(), category);
 
     }
 

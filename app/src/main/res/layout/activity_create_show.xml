@@ -62,6 +62,16 @@
 
     </LinearLayout>
 
+    <CheckBox
+        android:id="@+id/cb_mock_show"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Mock Show"
+        android:textStyle="bold"
+        android:layout_marginTop="30dp"
+        android:layout_gravity="center"
+        android:gravity="center"/>
+
     <Button
         android:id="@+id/btn_create"
         android:layout_width="250dp"

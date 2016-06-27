@@ -59,8 +59,8 @@ public class FreeSwitchApi {
        sendMessage(callback,MessageHelper.shared().startPrep());
     }
 
-    public void createShow(IMessageListener callback, String date, String time) {
-        sendMessage(callback, MessageHelper.shared().createShow(date, time));
+    public void createShow(IMessageListener callback, String date, String time, String category) {
+        sendMessage(callback, MessageHelper.shared().createShow(date, time, category));
     }
 
     public void addListener(IMessageListener callback, String locale, String phone, String role, String roleCategory) {
@@ -199,6 +199,10 @@ public class FreeSwitchApi {
      */
     public void showInfo(IMessageListener callback){
         sendMessage(callback, MessageHelper.shared().showInfo());
+    }
+
+    public void flushCallers(IMessageListener callback) {
+        sendMessage(callback, MessageHelper.shared().flushCallers());
     }
 
     /**

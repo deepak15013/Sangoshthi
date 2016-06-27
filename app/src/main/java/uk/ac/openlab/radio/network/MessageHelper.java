@@ -35,6 +35,7 @@ public class MessageHelper {
     private final String FS_SHOW_LISTENERS = "show_listeners";
     private final String FS_END_SHOW = "end_show";
     private final String FS_CREATE_TRAILER = "create_trailer";
+    private final String FS_FLUSH_CALLERS = "flush_callers";
 
     private final String FS_DELETE_LISTENER = "del_listeners";
     private final String FS_DELETE_ALL = "del_all";
@@ -99,8 +100,8 @@ public class MessageHelper {
         return String.format("{\"cmd\":\"%s\" }",FS_GET_SHOW_ID);
     }
 
-    public String createShow(String date, String time) {
-        String create = String.format("{\"cmd\":\"%s\", \"date\" : \"%s\", \"time\" : \"%s\"}", FS_CREATE_SHOW, date, time);
+    public String createShow(String date, String time, String category) {
+        String create = String.format("{\"cmd\":\"%s\", \"date\" : \"%s\", \"time\" : \"%s\", \"category\" : \"%s\"}", FS_CREATE_SHOW, date, time, category);
         Log.v("Create Show String: ", create);
         return create;
     }
@@ -174,6 +175,10 @@ public class MessageHelper {
 
     public String showInfo(){
         return String.format("{\"cmd\":\"%s\", \"studio\" : \"%s\", \"session\" : \"%s\" }", FS_CMD_SHOW_INFO,this.studio_id, this.session_id);
+    }
+
+    public String flushCallers() {
+        return String.format("{\"cmd\":\"%s\", \"studio\" : \"%s\"}", FS_FLUSH_CALLERS, this.studio_id);
     }
 
 

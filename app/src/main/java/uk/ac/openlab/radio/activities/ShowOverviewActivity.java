@@ -17,6 +17,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Chronometer;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -63,6 +64,8 @@ public class ShowOverviewActivity extends AppCompatActivity {
 
     Button startStopButton;
     Chronometer chronometer;
+
+    ImageButton ibFlush;
 
     public static RecyclerView callerListRecyclerView;
 
@@ -115,6 +118,7 @@ public class ShowOverviewActivity extends AppCompatActivity {
         btnStartQuiz = (Button) findViewById(R.id.btn_start_quiz);
         chronoQuizTimer = (Chronometer) findViewById(R.id.chrono_quiz_timer);
         llShowTimer = (LinearLayout) findViewById(R.id.ll_show_timer);
+        ibFlush = (ImageButton) findViewById(R.id.ib_flush);
 
         callerListRecyclerView = (RecyclerView) findViewById(R.id.callerList);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 2);
@@ -127,6 +131,39 @@ public class ShowOverviewActivity extends AppCompatActivity {
         callerListRecyclerView.setAdapter(callerListAdapter);
 
         tvTotalCallers = (TextView) findViewById(R.id.tv_total_callers);
+
+        ibFlush.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FreeSwitchApi.shared().flushCallers(new IMessageListener() {
+                    @Override
+                    public void success() {
+                        callersArrayList.clear();
+                        callerListRecyclerView.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                callerListAdapter.notifyDataSetChanged();
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void fail() {
+
+                    }
+
+                    @Override
+                    public void error() {
+
+                    }
+
+                    @Override
+                    public void message(String message) {
+
+                    }
+                });
+            }
+        });
 
         //mVisualizerView = (VisualizerView) findViewById(R.id.myvisualizerview);
 
@@ -371,6 +408,7 @@ public class ShowOverviewActivity extends AppCompatActivity {
             if(callers.getCallers() != null) {
                 if(callersArrayList != null) {
                     callersArrayList.clear();
+
                     callersArrayList.addAll(callers.getCallers());
 
                     callerListRecyclerView.post(new Runnable() {
