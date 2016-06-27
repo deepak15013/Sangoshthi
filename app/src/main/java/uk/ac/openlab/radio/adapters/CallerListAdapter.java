@@ -1,6 +1,8 @@
 package uk.ac.openlab.radio.adapters;
 
+import android.graphics.Color;
 import android.os.SystemClock;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -34,6 +36,7 @@ public class CallerListAdapter extends RecyclerView.Adapter<CallerListAdapter.Vi
         ImageButton ibMuteUnmute;
         ImageButton ibVote;
         Chronometer cmTalk;
+        CardView cardViewItem;
 
         public ViewHolder(View v) {
             super(v);
@@ -42,6 +45,8 @@ public class CallerListAdapter extends RecyclerView.Adapter<CallerListAdapter.Vi
 
             ibVote = (ImageButton) v.findViewById(R.id.ib_vote);
             cmTalk = (Chronometer) v.findViewById(R.id.cm_talk);
+
+            cardViewItem = (CardView) v.findViewById(R.id.card_view_item);
 
         }
     }
@@ -75,6 +80,10 @@ public class CallerListAdapter extends RecyclerView.Adapter<CallerListAdapter.Vi
                     FreeSwitchApi.shared().setCallerMute(new IMessageListener() {
                         @Override
                         public void success() {
+
+                            int pinkColor = Color.parseColor("#e4bfef");
+                            holder.cardViewItem.setCardBackgroundColor(pinkColor);
+
                             holder.ibMuteUnmute.setImageResource(R.drawable.ic_phone_active);
                             callers.setMute_state(false);
 
@@ -104,6 +113,9 @@ public class CallerListAdapter extends RecyclerView.Adapter<CallerListAdapter.Vi
                     FreeSwitchApi.shared().setCallerMute(new IMessageListener() {
                         @Override
                         public void success() {
+
+                            int grayColor = Color.parseColor("#808080");
+                            holder.cardViewItem.setCardBackgroundColor(grayColor);
 
                             callers.setMute_state(true);
 

@@ -40,8 +40,10 @@ public class SplashActivity extends Activity {
                 //  Initialize SharedPreferences
                 SharedPreferences getPrefs = PreferenceManager
                         .getDefaultSharedPreferences(getBaseContext());
+
                 //  Create a new boolean and preference and set it to true
                 boolean isFirstStart = getPrefs.getBoolean("firstStart", true);
+
                 //  If the activity has never started before...
                 if (isFirstStart) {
 
@@ -97,7 +99,34 @@ public class SplashActivity extends Activity {
 
                 }else{
 
-                    startPreparation();
+                    FreeSwitchApi.shared().checkShowStatus(new IMessageListener() {
+                        @Override
+                        public void success() {
+                            Log.v("tag","success no show already registered");
+
+                            // start further process
+                            finish();
+                            Intent i = new Intent(SplashActivity.this, SetupActivity.class);
+                            i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            i.putExtra("STATUS","insert");
+                            startActivity(i);
+                        }
+
+                        @Override
+                        public void fail() {
+                            startPreparation();
+                        }
+
+                        @Override
+                        public void error() {
+
+                        }
+
+                        @Override
+                        public void message(String message) {
+
+                        }
+                    });
                 }
 
 

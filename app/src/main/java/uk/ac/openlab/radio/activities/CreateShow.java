@@ -165,18 +165,16 @@ public class CreateShow extends AppCompatActivity {
             @Override
             public void message(String message) {
                 Log.v("tag", "message "+message);
-                if(message.contains("show_")) {
 
-                    GlobalUtils.shared().setStudioID(message);
+                GlobalUtils.shared().setStudioID(message);
 
-                    SharedPreferences.Editor e = PreferenceManager.getDefaultSharedPreferences(getBaseContext()).edit();
-                    e.putBoolean("firstStart", false);
-                    e.apply();
-                    finish();
+                SharedPreferences.Editor e = PreferenceManager.getDefaultSharedPreferences(getBaseContext()).edit();
+                e.putBoolean("firstStart", false);
+                e.apply();
+                finish();
 
-                    startActivity(intent);
+                startActivity(intent);
 
-                }
             }
         }, editText.getText().toString(), etTime.getText().toString(), category);
 

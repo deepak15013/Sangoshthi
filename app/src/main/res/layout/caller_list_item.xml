@@ -7,7 +7,6 @@
     android:layout_margin="8dp"
     app:cardCornerRadius="5dp"
     app:contentPadding="5dp"
-    app:cardBackgroundColor="#e4bfef"
     app:cardElevation="4dp"
     app:cardMaxElevation="6dp">
 
@@ -34,7 +33,7 @@
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:src="@drawable/ic_phone_muted"
-                android:background="#e4bfef"/>
+                android:background="@color/transparent"/>
 
         </LinearLayout>
 
@@ -51,8 +50,8 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:src="@drawable/ic_vote_icon"
-            android:background="#e4bfef"
-            android:layout_gravity="bottom"/>
+            android:layout_gravity="bottom"
+            android:background="@color/transparent"/>
 
 
 
