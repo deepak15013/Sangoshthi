@@ -1,5 +1,6 @@
 package uk.ac.openlab.radio.activities;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -100,6 +101,9 @@ public class ShowOverviewActivity extends AppCompatActivity {
 
     private MediaPlayer mMediaPlayer;
     private Visualizer mVisualizer;
+
+    public static boolean callReceived = false;
+    public static AlertDialog alertDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -347,6 +351,17 @@ public class ShowOverviewActivity extends AppCompatActivity {
                 }
             });
         }
+
+        if(!callReceived) {
+            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+            alertDialogBuilder.setMessage("Please wait for the call");
+            alertDialogBuilder.setCancelable(false);
+            alertDialog = alertDialogBuilder.create();
+            alertDialog.show();
+            alertDialog.setCancelable(false);
+
+        }
+
     }
 
     @Override
