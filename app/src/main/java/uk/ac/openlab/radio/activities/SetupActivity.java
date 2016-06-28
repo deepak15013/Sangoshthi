@@ -103,8 +103,7 @@ public class SetupActivity extends AppIntro2 implements NumberFragment.OnFragmen
                         public void message(String message) {
                             Log.v("tag","getShowId message");
                             Log.v("tag", "message: "+message);
-                            if(message.contains("show_")) {
-
+                            if(message != null) {
 
                                 Boolean updated = GlobalUtils.shared().setStudioID(message);
                                 if(updated) {
