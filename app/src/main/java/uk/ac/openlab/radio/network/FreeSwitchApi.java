@@ -71,6 +71,10 @@ public class FreeSwitchApi {
         sendMessage(callback, MessageHelper.shared().showListeners());
     }
 
+    public void showGuests(IMessageListener callback) {
+        sendMessage(callback, MessageHelper.shared().showGuests());
+    }
+
     public void createHost(IMessageListener callback, String status) {
         sendMessage(callback, MessageHelper.shared().createHost(status));
     }

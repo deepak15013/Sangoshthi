@@ -3,20 +3,22 @@
     package="uk.ac.openlab.radio">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <!--<uses-permission android:name="android.permission.RECORD_AUDIO" />
-    <uses-permission android:name="android.permission.CALL_PHONE" />-->
+    <!--
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <!--<uses-permission android:name="android.permission.WRITE_CONTACTS" />-->
+    <!-- <uses-permission android:name="android.permission.WRITE_CONTACTS" /> -->
 
-    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
-    <uses-permission android:name="android.permission.PROCESS_OUTGOING_CALLS"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.PROCESS_OUTGOING_CALLS" />
 
-
-    <!--<uses-feature
+    <!--
+    <uses-feature
         android:name="android.hardware.microphone"
-        android:required="true" />-->
-
+        android:required="true" />
+    -->
     <application
         android:name=".AgileRadioApplication"
         android:allowBackup="true"
@@ -64,14 +66,17 @@
             android:screenOrientation="portrait" />
 
         <!-- SERVICES / BROADCAST RECIEVERS -->
-       <!-- <receiver android:name=".services.FreeSwitchCallReceiver">
+        <!--
+        <receiver android:name=".services.FreeSwitchCallReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.PHONE_STATE" />
             </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.NEW_OUTGOING_CALL" />
             </intent-filter>
-        </receiver>-->
+        </receiver>
+        -->
+
 
         <!-- New Activity added later for creating new show -->
         <activity
@@ -80,14 +85,14 @@
         <activity
             android:name=".activities.ShowListenersActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.SpreadTheWordActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.ShowResultsActivity"
+            android:screenOrientation="portrait" />
 
-        <activity android:name=".activities.SpreadTheWordActivity"
-            android:screenOrientation="portrait"/>
-
-        <activity android:name=".activities.ShowResultsActivity"
-            android:screenOrientation="portrait"/>
-
-        <receiver android:name=".phonehandler.CallReceiver" >
+        <receiver android:name=".phonehandler.CallReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.PHONE_STATE" />
             </intent-filter>
@@ -96,6 +101,7 @@
             </intent-filter>
         </receiver>
 
+        <activity android:name=".activities.ShowGuestsActivity"></activity>
     </application>
 
 </manifest>

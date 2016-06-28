@@ -36,6 +36,7 @@ public class MessageHelper {
     private final String FS_END_SHOW = "end_show";
     private final String FS_CREATE_TRAILER = "create_trailer";
     private final String FS_FLUSH_CALLERS = "flush_callers";
+    private final String FS_SHOW_GUESTS = "show_guests";
 
     private final String FS_DELETE_LISTENER = "del_listeners";
     private final String FS_DELETE_ALL = "del_all";
@@ -116,6 +117,10 @@ public class MessageHelper {
 
     public String showListeners() {
         return String.format("{\"cmd\":\"%s\", \"studio\" : \"%s\"}",FS_SHOW_LISTENERS, this.studio_id);
+    }
+
+    public String showGuests() {
+        return String.format("{\"cmd\":\"%s\", \"studio\" : \"%s\"}",FS_SHOW_GUESTS, this.studio_id);
     }
 
     public String startPrep(){

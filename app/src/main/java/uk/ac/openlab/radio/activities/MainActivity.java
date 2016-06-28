@@ -201,6 +201,8 @@ public class MainActivity extends AppCompatActivity implements IRecyclerViewItem
                 return editListenersTitle;
             case R.string.create_trailer_title:
                 return createTrailerTitle;
+            case R.string.edit_guest_title:
+                return editGuestTitle;
             default:
                 return this;
         }
@@ -298,7 +300,16 @@ public class MainActivity extends AppCompatActivity implements IRecyclerViewItem
 
                 // Add Guest
                 case 0:
-                    i = new Intent(MainActivity.this,NumberInputActivity.class);
+                    i = new Intent(MainActivity.this,MainActivity.class);
+                    i.putExtra(EXTRA_TITLES_ID,R.array.edit_guests_titles);
+                    i.putExtra(EXTRA_ICONS_ID, R.array.record_topics_icons);
+                    i.putExtra(EXTRA_PAGE_ID,R.string.edit_guest_title);
+                    i.putExtra(EXTRA_TITLE_ITEM_TEXT,item.getTitle());
+                    i.putExtra(EXTRA_TITLE_ITEM_ICON,item.getIcon());
+                    i.putExtra(EXTRA_TITLE_ITEM_STATE,item.isComplete());
+                    options = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this, new Pair<View, String>(view, getString(R.string.transition_name_listitem)));
+                    ActivityCompat.startActivity(MainActivity.this, i, options.toBundle());
+                    /*i = new Intent(MainActivity.this,NumberInputActivity.class);
                     i.putExtra(NumberInputActivity.EXTRA_TEXT,R.string.number_input_enter_guest_number);
                     i.putExtra(NumberInputActivity.EXTRA_MODE,NumberInputActivity.InputMode.ADD_GUEST.ordinal());
                     i.putExtra(EXTRA_TITLE_ITEM_TEXT,item.getTitle());
@@ -306,7 +317,7 @@ public class MainActivity extends AppCompatActivity implements IRecyclerViewItem
                     i.putExtra(EXTRA_TITLE_ITEM_STATE,item.isComplete());
                     i.putExtra("RADIO",false);
                     options = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this, new Pair<View, String>(view, getString(R.string.transition_name_listitem)));
-                    ActivityCompat.startActivityForResult(MainActivity.this,i,NumberInputActivity.REQUEST_CODE,options.toBundle());
+                    ActivityCompat.startActivityForResult(MainActivity.this,i,NumberInputActivity.REQUEST_CODE,options.toBundle());*/
                     break;
 
                 //Edit Listeners
@@ -485,6 +496,41 @@ public class MainActivity extends AppCompatActivity implements IRecyclerViewItem
             }
         }
     };
+
+    private IRecyclerViewItemClickedListener editGuestTitle = new IRecyclerViewItemClickedListener() {
+        @Override
+        public void recyclerViewItemClicked(View view, int position) {
+            Intent i = null;
+            selectedIndex = position;
+
+            CheckListItem item = adapter.getItem(position);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+                view.setTransitionName(getString(R.string.transition_name_listitem));
+
+            switch (position) {
+                case 0:
+                    Toast.makeText(MainActivity.this, "Add guest", Toast.LENGTH_SHORT).show();
+                    i = new Intent(MainActivity.this,NumberInputActivity.class);
+                    i.putExtra(NumberInputActivity.EXTRA_TEXT,R.string.number_input_enter_guest_number);
+                    i.putExtra(NumberInputActivity.EXTRA_MODE,NumberInputActivity.InputMode.ADD_GUEST.ordinal());
+                    i.putExtra(EXTRA_TITLE_ITEM_TEXT,item.getTitle());
+                    i.putExtra(EXTRA_TITLE_ITEM_ICON,item.getIcon());
+                    i.putExtra(EXTRA_TITLE_ITEM_STATE,item.isComplete());
+                    options = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this, new Pair<View, String>(view, getString(R.string.transition_name_listitem)));
+                    ActivityCompat.startActivityForResult(MainActivity.this,i,NumberInputActivity.REQUEST_CODE,options.toBundle());
+                    break;
+
+                case 1:
+                    Toast.makeText(MainActivity.this, "Show Guests", Toast.LENGTH_SHORT).show();
+
+                    i = new Intent(MainActivity.this, ShowGuestsActivity.class);
+                    startActivity(i);
+                    break;
+
+            }
+        }
+    };
+
 
     @Override
     public void onBackPressed() {

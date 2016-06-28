@@ -112,7 +112,7 @@
     <string name="prepare_show_title">Prepare Show</string>
 
     <string-array name="prepare_show_titles">
-        <item>Add Guest</item>
+        <item>Edit Guests</item>
         <item>Edit Listeners</item>
         <item>Create Trailers</item>
     </string-array>
@@ -132,6 +132,13 @@
     <string-array name="promote_show_titles">
         <item>Set Show: Date/Time</item>
         <item>Record Trailer</item>
+    </string-array>
+
+    <string name="edit_guest_title">Edit Guests</string>
+
+    <string-array name="edit_guests_titles">
+        <item>Edit Guests</item>
+        <item>Show Guests</item>
     </string-array>
 
     <!-- Edit Listeners Screen -->
@@ -211,7 +218,7 @@
     <string name="prompt_num_of_option">Num of options</string>
     <string name="prompt_correct_option">Correct option</string>
 
-    <string-array name="quiz_option_array" >
+    <string-array name="quiz_option_array">
         <item>1</item>
         <item>2</item>
         <item>3</item>

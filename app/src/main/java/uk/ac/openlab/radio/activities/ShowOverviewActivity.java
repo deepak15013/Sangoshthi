@@ -375,13 +375,17 @@ public class ShowOverviewActivity extends AppCompatActivity {
             public void run() {
                 int currentTime;
                 while(startSeekBar) {
+
                     currentTime = (int) (SystemClock.elapsedRealtime() - chronometer.getBase());
                     Log.v("dks","timeElaspsed: "+currentTime);
                     if(currentTime > 90) {
-                        sbTimeline.setMax(sbTimeline.getMax()*2);
+                        Log.v("dks","max changed");
+                        sbTimeline.setMax((int) sbTimeline.getMax()*2);
                     }
 
                     sbTimeline.setProgress(currentTime);
+                    Log.v("dks","max: "+sbTimeline.getMax()+" current val: "+sbTimeline.getProgress());
+
                     try {
                         Thread.sleep(1000);
                     } catch (InterruptedException e) {
