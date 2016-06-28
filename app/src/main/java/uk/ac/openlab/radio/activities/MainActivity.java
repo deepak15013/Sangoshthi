@@ -11,6 +11,7 @@
 
 package uk.ac.openlab.radio.activities;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -64,6 +65,9 @@ public class MainActivity extends AppCompatActivity implements IRecyclerViewItem
     private CheckListItem toolbarItem;
 
     private int pageID = R.string.main_menu_title;
+
+    public static AlertDialog alertDialogRecordTrailer;
+    public static AlertDialog alertDialogPlayTrailer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -256,8 +260,29 @@ public class MainActivity extends AppCompatActivity implements IRecyclerViewItem
                 case 1:
                     //spread the word
 
-                    i = new Intent(MainActivity.this, SpreadTheWordActivity.class);
-                    startActivity(i);
+                    FreeSwitchApi.shared().checkTrailerStatus(new IMessageListener() {
+                        @Override
+                        public void success() {
+                            Intent i;
+                            i = new Intent(MainActivity.this, SpreadTheWordActivity.class);
+                            startActivity(i);
+                        }
+
+                        @Override
+                        public void fail() {
+                            Toast.makeText(MainActivity.this, "Please create a trailer first", Toast.LENGTH_SHORT).show();
+                        }
+
+                        @Override
+                        public void error() {
+
+                        }
+
+                        @Override
+                        public void message(String message) {
+
+                        }
+                    });
 
                     /*i = new Intent(MainActivity.this,NumberInputActivity.class);
                     i.putExtra(NumberInputActivity.EXTRA_TEXT,R.string.number_input_enter_listener_number);
@@ -459,11 +484,21 @@ public class MainActivity extends AppCompatActivity implements IRecyclerViewItem
                 view.setTransitionName(getString(R.string.transition_name_listitem));
 
             switch (position) {
+
+                //create trailer
                 case 0:
                     FreeSwitchApi.shared().createTrailer(new IMessageListener() {
                         @Override
                         public void success() {
                             Toast.makeText(MainActivity.this, "Request processing", Toast.LENGTH_SHORT).show();
+
+                            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(MainActivity.this);
+                            alertDialogBuilder.setMessage("Please wait for the call");
+                            alertDialogBuilder.setCancelable(false);
+                            alertDialogRecordTrailer = alertDialogBuilder.create();
+                            alertDialogRecordTrailer.show();
+                            alertDialogRecordTrailer.setCancelable(false);
+
                         }
 
                         @Override
@@ -484,14 +519,64 @@ public class MainActivity extends AppCompatActivity implements IRecyclerViewItem
                     });
                     break;
 
+                //play trailer
                 case 1:
-                    // TODO: Play trailer request
-                    Toast.makeText(MainActivity.this, "coming soon", Toast.LENGTH_SHORT).show();
+
+                    FreeSwitchApi.shared().playTrailer(new IMessageListener() {
+                        @Override
+                        public void success() {
+                            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(MainActivity.this);
+                            alertDialogBuilder.setMessage("Please wait for the call to listen trailer");
+                            alertDialogBuilder.setCancelable(false);
+                            alertDialogPlayTrailer = alertDialogBuilder.create();
+                            alertDialogPlayTrailer.show();
+                            alertDialogPlayTrailer.setCancelable(false);
+
+                        }
+
+                        @Override
+                        public void fail() {
+
+                        }
+
+                        @Override
+                        public void error() {
+
+                        }
+
+                        @Override
+                        public void message(String message) {
+
+                        }
+                    });
+
                     break;
 
+                //delete trailer
                 case 2:
-                    // TODO: Delete trailer request
-                    Toast.makeText(MainActivity.this, "coming soon", Toast.LENGTH_SHORT).show();
+
+                    FreeSwitchApi.shared().deleteTrailer(new IMessageListener() {
+                        @Override
+                        public void success() {
+
+                        }
+
+                        @Override
+                        public void fail() {
+
+                        }
+
+                        @Override
+                        public void error() {
+
+                        }
+
+                        @Override
+                        public void message(String message) {
+
+                        }
+                    });
+
                     break;
             }
         }
@@ -509,18 +594,27 @@ public class MainActivity extends AppCompatActivity implements IRecyclerViewItem
 
             switch (position) {
                 case 0:
+
+                    // Add guest
+
                     Toast.makeText(MainActivity.this, "Add guest", Toast.LENGTH_SHORT).show();
+
                     i = new Intent(MainActivity.this,NumberInputActivity.class);
                     i.putExtra(NumberInputActivity.EXTRA_TEXT,R.string.number_input_enter_guest_number);
                     i.putExtra(NumberInputActivity.EXTRA_MODE,NumberInputActivity.InputMode.ADD_GUEST.ordinal());
                     i.putExtra(EXTRA_TITLE_ITEM_TEXT,item.getTitle());
                     i.putExtra(EXTRA_TITLE_ITEM_ICON,item.getIcon());
                     i.putExtra(EXTRA_TITLE_ITEM_STATE,item.isComplete());
+                    i.putExtra("RADIO",false);
                     options = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this, new Pair<View, String>(view, getString(R.string.transition_name_listitem)));
                     ActivityCompat.startActivityForResult(MainActivity.this,i,NumberInputActivity.REQUEST_CODE,options.toBundle());
+
                     break;
 
                 case 1:
+
+                    // show guests
+
                     Toast.makeText(MainActivity.this, "Show Guests", Toast.LENGTH_SHORT).show();
 
                     i = new Intent(MainActivity.this, ShowGuestsActivity.class);

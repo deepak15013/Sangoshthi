@@ -83,6 +83,14 @@ public class FreeSwitchApi {
         sendMessage(callback, MessageHelper.shared().createTrailer());
     }
 
+    public void playTrailer(IMessageListener callback) {
+        sendMessage(callback, MessageHelper.shared().playTrailer());
+    }
+
+    public void deleteTrailer(IMessageListener callback) {
+        sendMessage(callback, MessageHelper.shared().deleteTrailer());
+    }
+
     public void deleteListener(IMessageListener callback, String phone) {
         sendMessage(callback, MessageHelper.shared().deleteListener(phone));
     }
@@ -93,6 +101,10 @@ public class FreeSwitchApi {
 
     public void spreadWord(IMessageListener callback, String date, String time, String listener_category) {
         sendMessage(callback, MessageHelper.shared().spreadWord(date, time, listener_category));
+    }
+
+    public void checkTrailerStatus(IMessageListener callback) {
+        sendMessage(callback, MessageHelper.shared().checkTrailerStatus());
     }
 
     public void startQuiz(IMessageListener callback, String quizId, String startTime) {

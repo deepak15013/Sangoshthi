@@ -6,6 +6,7 @@ import android.util.Log;
 
 import java.util.Date;
 
+import uk.ac.openlab.radio.activities.MainActivity;
 import uk.ac.openlab.radio.activities.ShowOverviewActivity;
 
 /**
@@ -40,6 +41,17 @@ public class CallReceiver extends PhoneCallReceiver {
                     if(ShowOverviewActivity.alertDialog.isShowing()) {
                         ShowOverviewActivity.callReceived = true;
                         ShowOverviewActivity.alertDialog.dismiss();
+                    }
+                }
+                if(MainActivity.alertDialogRecordTrailer != null) {
+                    if(MainActivity.alertDialogRecordTrailer.isShowing()) {
+                        MainActivity.alertDialogRecordTrailer.dismiss();
+                    }
+                }
+
+                if(MainActivity.alertDialogPlayTrailer != null) {
+                    if(MainActivity.alertDialogPlayTrailer.isShowing()) {
+                        MainActivity.alertDialogPlayTrailer.dismiss();
                     }
                 }
             }

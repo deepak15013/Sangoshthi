@@ -35,12 +35,15 @@ public class MessageHelper {
     private final String FS_SHOW_LISTENERS = "show_listeners";
     private final String FS_END_SHOW = "end_show";
     private final String FS_CREATE_TRAILER = "create_trailer";
+    private final String FS_PLAY_TRAILER = "play_trailer";
+    private final String FS_DELETE_TRAILER = "delete_trailer";
     private final String FS_FLUSH_CALLERS = "flush_callers";
     private final String FS_SHOW_GUESTS = "show_guests";
 
     private final String FS_DELETE_LISTENER = "del_listeners";
     private final String FS_DELETE_ALL = "del_all";
     private final String FS_SPREAD_WORD = "spread_word";
+    private final String FS_CHECK_TRAILER_STATUS = "check_trailer_status";
     private final String FS_START_QUIZ = "start_quiz";
     private final String FS_STOP_QUIZ = "stop_quiz";
     private final String FS_SHOW_RESULTS = "show_results";
@@ -128,7 +131,15 @@ public class MessageHelper {
     }
 
     public String createTrailer() {
-        return String.format("{\"cmd\":\"%s\", \"studio\" : \"%s\"}", FS_CREATE_TRAILER,this.studio_id);
+        return String.format("{\"cmd\":\"%s\", \"studio\" : \"%s\"}", FS_CREATE_TRAILER, this.studio_id);
+    }
+
+    public String playTrailer() {
+        return String.format("{\"cmd\":\"%s\", \"studio\" : \"%s\"}", FS_PLAY_TRAILER, this.studio_id);
+    }
+
+    public String deleteTrailer() {
+        return String.format("{\"cmd\":\"%s\", \"studio\" : \"%s\"}", FS_DELETE_TRAILER, this.studio_id);
     }
 
     public String startRecord(int duration){
@@ -205,6 +216,10 @@ public class MessageHelper {
 
     public String spreadWord(String date, String time, String listenerCategory) {
         return String.format("{\"cmd\":\"%s\", \"studio\" : \"%s\", \"date\": \"%s\", \"time\" : \"%s\", \"listener_category\" : \"%s\" }", FS_SPREAD_WORD, this.studio_id, date, time, listenerCategory);
+    }
+
+    public String checkTrailerStatus() {
+        return String.format("{\"cmd\":\"%s\", \"studio\" : \"%s\"}", FS_CHECK_TRAILER_STATUS, this.studio_id);
     }
 
     public String startQuiz(String quizId, String startTime) {
