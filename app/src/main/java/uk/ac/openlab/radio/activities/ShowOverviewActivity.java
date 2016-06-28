@@ -1,11 +1,8 @@
 package uk.ac.openlab.radio.activities;
 
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
-import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.audiofx.Visualizer;
 import android.os.Bundle;
@@ -15,25 +12,24 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.HorizontalBarChart;
-import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
-import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -74,7 +70,7 @@ public class ShowOverviewActivity extends AppCompatActivity {
     /*Button recordedMaterial;
     Button previousClips;*/
 
-//    CallerButton guest;
+    //    CallerButton guest;
     private RecyclerView mCallerRecyclerView;
     public static CallerAdapter mCallerAdapter;
     private RecyclerView.LayoutManager mCallerLayoutManager;
@@ -105,6 +101,10 @@ public class ShowOverviewActivity extends AppCompatActivity {
     public static boolean callReceived = false;
     public static AlertDialog alertDialog;
 
+    private SeekBar sbTimeline;
+    private volatile boolean startSeekBar = true;
+    private Thread chronometerThread;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -123,6 +123,14 @@ public class ShowOverviewActivity extends AppCompatActivity {
         chronoQuizTimer = (Chronometer) findViewById(R.id.chrono_quiz_timer);
         llShowTimer = (LinearLayout) findViewById(R.id.ll_show_timer);
         ibFlush = (ImageButton) findViewById(R.id.ib_flush);
+        sbTimeline = (SeekBar) findViewById(R.id.sb_timeline);
+        assert sbTimeline != null;
+        sbTimeline.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                return true;
+            }
+        });
 
         callerListRecyclerView = (RecyclerView) findViewById(R.id.callerList);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 2);
@@ -362,6 +370,26 @@ public class ShowOverviewActivity extends AppCompatActivity {
 
         }
 
+        chronometerThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                int currentTime;
+                while(startSeekBar) {
+                    currentTime = (int) (SystemClock.elapsedRealtime() - chronometer.getBase());
+                    Log.v("dks","timeElaspsed: "+currentTime);
+                    if(currentTime > 90) {
+                        sbTimeline.setMax(sbTimeline.getMax()*2);
+                    }
+
+                    sbTimeline.setProgress(currentTime);
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
     }
 
     @Override
@@ -525,6 +553,8 @@ public class ShowOverviewActivity extends AppCompatActivity {
 
                     chronometer.setBase(SystemClock.elapsedRealtime());
                     chronometer.start();
+                    startSeekBar = true;
+                    chronometerThread.start();
 
                     /*getChronometerValue();
                     showRunning = true;*/
@@ -558,6 +588,7 @@ public class ShowOverviewActivity extends AppCompatActivity {
                     Log.v("dks","show ended");
                     chronometer.stop();
                     startStopButton.setText("Show Done");
+                    startSeekBar = false;
 
                     SharedPreferences.Editor e = PreferenceManager.getDefaultSharedPreferences(getBaseContext()).edit();
                     e.putBoolean("firstStart", true);
@@ -588,6 +619,9 @@ public class ShowOverviewActivity extends AppCompatActivity {
                 }
             });
         }
+
+
+
     }
 
    /* public volatile boolean showRunning = true;

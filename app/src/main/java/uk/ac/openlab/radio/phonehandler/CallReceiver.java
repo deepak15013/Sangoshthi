@@ -22,14 +22,12 @@ public class CallReceiver extends PhoneCallReceiver {
 
     }
 
-
     @Override
     protected void onIncomingCallEnded(Context ctx, String number, Date start, Date end) {
         super.onIncomingCallEnded(ctx, number, start, end);
         Log.v("dks","call incoming ended: "+number+" date start: "+start + "date end: "+end);
 
     }
-
 
     @Override
     public void onCallStateChanged(Context context, int state, String number) {
@@ -38,8 +36,12 @@ public class CallReceiver extends PhoneCallReceiver {
         if(state == 2 && number != null) {
             if(number.contains("8860244278")) {
                 Log.v("dks","removing alertdialog");
-                ShowOverviewActivity.callReceived = true;
-                ShowOverviewActivity.alertDialog.dismiss();
+                if(ShowOverviewActivity.alertDialog != null) {
+                    if(ShowOverviewActivity.alertDialog.isShowing()) {
+                        ShowOverviewActivity.callReceived = true;
+                        ShowOverviewActivity.alertDialog.dismiss();
+                    }
+                }
             }
         }
     }
