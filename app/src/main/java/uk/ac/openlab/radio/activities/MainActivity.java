@@ -487,28 +487,28 @@ public class MainActivity extends AppCompatActivity implements IRecyclerViewItem
 
                 //create trailer
                 case 0:
+
+                    AlertDialog.Builder createTrailerAlertDialogBuilder = new AlertDialog.Builder(MainActivity.this);
+                    createTrailerAlertDialogBuilder.setMessage("Please wait for the call");
+                    createTrailerAlertDialogBuilder.setCancelable(false);
+                    alertDialogRecordTrailer = createTrailerAlertDialogBuilder.create();
+                    alertDialogRecordTrailer.show();
+                    alertDialogRecordTrailer.setCancelable(false);
+
                     FreeSwitchApi.shared().createTrailer(new IMessageListener() {
                         @Override
                         public void success() {
-                            Toast.makeText(MainActivity.this, "Request processing", Toast.LENGTH_SHORT).show();
-
-                            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(MainActivity.this);
-                            alertDialogBuilder.setMessage("Please wait for the call");
-                            alertDialogBuilder.setCancelable(false);
-                            alertDialogRecordTrailer = alertDialogBuilder.create();
-                            alertDialogRecordTrailer.show();
-                            alertDialogRecordTrailer.setCancelable(false);
 
                         }
 
                         @Override
                         public void fail() {
-                            Toast.makeText(MainActivity.this, "Something's wrong. Please try again later", Toast.LENGTH_SHORT).show();
+                            alertDialogRecordTrailer.dismiss();
                         }
 
                         @Override
                         public void error() {
-                            Toast.makeText(MainActivity.this, "Something's wrong. Please try again later", Toast.LENGTH_SHORT).show();
+                            alertDialogRecordTrailer.dismiss();
                         }
 
                         @Override
@@ -522,21 +522,24 @@ public class MainActivity extends AppCompatActivity implements IRecyclerViewItem
                 //play trailer
                 case 1:
 
+
+                    AlertDialog.Builder playTrailerAlertDialogBuilder = new AlertDialog.Builder(MainActivity.this);
+                    playTrailerAlertDialogBuilder.setMessage("Please wait for the call to listen trailer");
+                    playTrailerAlertDialogBuilder.setCancelable(false);
+                    alertDialogPlayTrailer = playTrailerAlertDialogBuilder.create();
+                    alertDialogPlayTrailer.show();
+                    alertDialogPlayTrailer.setCancelable(false);
+
                     FreeSwitchApi.shared().playTrailer(new IMessageListener() {
                         @Override
                         public void success() {
-                            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(MainActivity.this);
-                            alertDialogBuilder.setMessage("Please wait for the call to listen trailer");
-                            alertDialogBuilder.setCancelable(false);
-                            alertDialogPlayTrailer = alertDialogBuilder.create();
-                            alertDialogPlayTrailer.show();
-                            alertDialogPlayTrailer.setCancelable(false);
+
 
                         }
 
                         @Override
                         public void fail() {
-
+                            alertDialogPlayTrailer.dismiss();
                         }
 
                         @Override
@@ -558,7 +561,7 @@ public class MainActivity extends AppCompatActivity implements IRecyclerViewItem
                     FreeSwitchApi.shared().deleteTrailer(new IMessageListener() {
                         @Override
                         public void success() {
-
+                            Toast.makeText(MainActivity.this, "Trailer deleted", Toast.LENGTH_SHORT).show();
                         }
 
                         @Override
