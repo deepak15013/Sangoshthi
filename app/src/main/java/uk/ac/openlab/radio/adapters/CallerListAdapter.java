@@ -107,8 +107,7 @@ public class CallerListAdapter extends RecyclerView.Adapter<CallerListAdapter.Vi
 
                         }
                     }, callers.getUuid(),"false");
-                }
-                else {
+                } else {
 
                     FreeSwitchApi.shared().setCallerMute(new IMessageListener() {
                         @Override

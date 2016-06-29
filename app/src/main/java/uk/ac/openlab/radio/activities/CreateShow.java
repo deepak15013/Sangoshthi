@@ -5,10 +5,10 @@ import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.View;
@@ -34,12 +34,8 @@ public class CreateShow extends AppCompatActivity {
     private static EditText etTime;
     private CheckBox cbMockShow;
 
-    private DatePicker datePicker;
     private int year, month, day, hour, minute;
     private Calendar calendar;
-
-    FreeSwitchApi freeSwitchApi;
-    IMessageListener prepListener;
 
     String status;
 

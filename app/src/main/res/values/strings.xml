@@ -157,15 +157,6 @@
         <item>Delete Trailer</item>
     </string-array>
 
-
-    <!-- Record Topics Screen -->
-    <string name="record_topics_title">Record Topics</string>
-
-    <string-array name="record_topics_titles">
-        <item>Topic 1</item>
-        <item>Topic 2</item>
-    </string-array>
-
     <!-- Icons [don't need translation] -->
     <string-array name="record_topics_icons">
         <item>@drawable/ic_box</item>

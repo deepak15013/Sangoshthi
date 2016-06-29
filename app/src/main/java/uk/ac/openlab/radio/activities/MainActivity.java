@@ -54,7 +54,6 @@ public class MainActivity extends AppCompatActivity implements IRecyclerViewItem
     public static final String EXTRA_TITLE_ITEM_STATE = "EXTRA_TITLE_ITEM_STATE";
     private static final String EXTRA_TITLE_ITEM_ID = "EXTRA_TITLE_ITEM_ID";
 
-
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
     private CheckListAdapter adapter;
@@ -81,8 +80,6 @@ public class MainActivity extends AppCompatActivity implements IRecyclerViewItem
 
         MessageHelper.shared().init(getApplicationContext());
 
-        Log.d(TAG,"inside");
-
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbarItemView = (ChecklistItemView)toolbar.findViewById(R.id.toolbar_item);
         recyclerView = (RecyclerView)findViewById(R.id.checkListView);
@@ -92,8 +89,6 @@ public class MainActivity extends AppCompatActivity implements IRecyclerViewItem
             int titles = extras.getInt(EXTRA_TITLES_ID,R.array.main_menu_titles);
             int icons = extras.getInt(EXTRA_ICONS_ID,R.array.main_menu_icons);
             pageID = extras.getInt(EXTRA_PAGE_ID,R.string.main_menu_title);
-            Log.v("dks","pageId: "+pageID);
-            Log.v("dks","page: "+getString(pageID));
             String title = extras.getString(EXTRA_TITLE_ITEM_TEXT);
             boolean state = extras.getBoolean(EXTRA_TITLE_ITEM_STATE);
             int iconRes = extras.getInt(EXTRA_TITLE_ITEM_ICON);
@@ -103,7 +98,6 @@ public class MainActivity extends AppCompatActivity implements IRecyclerViewItem
                 toolbarItemView.setIcon(iconRes);
                 toolbarItemView.setChecked(state);
                 toolbarItemView.setEnabled(false);
-
             }
 
             adapter = RHDCheckLists.listFromXML(this,getListener(pageID),titles,icons);
@@ -135,7 +129,6 @@ public class MainActivity extends AppCompatActivity implements IRecyclerViewItem
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-//        getMenuInflater().inflate(R.menu.menu_show_overview,menu);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -155,7 +148,6 @@ public class MainActivity extends AppCompatActivity implements IRecyclerViewItem
         Toast.makeText(this,"Clicked: "+position,Toast.LENGTH_SHORT).show();
     }
 
-
     protected void setupUI(int id){
 
         View.OnClickListener buttonListener = new View.OnClickListener() {
@@ -170,9 +162,6 @@ public class MainActivity extends AppCompatActivity implements IRecyclerViewItem
                 button.setText(R.string.action_quit);
                 break;
             case R.string.prepare_show_title:
-                button.setText(R.string.action_finished);
-                break;
-            case R.string.record_topics_title:
                 button.setText(R.string.action_finished);
                 break;
             case R.string.edit_listeners_title:
@@ -199,8 +188,6 @@ public class MainActivity extends AppCompatActivity implements IRecyclerViewItem
                 return mainMenuListener;
             case R.string.prepare_show_title:
                 return prepareShowListener;
-            case R.string.record_topics_title:
-                return recordTopicsListener;
             case R.string.edit_listeners_title:
                 return editListenersTitle;
             case R.string.create_trailer_title:
@@ -209,27 +196,6 @@ public class MainActivity extends AppCompatActivity implements IRecyclerViewItem
                 return editGuestTitle;
             default:
                 return this;
-        }
-    }
-
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-//        if(requestCode == RESULT_OK){
-//            //mark the item as ticked.
-//           adapter.setState(selectedIndex,true);
-//        }
-
-        switch (requestCode){
-            case NumberInputActivity.REQUEST_CODE:
-                //todo store the number / deal with it
-                break;
-            case AudioRecorderActivity.REQUEST_CODE:
-                //todo store the audio recording? update the button to say ticked.
-
-                break;
         }
     }
 
@@ -243,16 +209,16 @@ public class MainActivity extends AppCompatActivity implements IRecyclerViewItem
                 view.setTransitionName(getString(R.string.transition_name_listitem));
 
             selectedIndex = position;
-            switch(position){
+            switch(position) {
                 case 0:
                     //prepare show
-                    i = new Intent(MainActivity.this,MainActivity.class);
-                    i.putExtra(EXTRA_TITLES_ID,R.array.prepare_show_titles);
-                    i.putExtra(EXTRA_ICONS_ID,R.array.prepare_show_icons);
-                    i.putExtra(EXTRA_PAGE_ID,R.string.prepare_show_title);
-                    i.putExtra(EXTRA_TITLE_ITEM_TEXT,item.getTitle());
-                    i.putExtra(EXTRA_TITLE_ITEM_ICON,item.getIcon());
-                    i.putExtra(EXTRA_TITLE_ITEM_STATE,item.isComplete());
+                    i = new Intent(MainActivity.this, MainActivity.class);
+                    i.putExtra(EXTRA_TITLES_ID, R.array.prepare_show_titles);
+                    i.putExtra(EXTRA_ICONS_ID, R.array.prepare_show_icons);
+                    i.putExtra(EXTRA_PAGE_ID, R.string.prepare_show_title);
+                    i.putExtra(EXTRA_TITLE_ITEM_TEXT, item.getTitle());
+                    i.putExtra(EXTRA_TITLE_ITEM_ICON, item.getIcon());
+                    i.putExtra(EXTRA_TITLE_ITEM_STATE, item.isComplete());
                     options = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this, new Pair<View, String>(view, getString(R.string.transition_name_listitem)));
                     ActivityCompat.startActivity(MainActivity.this, i, options.toBundle());
 
@@ -283,33 +249,22 @@ public class MainActivity extends AppCompatActivity implements IRecyclerViewItem
 
                         }
                     });
-
-                    /*i = new Intent(MainActivity.this,NumberInputActivity.class);
-                    i.putExtra(NumberInputActivity.EXTRA_TEXT,R.string.number_input_enter_listener_number);
-                    i.putExtra(NumberInputActivity.EXTRA_MODE,NumberInputActivity.InputMode.ADD_LISTENER.ordinal());
-                    i.putExtra(EXTRA_TITLE_ITEM_TEXT,item.getTitle());
-                    i.putExtra(EXTRA_TITLE_ITEM_ICON,item.getIcon());
-                    i.putExtra(EXTRA_TITLE_ITEM_STATE,item.isComplete());
-                    options = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this, new Pair<View, String>(view, getString(R.string.transition_name_listitem)));
-                    ActivityCompat.startActivityForResult(MainActivity.this,i,NumberInputActivity.REQUEST_CODE,options.toBundle());*/
                     break;
+
                 case 2:
                     //run show
                     ZMQSubscriber zmqSubscriber = new ZMQSubscriber();
                     zmqSubscriber.startSubscriber();
 
-                    i = new Intent(MainActivity.this,ShowOverviewActivity.class);
+                    i = new Intent(MainActivity.this, ShowOverviewActivity.class);
 
                     startActivity(i);
                     break;
             }
-
-
         }
     };
 
     ActivityOptionsCompat options;
-
     IRecyclerViewItemClickedListener prepareShowListener = new IRecyclerViewItemClickedListener() {
         @Override
         public void recyclerViewItemClicked(View view, int position) {
@@ -319,7 +274,6 @@ public class MainActivity extends AppCompatActivity implements IRecyclerViewItem
             CheckListItem item = adapter.getItem(position);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
                 view.setTransitionName(getString(R.string.transition_name_listitem));
-
 
             switch(position){
 
@@ -334,15 +288,6 @@ public class MainActivity extends AppCompatActivity implements IRecyclerViewItem
                     i.putExtra(EXTRA_TITLE_ITEM_STATE,item.isComplete());
                     options = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this, new Pair<View, String>(view, getString(R.string.transition_name_listitem)));
                     ActivityCompat.startActivity(MainActivity.this, i, options.toBundle());
-                    /*i = new Intent(MainActivity.this,NumberInputActivity.class);
-                    i.putExtra(NumberInputActivity.EXTRA_TEXT,R.string.number_input_enter_guest_number);
-                    i.putExtra(NumberInputActivity.EXTRA_MODE,NumberInputActivity.InputMode.ADD_GUEST.ordinal());
-                    i.putExtra(EXTRA_TITLE_ITEM_TEXT,item.getTitle());
-                    i.putExtra(EXTRA_TITLE_ITEM_ICON,item.getIcon());
-                    i.putExtra(EXTRA_TITLE_ITEM_STATE,item.isComplete());
-                    i.putExtra("RADIO",false);
-                    options = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this, new Pair<View, String>(view, getString(R.string.transition_name_listitem)));
-                    ActivityCompat.startActivityForResult(MainActivity.this,i,NumberInputActivity.REQUEST_CODE,options.toBundle());*/
                     break;
 
                 //Edit Listeners
@@ -356,16 +301,10 @@ public class MainActivity extends AppCompatActivity implements IRecyclerViewItem
                     i.putExtra(EXTRA_TITLE_ITEM_STATE,item.isComplete());
                     options = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this, new Pair<View, String>(view, getString(R.string.transition_name_listitem)));
                     ActivityCompat.startActivity(MainActivity.this, i, options.toBundle());
-                    /*i.putExtra(EXTRA_TITLES_ID,R.array.record_topics_titles);
-                    i.putExtra(EXTRA_ICONS_ID,R.array.record_topics_icons);
-                    i.putExtra(EXTRA_PAGE_ID,R.string.record_topics_title);*/
-
-                    //startActivity(i);
                     break;
 
                 case 2:
                     //record trailer
-
                     i = new Intent(MainActivity.this,MainActivity.class);
                     i.putExtra(EXTRA_TITLES_ID,R.array.create_trailer);
                     i.putExtra(EXTRA_ICONS_ID,R.array.prepare_show_icons);
@@ -375,66 +314,7 @@ public class MainActivity extends AppCompatActivity implements IRecyclerViewItem
                     i.putExtra(EXTRA_TITLE_ITEM_STATE,item.isComplete());
                     options = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this, new Pair<View, String>(view, getString(R.string.transition_name_listitem)));
                     ActivityCompat.startActivity(MainActivity.this, i, options.toBundle());
-
-                    /*i = new Intent(MainActivity.this, MainActivity.class);
-                    i.putExtra(EXTRA_TITLES_ID,R.array.create_trailer);
-                    i.putExtra(EXTRA_ICONS_ID,R.array.record_topics_icons);
-                    i.putExtra(EXTRA_PAGE_ID,R.string.create_trailer_title);
-                    i.putExtra(EXTRA_TITLE_ITEM_TEXT,item.getTitle());
-                    i.putExtra(EXTRA_TITLE_ITEM_ICON,item.getIcon());
-                    i.putExtra(EXTRA_TITLE_ITEM_STATE,item.isComplete());
-                    options = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this, new Pair<View, String>(view, getString(R.string.transition_name_listitem)));
-                    ActivityCompat.startActivity(MainActivity.this, i, options.toBundle());*/
-
-                    /*FreeSwitchApi.shared().createTrailer(new IMessageListener() {
-                        @Override
-                        public void success() {
-                            Toast.makeText(MainActivity.this, "Request processing", Toast.LENGTH_SHORT).show();
-                        }
-
-                        @Override
-                        public void fail() {
-                            Toast.makeText(MainActivity.this, "Something's wrong. Please try again later", Toast.LENGTH_SHORT).show();
-                        }
-
-                        @Override
-                        public void error() {
-                            Toast.makeText(MainActivity.this, "Something's wrong. Please try again later", Toast.LENGTH_SHORT).show();
-                        }
-
-                        @Override
-                        public void message(String message) {
-                            Toast.makeText(MainActivity.this, "Something's wrong. Please try again later", Toast.LENGTH_SHORT).show();
-                            Log.v("dks","message: "+message);
-                        }
-                    });*/
-
-                    /*i = new Intent(MainActivity.this,AudioRecorderActivity.class);
-                    startActivity(i);*/
                     break;
-            }
-        }
-    };
-
-    private IRecyclerViewItemClickedListener recordTopicsListener = new IRecyclerViewItemClickedListener() {
-        @Override
-        public void recyclerViewItemClicked(View view, int position) {
-            Intent i =  null;
-            selectedIndex = position;
-            switch(position){
-                case 0:
-                    //topic 1
-                    i = new Intent(MainActivity.this,AudioRecorderActivity.class);
-                    //todo add recorder setup params
-                    ActivityCompat.startActivityForResult(MainActivity.this,i,AudioRecorderActivity.REQUEST_CODE,null);
-                    break;
-                case 1:
-                    //topic 2
-                    i = new Intent(MainActivity.this,AudioRecorderActivity.class);
-                    //todo add recorder setup params
-                    ActivityCompat.startActivityForResult(MainActivity.this,i,AudioRecorderActivity.REQUEST_CODE,null);
-                    break;
-
             }
         }
     };

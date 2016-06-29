@@ -22,6 +22,7 @@ import uk.ac.openlab.radio.datatypes.CheckListItem;
 /**
  * Created by Kyle Montague on 25/02/16.
  */
+
 public class RHDCheckLists {
 
     public static CheckListAdapter mainMenu(Context context, IRecyclerViewItemClickedListener listener){
@@ -30,10 +31,6 @@ public class RHDCheckLists {
 
     public static CheckListAdapter prepareShow(Context context, IRecyclerViewItemClickedListener listener){
         return listFromXML(context, listener,R.array.prepare_show_titles, R.array.prepare_show_icons);
-    }
-
-    public static CheckListAdapter recordTopics(Context context, IRecyclerViewItemClickedListener listener){
-        return listFromXML(context, listener,R.array.record_topics_titles, R.array.record_topics_icons);
     }
 
     public static CheckListAdapter listFromXML(Context context, IRecyclerViewItemClickedListener listener, @ArrayRes int titlesResource, @ArrayRes int iconsResource){
@@ -48,8 +45,5 @@ public class RHDCheckLists {
         }
         return new CheckListAdapter(items, listener);
     }
-
-
-
 
 }

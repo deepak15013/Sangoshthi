@@ -38,9 +38,7 @@
     </style>
 
 
-    <style name="SplashTheme" parent="Theme.AppCompat.NoActionBar">
-
-    </style>
+    <style name="SplashTheme" parent="Theme.AppCompat.NoActionBar"/>
 
     <style name="Lebanon.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
