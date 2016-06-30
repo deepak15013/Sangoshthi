@@ -1,5 +1,6 @@
 package uk.ac.openlab.radio.services;
 
+import android.os.SystemClock;
 import android.util.Log;
 
 import com.google.gson.Gson;
@@ -27,7 +28,7 @@ public class ZMQSubscriber {
 
                 subscriber.connect("tcp://52.38.67.78:6003");
                 subscriber.subscribe("DTMF_Speak".getBytes());
-
+                subscriber.subscribe("timer".getBytes());
 
                 while(subscriberRunning) {
                     byte[] msg = subscriber.recv(0);
@@ -35,15 +36,23 @@ public class ZMQSubscriber {
                     String message = new String(msg);
                     Log.v("dks","String: "+message);
 
-                    String[] result = message.split(",",2);
+                    if(message.equalsIgnoreCase("start_timer")) {
+                        Log.v("dks","start_timer");
+                        ShowOverviewActivity.chronometer.setBase(SystemClock.elapsedRealtime());
+                        ShowOverviewActivity.chronometer.start();
+                    }
+                    else {
 
-                    Gson gson = new GsonBuilder().create();
-                    TopicInfoResult callerObjects = gson.fromJson(result[1],TopicInfoResult.class);
+                        String[] result = message.split(",",2);
 
-                    if(callerObjects != null) {
+                        Gson gson = new GsonBuilder().create();
+                        TopicInfoResult callerObjects = gson.fromJson(result[1],TopicInfoResult.class);
 
-                        ShowOverviewActivity.setCallerObjects(callerObjects);
+                        if(callerObjects != null) {
 
+                            ShowOverviewActivity.setCallerObjects(callerObjects);
+
+                        }
                     }
                 }
 

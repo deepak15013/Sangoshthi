@@ -51,7 +51,7 @@ public class CreateShow extends AppCompatActivity {
 
         toolbarItemView = (ChecklistItemView) findViewById(R.id.toolbar_item);
         assert toolbarItemView != null;
-        toolbarItemView.setTitle("Create Show");
+        toolbarItemView.setTitle(R.string.title_create_show);
         toolbarItemView.hideCheckbox(true);
 
         status = getIntent().getStringExtra("STATUS");
@@ -77,7 +77,6 @@ public class CreateShow extends AppCompatActivity {
     }
 
     public void dateChooser(View view) {
-        Log.v("TAG", "dateChooser");
         DialogFragment newFragment = new DatePickerFragment();
         newFragment.show(getSupportFragmentManager(), "datePicker");
     }

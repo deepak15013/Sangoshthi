@@ -44,7 +44,7 @@ public class ShowOverviewActivity extends AppCompatActivity {
     public static String EXTRA_SHOULD_DIAL = "EXTRA_SHOULD_DIAL";
 
     Button startStopButton;
-    Chronometer chronometer;
+    public static Chronometer chronometer;
 
     ImageButton ibFlush;
 
@@ -260,8 +260,6 @@ public class ShowOverviewActivity extends AppCompatActivity {
                 @Override
                 public void success() {
 
-                    chronometer.setBase(SystemClock.elapsedRealtime());
-                    chronometer.start();
                     startSeekBar = true;
                     chronometerThread.start();
 

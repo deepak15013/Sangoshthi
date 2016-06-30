@@ -9,12 +9,7 @@
   -->
 
 <resources>
-    <string name="app_name">Citizen Radio</string>
-
-
-    <!-- Server Configuration -->
-    <!-- //FIXME remove hardcoding and pull from the server instead, then store in shared prefs -->
-
+    <string name="app_name">Sehat Ki Vaani</string>
 
     <string name="pref_ivr_host">tcp://52.38.67.78</string>
     <integer name="pref_ivr_port">6002</integer>
@@ -91,6 +86,12 @@
     <string name="info_call_guest_and_participants">We will call you, the Guest and then the registered participants.</string>
     <string name="info_call_please_wait">please wait while we connect you to the show.</string>
 
+    <!-- New Additions to app -->
+
+    <!-- titles -->
+    <string name="title_create_show">Create Show</string>
+
+    <!-- error messages -->
 
     <!-- Main Menu Screen -->
     <string name="main_menu_title">@string/app_name</string>

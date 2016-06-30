@@ -13,6 +13,7 @@ import java.util.ArrayList;
 
 import uk.ac.openlab.radio.R;
 import uk.ac.openlab.radio.adapters.ShowGuestsAdapter;
+import uk.ac.openlab.radio.drawables.ChecklistItemView;
 import uk.ac.openlab.radio.network.FreeSwitchApi;
 import uk.ac.openlab.radio.network.IMessageListener;
 
@@ -21,15 +22,23 @@ public class ShowGuestsActivity extends AppCompatActivity {
     private ArrayList<String> guestArrayList;
     private RecyclerView showGuestsRecyclerView;
 
+    ChecklistItemView toolbarItemView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_guests);
 
+        toolbarItemView = (ChecklistItemView) findViewById(R.id.toolbar_item);
+        assert toolbarItemView != null;
+        toolbarItemView.setTitle("Show Guests");
+        toolbarItemView.hideCheckbox(true);
+        toolbarItemView.setIcon(R.drawable.ic_person);
+
         guestArrayList = new ArrayList<>();
         showGuestsRecyclerView = (RecyclerView) findViewById(R.id.rv_show_guests);
 
-        //getGuests();
+        getGuests();
 
     }
 
@@ -53,33 +62,18 @@ public class ShowGuestsActivity extends AppCompatActivity {
             @Override
             public void message(String message) {
                 Log.v("dks", "message: "+message);
-                //parse(message);
+                parse(message);
             }
         });
     }
 
     private void parse(String message) {
-        try {
-            JSONObject rootObj = new JSONObject(message);
 
-            JSONArray rootArr = rootObj.optJSONArray("results");
-
-            for(int i=0; i<rootArr.length(); i++) {
-                JSONObject categoryObject = rootArr.getJSONObject(i);
-                JSONArray ashaListenersArr = categoryObject.optJSONArray("CALLERS");
-
-                if(ashaListenersArr != null) {
-                    for(int j=0;j<ashaListenersArr.length(); j++) {
-                        JSONObject listenerObject = ashaListenersArr.getJSONObject(j);
-                        String phoneNum = listenerObject.optString("phone");
-                        Log.v("dks", phoneNum);
-                        guestArrayList.add(phoneNum);
-                    }
-                }
-            }
-
-        } catch (JSONException e) {
-            e.printStackTrace();
+        String[] guestNames = message.split(",");
+        for(String names: guestNames) {
+            Log.v("dks","names: "+names);
+            guestArrayList.add(names);
+            showGuests();
         }
     }
 

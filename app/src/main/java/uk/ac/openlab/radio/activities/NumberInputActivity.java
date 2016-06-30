@@ -328,7 +328,6 @@ public class NumberInputActivity extends AppCompatActivity {
     public void onBackPressed() {
 
         Intent i = new Intent();
-        i.putExtra(EXTRA_RESULT_VALUE,phoneNumber.getCountryCode()+""+phoneNumber.getNationalNumber());
         setResult(Activity.RESULT_OK, i);
         finish();
 
