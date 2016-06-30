@@ -2,6 +2,7 @@ package uk.ac.openlab.radio.activities;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 
@@ -24,6 +25,8 @@ public class ShowGuestsActivity extends AppCompatActivity {
 
     ChecklistItemView toolbarItemView;
 
+    LinearLayoutManager linearLayoutManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +39,8 @@ public class ShowGuestsActivity extends AppCompatActivity {
         toolbarItemView.setIcon(R.drawable.ic_person);
 
         guestArrayList = new ArrayList<>();
+        linearLayoutManager = new LinearLayoutManager(this);
+        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         showGuestsRecyclerView = (RecyclerView) findViewById(R.id.rv_show_guests);
 
         getGuests();
@@ -69,8 +74,11 @@ public class ShowGuestsActivity extends AppCompatActivity {
 
     private void parse(String message) {
 
+        guestArrayList.clear();
+
         String[] guestNames = message.split(",");
         for(String names: guestNames) {
+
             Log.v("dks","names: "+names);
             guestArrayList.add(names);
             showGuests();
@@ -78,8 +86,8 @@ public class ShowGuestsActivity extends AppCompatActivity {
     }
 
     private void showGuests() {
-        Log.v("dks","guest: "+guestArrayList.size());
         ShowGuestsAdapter showGuestsAdapter = new ShowGuestsAdapter(guestArrayList);
+        showGuestsRecyclerView.setLayoutManager(linearLayoutManager);
         showGuestsRecyclerView.setAdapter(showGuestsAdapter);
     }
 

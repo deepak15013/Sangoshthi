@@ -2,6 +2,7 @@ package uk.ac.openlab.radio.adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,8 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import uk.ac.openlab.radio.R;
+import uk.ac.openlab.radio.network.FreeSwitchApi;
+import uk.ac.openlab.radio.network.IMessageListener;
 
 /**
  * Created by deepaksood619 on 28/6/16.
@@ -32,6 +35,7 @@ public class ShowGuestsAdapter extends RecyclerView.Adapter<ShowGuestsAdapter.Vi
 
     public ShowGuestsAdapter(ArrayList<String> guestsArrayList) {
         this.guestsArrayList = guestsArrayList;
+
     }
 
     @Override
@@ -44,15 +48,37 @@ public class ShowGuestsAdapter extends RecyclerView.Adapter<ShowGuestsAdapter.Vi
 
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
-        String guestNumber = guestsArrayList.get(position);
+        final String guestNumber = guestsArrayList.get(position);
         holder.textView.setText(guestNumber);
         holder.imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                guestsArrayList.remove(position);
-                notifyItemRemoved(position);
+
+                FreeSwitchApi.shared().deleteListener(new IMessageListener() {
+                    @Override
+                    public void success() {
+                        guestsArrayList.remove(position);
+                        notifyItemRemoved(position);
+                    }
+
+                    @Override
+                    public void fail() {
+
+                    }
+
+                    @Override
+                    public void error() {
+
+                    }
+
+                    @Override
+                    public void message(String message) {
+
+                    }
+                }, guestNumber);
             }
         });
+
     }
 
     @Override
