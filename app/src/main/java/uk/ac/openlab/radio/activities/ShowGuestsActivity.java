@@ -81,8 +81,8 @@ public class ShowGuestsActivity extends AppCompatActivity {
 
             Log.v("dks","names: "+names);
             guestArrayList.add(names);
-            showGuests();
         }
+        showGuests();
     }
 
     private void showGuests() {
