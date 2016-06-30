@@ -138,7 +138,7 @@
     <string name="edit_guest_title">Edit Guests</string>
 
     <string-array name="edit_guests_titles">
-        <item>Edit Guests</item>
+        <item>Add Guests</item>
         <item>Show Guests</item>
     </string-array>
 

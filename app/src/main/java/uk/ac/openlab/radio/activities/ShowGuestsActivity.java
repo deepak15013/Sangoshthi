@@ -78,6 +78,7 @@ public class ShowGuestsActivity extends AppCompatActivity {
     }
 
     private void showGuests() {
+        Log.v("dks","guest: "+guestArrayList.size());
         ShowGuestsAdapter showGuestsAdapter = new ShowGuestsAdapter(guestArrayList);
         showGuestsRecyclerView.setAdapter(showGuestsAdapter);
     }
