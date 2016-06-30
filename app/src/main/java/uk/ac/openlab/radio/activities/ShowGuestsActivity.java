@@ -42,7 +42,7 @@ public class ShowGuestsActivity extends AppCompatActivity {
         linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         showGuestsRecyclerView = (RecyclerView) findViewById(R.id.rv_show_guests);
-
+        showGuestsRecyclerView.setLayoutManager(linearLayoutManager);
         getGuests();
 
     }
@@ -77,17 +77,20 @@ public class ShowGuestsActivity extends AppCompatActivity {
         guestArrayList.clear();
 
         String[] guestNames = message.split(",");
-        for(String names: guestNames) {
 
+        for(String names: guestNames) {
+            if(names.equalsIgnoreCase("") || names.equalsIgnoreCase(" ")) {
+                continue;
+            }
             Log.v("dks","names: "+names);
             guestArrayList.add(names);
         }
+
         showGuests();
     }
 
     private void showGuests() {
         ShowGuestsAdapter showGuestsAdapter = new ShowGuestsAdapter(guestArrayList);
-        showGuestsRecyclerView.setLayoutManager(linearLayoutManager);
         showGuestsRecyclerView.setAdapter(showGuestsAdapter);
     }
 

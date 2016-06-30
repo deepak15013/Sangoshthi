@@ -26,6 +26,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.i18n.phonenumbers.NumberParseException;
 import com.google.i18n.phonenumbers.PhoneNumberUtil;
@@ -159,7 +160,8 @@ public class NumberInputActivity extends AppCompatActivity {
             localeSpinner.setVisibility(View.VISIBLE);
             localeAdapter = new LocaleAdapter(this);
             localeSpinner.setAdapter(localeAdapter);
-            localeSpinner.setSelection(localeAdapter.indexOfLocale(Locale.getDefault()));
+//            localeSpinner.setSelection(localeAdapter.indexOfLocale(Locale.getDefault()));
+            localeSpinner.setSelection(290);
         }
 
         if (isPin()) {
@@ -304,6 +306,7 @@ public class NumberInputActivity extends AppCompatActivity {
             @Override
             public void success() {
                 Log.v("tag", "listener added successfully");
+                Toast.makeText(NumberInputActivity.this, "Added successfully", Toast.LENGTH_SHORT).show();
             }
 
             @Override
