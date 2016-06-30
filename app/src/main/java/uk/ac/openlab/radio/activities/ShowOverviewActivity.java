@@ -112,6 +112,7 @@ public class ShowOverviewActivity extends AppCompatActivity {
                     @Override
                     public void success() {
                         callersArrayList.clear();
+
                         callerListRecyclerView.post(new Runnable() {
                             @Override
                             public void run() {

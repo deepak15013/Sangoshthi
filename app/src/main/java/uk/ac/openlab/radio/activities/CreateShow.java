@@ -15,6 +15,8 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -32,7 +34,8 @@ public class CreateShow extends AppCompatActivity {
 
     private static EditText editText;
     private static EditText etTime;
-    private CheckBox cbMockShow;
+    private RadioGroup rgShowType;
+    private RadioButton rbShowType;
 
     private int year, month, day, hour, minute;
     private Calendar calendar;
@@ -55,7 +58,7 @@ public class CreateShow extends AppCompatActivity {
 
         editText = (EditText) findViewById(R.id.editText);
         etTime = (EditText) findViewById(R.id.et_time);
-        cbMockShow = (CheckBox) findViewById(R.id.cb_mock_show);
+        rgShowType = (RadioGroup) findViewById(R.id.rg_show_type);
 
         calendar = Calendar.getInstance();
         year = calendar.get(Calendar.YEAR);
@@ -96,7 +99,6 @@ public class CreateShow extends AppCompatActivity {
     }
 
     public void createOnClick(View view) {
-        Toast.makeText(this, "Create Show", Toast.LENGTH_SHORT).show();
 
         final Intent intent = new Intent(this, MainActivity.class);
 
@@ -104,75 +106,83 @@ public class CreateShow extends AppCompatActivity {
         CloudStudioApi.shared().init(getApplicationContext());
         FreeSwitchApi.shared().init(getApplicationContext());
 
-        String category;
-        if(cbMockShow.isChecked()) {
-            category = "mock";
+        String category = "";
+        int checkedId = rgShowType.getCheckedRadioButtonId();
+        if(checkedId == -1) {
+            Toast.makeText(CreateShow.this, "Please select show type", Toast.LENGTH_SHORT).show();
         }
         else {
-            category = "real";
+            rbShowType = (RadioButton) findViewById(checkedId);
+            assert rbShowType != null;
+            if(rbShowType.getText().toString().equalsIgnoreCase("Mock Show")) {
+                category = "mock";
+            } else if(rbShowType.getText().toString().equalsIgnoreCase("Real Show")) {
+                category = "real";
+            }
+
+            FreeSwitchApi.shared().createHost(new IMessageListener() {
+                @Override
+                public void success() {
+                    Log.v("tag", "host created successfully");
+                }
+
+                @Override
+                public void fail() {
+                    Log.v("tag", "host creation failed");
+                }
+
+                @Override
+                public void error() {
+                    Log.v("tag", "host creation error");
+                }
+
+                @Override
+                public void message(String message) {
+                    Log.v("tag", "message: "+message);
+                }
+            }, status);
+
+            FreeSwitchApi.shared().createShow(new IMessageListener() {
+                @Override
+                public void success() {
+
+                    // -dks
+                    SharedPreferences.Editor e = PreferenceManager.getDefaultSharedPreferences(getBaseContext()).edit();
+                    e.putBoolean("firstStart", false);
+                    e.apply();
+
+                    finish();
+                    Log.v("tag", "success");
+                    startActivity(intent);
+                }
+
+                @Override
+                public void fail() {
+                    Log.v("tag", "fail");
+                }
+
+                @Override
+                public void error() {
+                    Log.v("tag", "error");
+                }
+
+                @Override
+                public void message(String message) {
+                    Log.v("tag", "message "+message);
+
+                    GlobalUtils.shared().setStudioID(message);
+
+                    SharedPreferences.Editor e = PreferenceManager.getDefaultSharedPreferences(getBaseContext()).edit();
+                    e.putBoolean("firstStart", false);
+                    e.apply();
+                    finish();
+
+                    startActivity(intent);
+
+                }
+            }, editText.getText().toString(), etTime.getText().toString(), category);
+
         }
-
-        FreeSwitchApi.shared().createHost(new IMessageListener() {
-            @Override
-            public void success() {
-                Log.v("tag", "host created successfully");
-            }
-
-            @Override
-            public void fail() {
-                Log.v("tag", "host creation failed");
-            }
-
-            @Override
-            public void error() {
-                Log.v("tag", "host creation error");
-            }
-
-            @Override
-            public void message(String message) {
-                Log.v("tag", "message: "+message);
-            }
-        }, status);
-
-        FreeSwitchApi.shared().createShow(new IMessageListener() {
-            @Override
-            public void success() {
-
-                // -dks
-                SharedPreferences.Editor e = PreferenceManager.getDefaultSharedPreferences(getBaseContext()).edit();
-                e.putBoolean("firstStart", false);
-                e.apply();
-
-                finish();
-                Log.v("tag", "success");
-                startActivity(intent);
-            }
-
-            @Override
-            public void fail() {
-                Log.v("tag", "fail");
-            }
-
-            @Override
-            public void error() {
-                Log.v("tag", "error");
-            }
-
-            @Override
-            public void message(String message) {
-                Log.v("tag", "message "+message);
-
-                GlobalUtils.shared().setStudioID(message);
-
-                SharedPreferences.Editor e = PreferenceManager.getDefaultSharedPreferences(getBaseContext()).edit();
-                e.putBoolean("firstStart", false);
-                e.apply();
-                finish();
-
-                startActivity(intent);
-
-            }
-        }, editText.getText().toString(), etTime.getText().toString(), category);
 
     }
 
