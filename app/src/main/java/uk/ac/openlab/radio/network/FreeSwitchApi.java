@@ -41,24 +41,6 @@ public class FreeSwitchApi {
         sendMessage(callback, MessageHelper.shared().getShowId());
     }
 
-
-    /**
-     * Communicate with FreeSwitch server to verify that the session id and studio id are valid.
-     * IMPORTANT, this is needed to ensure future commands can be actioned.
-     * @param callback
-     */
-    /*public void authenticate(IMessageListener callback){
-        sendMessage(callback,MessageHelper.shared().authenticate());
-    }*/
-
-    /**
-     * Tell FreeSwitch to call this number to begin preparing the show.
-     * @param callback
-     */
-    public void prepareShow(IMessageListener callback){
-       sendMessage(callback,MessageHelper.shared().startPrep());
-    }
-
     public void createShow(IMessageListener callback, String date, String time, String category) {
         sendMessage(callback, MessageHelper.shared().createShow(date, time, category));
     }
@@ -137,58 +119,6 @@ public class FreeSwitchApi {
         sendMessage(callback,MessageHelper.shared().muteState(uuid,state));
     }
 
-
-    /**
-     * Tell FreeSwitch to record the line (used only in Show Preparation activities i.e. record topic, trailer, filler material) for a maximum duration.
-     * @param maxDuration
-     * @param callback
-     */
-    public void startRecording(int maxDuration, IMessageListener callback){
-        sendMessage(callback,MessageHelper.shared().startRecord(maxDuration));
-    }
-
-    /**
-     * Tell FreeSwitch to playback the last recording made by the PRESENTER (Show Preparation)
-     * @param callback
-     */
-    public void startRecordingPlayback(IMessageListener callback){
-        sendMessage(callback,MessageHelper.shared().startRecordingPlayback());
-    }
-
-    /**
-     * Tell FreeSwitch to stop playing the current recording being played.
-     * @param callback
-     */
-    public void stopRecordingPlayback(IMessageListener callback){
-        sendMessage(callback,MessageHelper.shared().stopRecordingPlayback());
-    }
-
-    /**
-     * Tell FreeSwtich to stop recording (Show Preparation only)
-     * @param callback
-     */
-    public void stopRecording(IMessageListener callback){
-        sendMessage(callback,MessageHelper.shared().stopRecording());
-    }
-
-    /**
-     * Tell FreeSwitch to save this recording as a media item and return (via callback) the media item id.
-     * @param callback
-     */
-    public void saveRecording(IMessageListener callback){
-        sendMessage(callback,MessageHelper.shared().saveRecording());
-    }
-
-    /**
-     * Tell FreeSwitch to delete the last recording made (Show Preperation)
-     * @param callback
-     * @param mediaID
-     */
-    public void deleteRecording(IMessageListener callback, String mediaID){
-        sendMessage(callback,MessageHelper.shared().deleteRecording(mediaID));
-    }
-
-
     /**
      * Tell FreeSwitch to initialise a conference call in preparation for running the show. FreeSwitch will then dial the PRESENTER device.
      * @param callback
@@ -221,24 +151,6 @@ public class FreeSwitchApi {
         sendMessage(callback, MessageHelper.shared().flushCallers());
     }
 
-    /**
-     * Start playing a prerecorded media item on the conference call.
-     * @param callback
-     * @param mediaID
-     */
-    public void playMedia(IMessageListener callback, String mediaID){
-        sendMessage(callback,MessageHelper.shared().playMedia(mediaID));
-
-    }
-
-    /**
-     * Stop playing any media items in the conference call.
-     * @param callback
-     */
-    public void stopMedia(IMessageListener callback){
-        sendMessage(callback,MessageHelper.shared().stopMedia());
-    }
-
     private void sendMessage(IMessageListener callback, String message){
         if(!isInit) {
             callback.message("Not initialised.");
@@ -248,8 +160,6 @@ public class FreeSwitchApi {
         MessageListenerHandler handler= new MessageListenerHandler(callback, GlobalUtils.PAYLOAD_KEY);
         freeSwitchMQ.messageTask(handler).execute(message);
     }
-
-
 
     public class FreeSwitchMQ{
 

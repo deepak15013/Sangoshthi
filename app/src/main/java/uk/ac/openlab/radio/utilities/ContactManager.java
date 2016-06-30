@@ -12,11 +12,7 @@ import java.util.ArrayList;
  */
 public class ContactManager {
 
-    private static final String TAG = ContactManager.class.getSimpleName();
-
     public static boolean add(Context context, String name, String phonenumber){
-
-        Log.d(TAG,"inside");
 
         if(name == null || phonenumber == null || context == null)
             return false;

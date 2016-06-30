@@ -14,19 +14,11 @@ import uk.ac.openlab.radio.GlobalUtils;
  */
 public class MessageHelper {
 
-
-    /**
-     * FreeSwitch Commands and Actions.
-     */
-    private final String FS_CMD_PREPARE_SHOW = "prepare_show";
-    private final String FS_CMD_AUTHENTICATE = "auth";
     private final String FS_CMD_START_SHOW = "start_show";
     private final String FS_CMD_DIAL_LISTENERS = "dial_listeners";
     private final String FS_CMD_MUTE_STATE = "mute_state";
-    private final String FS_CMD_MEDIA_CONTROL = "media_control";
     private final String FS_CMD_SHOW_INFO = "show_info";
 
-    // dks
     private final String FS_CREATE_SHOW="create_show";
     private final String FS_ADD_HOST = "add_host";
     private final String FS_CHECK_SHOW_STATUS = "check_show_status";
@@ -50,20 +42,10 @@ public class MessageHelper {
     private final String FS_START_LISTENER_RATING = "start_listener_rating";
     private final String FS_STOP_LISTENER_RATING = "stop_listener_rating";
 
-    private final String FS_ACTION_START_PREP = "init_call";
-    private final String FS_ACTION_START_RECORD = "start_record";
-    private final String FS_ACTION_STOP_RECORD = "stop_record";
-    private final String FS_ACTION_START_PLAYBACK = "start_playback";
-    private final String FS_ACTION_STOP_PLAYBACK = "stop_playback";
-    private final String FS_ACTION_SAVE_RECORDING = "save_record";
-    private final String FS_ACTION_DELETE_RECORDING = "delete_record";
-
-
     public enum MuteState{
         mute,
         unmute
     };
-
 
     public String session_id = "";
     public String studio_id = "";
@@ -93,9 +75,6 @@ public class MessageHelper {
         this.studio_id = studio_id;
     }
 
-
-    /**            NEW FREESWITCH API COMMANDS            **/
-
     public String checkShowStatus() {
         return String.format("{\"cmd\":\"%s\" }",FS_CHECK_SHOW_STATUS);
     }
@@ -105,9 +84,7 @@ public class MessageHelper {
     }
 
     public String createShow(String date, String time, String category) {
-        String create = String.format("{\"cmd\":\"%s\", \"date\" : \"%s\", \"time\" : \"%s\", \"category\" : \"%s\"}", FS_CREATE_SHOW, date, time, category);
-        Log.v("Create Show String: ", create);
-        return create;
+        return String.format("{\"cmd\":\"%s\", \"date\" : \"%s\", \"time\" : \"%s\", \"category\" : \"%s\"}", FS_CREATE_SHOW, date, time, category);
     }
 
     public String createHost(String status) {
@@ -126,10 +103,6 @@ public class MessageHelper {
         return String.format("{\"cmd\":\"%s\", \"studio\" : \"%s\"}",FS_SHOW_GUESTS, this.studio_id);
     }
 
-    public String startPrep(){
-        return String.format("{\"cmd\":\"%s\", \"action\" : \"%s\", \"studio\" : \"%s\", \"session\" : \"%s\" }", FS_CMD_PREPARE_SHOW,FS_ACTION_START_PREP,this.studio_id, this.session_id);
-    }
-
     public String createTrailer() {
         return String.format("{\"cmd\":\"%s\", \"studio\" : \"%s\"}", FS_CREATE_TRAILER, this.studio_id);
     }
@@ -142,38 +115,7 @@ public class MessageHelper {
         return String.format("{\"cmd\":\"%s\", \"studio\" : \"%s\"}", FS_DELETE_TRAILER, this.studio_id);
     }
 
-    public String startRecord(int duration){
-        return String.format(Locale.ENGLISH,"{\"cmd\":\"%s\", \"action\" : \"%s\", \"params\" : { \"max_length\" : \"%d\" } , \"studio\": \"%s\", \"session\" : \"%s\" }", FS_CMD_PREPARE_SHOW,FS_ACTION_START_RECORD,duration, this.studio_id, this.session_id);
-    }
-
-    public String startRecordingPlayback(){
-        return String.format("{\"cmd\":\"%s\", \"action\" : \"%s\", \"studio\": \"%s\", \"session\" : \"%s\" }", FS_CMD_PREPARE_SHOW, FS_ACTION_START_PLAYBACK, this.studio_id, this.session_id);
-    }
-
-    public String stopRecordingPlayback(){
-        return String.format("{\"cmd\":\"%s\", \"action\" : \"%s\", \"studio\": \"%s\", \"session\" : \"%s\" }", FS_CMD_PREPARE_SHOW, FS_ACTION_STOP_PLAYBACK, this.studio_id, this.session_id);
-    }
-
-    public String stopRecording(){
-        return String.format("{\"cmd\":\"%s\", \"action\" : \"%s\", \"studio\": \"%s\", \"session\" : \"%s\" }", FS_CMD_PREPARE_SHOW,FS_ACTION_STOP_RECORD, this.studio_id, this.session_id);
-    }
-
-    public String saveRecording() {
-        return String.format("{\"cmd\":\"%s\", \"action\" : \"%s\", \"studio\": \"%s\", \"session\" : \"%s\" }", FS_CMD_PREPARE_SHOW,FS_ACTION_SAVE_RECORDING, this.studio_id, this.session_id);
-    }
-
-    public String deleteRecording(String mediaID){
-        return String.format("{\"cmd\":\"%s\", \"action\" : \"%s\", \"studio\": \"%s\", \"session\" : \"%s\", \"params\" : { \"media\" : \"%s\" } }", FS_CMD_PREPARE_SHOW,FS_ACTION_DELETE_RECORDING, this.studio_id, this.session_id,mediaID);
-    }
-
-
-    /*public String authenticate(){
-        return String.format("{\"cmd\":\"%s\", \"studio\" : \"%s\", \"session\" : \"%s\" }", FS_CMD_AUTHENTICATE, this.studio_id, this.session_id);
-    }*/
-
-
     public String muteState(String uuid, String state){
-        //return String.format(Locale.ENGLISH,"{\"cmd\":\"%s\", \"studio\" : \"%s\", \"session\" : \"%s\", \"timestamp\" : \"%d\", \"params\" : { \"uuid\" : \"%s\", \"state\" : \"%s\" } }", FS_CMD_MUTE_STATE, this.studio_id, this.session_id, System.currentTimeMillis(), uuid, state.name());
         return String.format("{\"cmd\":\"%s\", \"studio\" : \"%s\", \"uuid\" : \"%s\", \"state\" : \"%s\" }", FS_CMD_MUTE_STATE, this.studio_id, uuid, state);
     }
 
@@ -195,15 +137,6 @@ public class MessageHelper {
 
     public String flushCallers() {
         return String.format("{\"cmd\":\"%s\", \"studio\" : \"%s\"}", FS_FLUSH_CALLERS, this.studio_id);
-    }
-
-
-    public String playMedia(String mediaID){
-        return String.format("{\"cmd\":\"%s\", \"action\" : \"%s\", \"studio\": \"%s\", \"session\" : \"%s\", \"params\" : { \"id\" : \"%s\" } }", FS_CMD_MEDIA_CONTROL, FS_ACTION_START_PLAYBACK, this.studio_id, this.session_id,mediaID);
-    }
-
-    public String stopMedia(){
-        return String.format("{\"cmd\":\"%s\", \"action\" : \"%s\", \"studio\": \"%s\", \"session\" : \"%s\" }", FS_CMD_MEDIA_CONTROL, FS_ACTION_STOP_PLAYBACK, this.studio_id, this.session_id);
     }
 
     public String deleteListener (String phone) {

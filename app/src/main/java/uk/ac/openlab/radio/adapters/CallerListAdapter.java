@@ -195,19 +195,8 @@ public class CallerListAdapter extends RecyclerView.Adapter<CallerListAdapter.Vi
                         }
                     }, callers.getPhone_number());
                 }
-
-
             }
         });
-
-
-        /*holder.btnMute.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.v("dks","clicked: "+callersList.get(position).getPhone_number());
-
-            }
-        });*/
     }
 
     @Override

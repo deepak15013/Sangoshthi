@@ -44,17 +44,13 @@
             android:name=".activities.ShowOverviewActivity"
             android:label="Radio - Show Overview"
             android:screenOrientation="portrait" />
+
         <activity
             android:name=".activities.NumberInputActivity"
             android:label="Radio - Number"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysVisible" />
-        <activity
-            android:name=".activities.IconSelectionActivity"
-            android:label="Radio - Icons"
-            android:screenOrientation="portrait" />
 
-        <!-- New Activity added later for creating new show -->
         <activity
             android:name=".activities.CreateShow"
             android:screenOrientation="portrait" />
@@ -71,6 +67,9 @@
             android:name=".activities.ShowResultsActivity"
             android:screenOrientation="portrait" />
 
+        <activity android:name=".activities.ShowGuestsActivity"
+            android:screenOrientation="portrait"/>
+
         <receiver android:name=".phonehandler.CallReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.PHONE_STATE" />
@@ -79,9 +78,6 @@
                 <action android:name="android.intent.action.NEW_OUTGOING_CALL" />
             </intent-filter>
         </receiver>
-
-        <activity android:name=".activities.ShowGuestsActivity"
-            android:screenOrientation="portrait"/>
 
     </application>
 </manifest>

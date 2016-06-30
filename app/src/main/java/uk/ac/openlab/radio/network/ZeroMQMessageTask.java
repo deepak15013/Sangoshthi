@@ -18,15 +18,11 @@ public class ZeroMQMessageTask extends AsyncTask<String, Void, String> {
 
 
     public static ZeroMQMessageTask zmqStudio(Handler uiThreadHandler, ZMQ.Socket socket){
-//        return new ZeroMQMessageTask(uiThreadHandler,context.getString(R.string.pref_studio_host),context.getResources().getInteger(R.integer.pref_studio_sub_port));
         return new ZeroMQMessageTask(uiThreadHandler,socket);
-
     }
 
     public static ZeroMQMessageTask zmqMediaControl(Handler uiThreadHandler, ZMQ.Socket socket){
-//        return new ZeroMQMessageTask(uiThreadHandler,context.getString(R.string.pref_studio_host),context.getResources().getInteger(R.integer.pref_studio_control_port));
         return new ZeroMQMessageTask(uiThreadHandler,socket);
-
     }
 
     private final Handler uiThreadHandler;

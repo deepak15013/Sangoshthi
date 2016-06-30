@@ -17,8 +17,6 @@ public class CallReceiver extends PhoneCallReceiver {
     @Override
     protected void onIncomingCallStarted(Context ctx, String number, Date start) {
         super.onIncomingCallStarted(ctx, number, start);
-        //call incoming: +8860244278 date start: Mon Jun 27 13:21:33 IST 2016
-
         Log.v("dks","call incoming: "+number+" date start: "+start);
 
     }

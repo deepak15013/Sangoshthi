@@ -12,22 +12,8 @@ public class Studio  {
 
     int id = -1;
     String name = "";
-    String joincode_guest;
-    String joincode_presenter;
-    String joincode_producer;
-    String joincode_annotator;
 
     @Expose(deserialize = false)
-    Scaffold scaffold;
-    String starts;
-    String ends;
-    String tweetterms;
-    String document;
-    String createdAt;
-    String updatedAt;
-    String joincode_type;
-    String sipurl;
-    int sipport;
     String freeswitch_phonenumber =null;
 
     public static Studio fromJson(String json){

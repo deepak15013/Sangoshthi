@@ -8,7 +8,6 @@ import java.util.List;
  */
 public class TopicInfoResult {
 
-    //public CallerListResult callers;
     public int listeners;
     public List<Callers> callers;
 

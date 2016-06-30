@@ -35,23 +35,12 @@ import uk.ac.openlab.radio.datatypes.CheckListItem;
  */
 public class CheckListAdapter  extends RecyclerView.Adapter<CheckListAdapter.ViewHolder>{
 
-
-    public void setItems(ArrayList<CheckListItem> items) {
-        this.items = items;
-    }
-
     ArrayList<CheckListItem> items;
     IRecyclerViewItemClickedListener listener;
 
     public CheckListAdapter(ArrayList<CheckListItem> items, IRecyclerViewItemClickedListener listener) {
         this.items = items;
         this.listener = listener;
-    }
-
-
-    public void setState(int position, boolean state){
-        this.items.get(position).setComplete(state);
-        notifyItemChanged(position);
     }
 
     public CheckListItem getItem(int position){
@@ -124,14 +113,6 @@ public class CheckListAdapter  extends RecyclerView.Adapter<CheckListAdapter.Vie
                 new int[] { android.R.attr.state_pressed}  // pressed
         };
 
-
-        public void highlight(Context context, @ColorRes int foreground, @ColorRes int background){
-            this.icon.setImageDrawable(GlobalUtils.iconWithTint(context,this.icon.getDrawable(),foreground));
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-                this.checkBox.setButtonTintList(new ColorStateList(states,new int[]{foreground,foreground,foreground,foreground}));
-            this.textView.setTextColor(ContextCompat.getColor(context,foreground));
-            this.view.setBackgroundResource(background);
-        }
     }
 
 

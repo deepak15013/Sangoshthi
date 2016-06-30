@@ -33,7 +33,6 @@ import java.util.Locale;
  */
 public class GlobalUtils {
 
-
     public static final String PREF_SESSION_ID = "PREF_SESSION_ID";
     public static final String PREF_STUDIO_ID = "PREF_STUDIO_ID";
     public static final String PREF_SESSION_COOKIE = "PREF_SESSION_COOKIE";
@@ -42,11 +41,9 @@ public class GlobalUtils {
     public static final String PREF_CITIZEN_RADIO_NAME = "PREF_CITIZEN_RADIO_NAME";
     public static final String PREF_LANG = "PRE_LANG";
 
-
     public static final String PREF_AREA_CODE = "PREF_AREA_CODE";
 
     public static String PAYLOAD_KEY = "RHD_PAYLOAD";
-
 
     private SharedPreferences sharedPreferences;
     private String sessionID = null;
@@ -56,9 +53,7 @@ public class GlobalUtils {
     private String citizenRadioName=null;
     private String lang = null;
 
-
     private String areacode = null;
-
 
     private static GlobalUtils sharedInstance;
 
@@ -95,10 +90,8 @@ public class GlobalUtils {
     }
 
     public boolean setStudioID(String studioID){
-        Log.v("dks","updating studioId: "+studioID);
         this.studioID = studioID;
         if(sharedPreferences == null) {
-            Log.v("dks", "shared pref null");
             return false;
         }
 
@@ -109,12 +102,6 @@ public class GlobalUtils {
         if(this.sessionID == null)
             this.sessionID = sharedPreferences.getString(PREF_SESSION_ID,null);
         return this.sessionID;
-    }
-
-    public String studioID(){
-        if(this.studioID == null)
-            this.studioID = sharedPreferences.getString(PREF_STUDIO_ID,null);
-        return this.studioID;
     }
 
 
@@ -178,45 +165,6 @@ public class GlobalUtils {
         return this.lang;
     }
 
-    /**
-     * Check the locale of the device to determine if the layout should be RTL
-     *
-     * @return true if Right-to-Left layout should be used.
-     */
-    public static boolean isRTL() {
-        return isRTL(Locale.getDefault());
-    }
-
-    private static boolean isRTL(Locale locale) {
-        final int directionality = Character.getDirectionality(locale.getDisplayName().charAt(0));
-        return directionality == Character.DIRECTIONALITY_RIGHT_TO_LEFT ||
-                directionality == Character.DIRECTIONALITY_RIGHT_TO_LEFT_ARABIC;
-    }
-
-
-    public static void DeleteRecursive(File fileOrDirectory) {
-        if (fileOrDirectory.isDirectory())
-            for (File child : fileOrDirectory.listFiles())
-                DeleteRecursive(child);
-        fileOrDirectory.delete();
-    }
-
-    public static void DeleteRecursive(String fileOrDirectory) {
-        File fileOrDir = new File(fileOrDirectory);
-        if (fileOrDir.isDirectory())
-            for (File child : fileOrDir.listFiles())
-                DeleteRecursive(child);
-        fileOrDir.delete();
-    }
-
-
-    public static int fetchColor(Context context, @AttrRes int color){
-        TypedArray a = context.getTheme().obtainStyledAttributes(new int[]{color});
-        int colorRes = a.getResourceId(0,0);
-        a.recycle();
-        return colorRes;
-    }
-
 
     public static Drawable iconWithTint(Context context, @DrawableRes int iconRes, @ColorRes int tintColor){
         return GlobalUtils.iconWithTint(context,ContextCompat.getDrawable(context, iconRes).mutate(),tintColor);
@@ -228,8 +176,6 @@ public class GlobalUtils {
         return icon;
     }
 
-
-
     public static String capitalizeWords(Context context, @StringRes int text){
         return  capitalizeWords(context.getString(text));
     }
@@ -240,28 +186,6 @@ public class GlobalUtils {
         for(int x=0;x<words.length;x++)
             result += words[x].substring(0,1).toUpperCase()+words[x].substring(1)+" ";
         return result;
-    }
-
-    public static String capitalizeSentence(String text){
-        return text.substring(0,1).toUpperCase()+text.substring(1)+" ";
-    }
-
-    public static String localeNuber(String number, Locale locale){
-        return "";
-    }
-
-
-    public static boolean isBBC(){
-        return (BuildConfig.FLAVOR.toLowerCase().equals("bbc"));
-    }
-
-    public static boolean isCitizen(){
-        return (BuildConfig.FLAVOR.toLowerCase().equals("india")||BuildConfig.FLAVOR.toLowerCase().equals("lebanon"));
-    }
-
-
-    public static boolean useSIP(){
-        return BuildConfig.USE_SIP;
     }
 
     public static @StyleRes int appTheme(){

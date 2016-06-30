@@ -15,16 +15,6 @@ public class Caller {
 
     private String current_role;
 
-    private String user;
-//    private int status;
-//    private int redialcount;
-//    private int current_studio;
-//    private int old_state;
-//    private int conf_member_id;
-//    private boolean mute_state;
-
-
-
     private long timestamp;
 
     public enum TYPE{

@@ -17,44 +17,9 @@
     </attr>
     <attr name="iconRes" format="reference"></attr>
 
-    <declare-styleable name="RecordingView">
-        <attr name="progressColor" format="color" ></attr>
-        <attr name="backgroundColor" format="color"></attr>
-        <attr name="ticker" format="float"></attr>
-        <attr name="max_duration" format="integer"></attr>
-        <attr name="time" format="string"></attr>
-        <attr name="textColor" format="color"></attr>
-    </declare-styleable>
-
-    <declare-styleable name="TopicView">
-        <attr name="tint"></attr>
-        <attr name="iconURI" format="string"></attr>
-        <attr name="iconRes"></attr>
-        <attr name="name" format="string"></attr>
-    </declare-styleable>
-
-    <declare-styleable name="TopicPanel">
-        <attr name="tint"></attr>
-        <attr name="likes" format="integer"></attr>
-        <attr name="callers" format="integer"></attr>
-        <attr name="listeners" format="integer"></attr>
-        <attr name="orientation"></attr>
-    </declare-styleable>
-
     <declare-styleable name="TopicInfoView">
         <attr name="iconRes"></attr>
         <attr name="number" format="integer"></attr>
-    </declare-styleable>
-
-    <declare-styleable name="CallerButton">
-        <attr name="callerType" format="enum">
-            <enum name="listener" value="0"></enum>
-            <enum name="guest" value="1"></enum>
-            <enum name="host" value="2"></enum>
-            <enum name="producer" value="3"></enum>
-            <enum name="tagger" value="4"></enum>
-        </attr>
-        <attr name="tint"></attr>
     </declare-styleable>
 
     <declare-styleable name="ChecklistItemView">

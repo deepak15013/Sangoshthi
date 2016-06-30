@@ -56,10 +56,6 @@ public class NumberInputActivity extends AppCompatActivity {
     public static final String EXTRA_MODE = "EXTRA_MODE"; //adding guest, or adding listener
     public static final String EXTRA_RESULT_VALUE = "EXTRA_RESULT_VALUE"; //value being returned
 
-    //todo need to add in some validation of the telephone numbers
-
-    //todo could possibly add button(s) for 'add' and 'finished/done'
-
     EditText editText;
     TextView textView;
     ChecklistItemView toolbarItemView;
@@ -76,34 +72,6 @@ public class NumberInputActivity extends AppCompatActivity {
     RadioButton rbRoleCategory;
 
     LinearLayout llRoleCategory;
-
-    /*private final MessageListenerHandler messageHandler = new MessageListenerHandler(
-            new IMessageListener() {
-                @Override
-                public void success() {
-
-                }
-
-                @Override
-                public void fail() {
-
-                }
-
-                @Override
-                public void error() {
-
-                }
-
-                @Override
-                public void message(String message) {
-
-                }
-
-            },
-            GlobalUtils.PAYLOAD_KEY);*/
-
-
-
 
     public enum InputMode {
         ADD_LISTENER,

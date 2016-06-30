@@ -46,16 +46,13 @@ public class ShowResultsActivity extends AppCompatActivity {
         btnCreateResults = (Button) findViewById(R.id.btn_create_results);
 
         final String resultsJson = getIntent().getStringExtra("MESSAGE");
-        Log.v("dks","resultsJSON: "+resultsJson);
 
         btnCreateResults.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 String numOfOptionString = String.valueOf(spnNumOfOptions.getSelectedItem().toString());
-                Log.v("dks","numOfOption: "+numOfOptionString);
                 String correctOptionString = String.valueOf(spnCorrectoption.getSelectedItem().toString());
-                Log.v("dks","correctOption: "+correctOptionString);
 
                 int numOfOption, correctOption;
                 if(numOfOptionString != null && correctOptionString != null) {

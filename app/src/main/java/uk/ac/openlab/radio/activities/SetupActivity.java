@@ -14,9 +14,7 @@ import com.github.paolorotolo.appintro.AppIntroFragment;
 
 import uk.ac.openlab.radio.GlobalUtils;
 import uk.ac.openlab.radio.R;
-import uk.ac.openlab.radio.datatypes.Studio;
 import uk.ac.openlab.radio.fragments.NumberFragment;
-import uk.ac.openlab.radio.fragments.StudioListFragment;
 import uk.ac.openlab.radio.network.CloudStudioApi;
 import uk.ac.openlab.radio.network.FreeSwitchApi;
 import uk.ac.openlab.radio.network.IMessageListener;
@@ -25,7 +23,7 @@ import uk.ac.openlab.radio.network.MessageHelper;
 /**
  * Created by Kyle Montague on 16/05/16.
  */
-public class SetupActivity extends AppIntro2 implements NumberFragment.OnFragmentInteractionListener, StudioListFragment.OnListFragmentInteractionListener{
+public class SetupActivity extends AppIntro2 implements NumberFragment.OnFragmentInteractionListener{
 
     private static final String TAG = SetupActivity.class.getSimpleName();
 
@@ -42,10 +40,7 @@ public class SetupActivity extends AppIntro2 implements NumberFragment.OnFragmen
 
         GlobalUtils.shared().init(getApplicationContext());
         addSlide(NumberFragment.newInstance("What is your number", NumberInputActivity.InputMode.ADD_PRESENTER));
-        //addSlide(NumberFragment.newInstance("Enter the join code",NumberInputActivity.InputMode.JOIN_CODE));
         addSlide(AppIntroFragment.newInstance("All Done","You are now ready to run a radio show", R.drawable.ic_radio, Color.BLACK));
-
-
 
         showStatusBar(true);
         setNavBarColor("#3F51B5");
@@ -63,9 +58,6 @@ public class SetupActivity extends AppIntro2 implements NumberFragment.OnFragmen
 
     @Override
     public void onDonePressed() {
-        /*SharedPreferences.Editor e = PreferenceManager.getDefaultSharedPreferences(getBaseContext()).edit();
-        e.putBoolean("firstStart", false);
-        e.apply();*/
         finish();
 
         if(status.equalsIgnoreCase("insert")) {
@@ -158,16 +150,6 @@ public class SetupActivity extends AppIntro2 implements NumberFragment.OnFragmen
     @Override
     public void done(NumberInputActivity.InputMode mode) {
         onNextPressed();
-    }
-
-    @Override
-    public void onListFragmentInteraction(Studio item) {
-        //save studio id.
-        if(item!=null) {
-            GlobalUtils.shared().init(getApplicationContext());
-            GlobalUtils.shared().setStudioID(String.format("%s", item.getId()));
-            onNextPressed();
-        }
     }
 
     @Override

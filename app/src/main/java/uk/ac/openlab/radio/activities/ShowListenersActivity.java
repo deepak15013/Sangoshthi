@@ -44,16 +44,10 @@ public class ShowListenersActivity extends AppCompatActivity {
         ashaArrayList = new ArrayList<>();
         othersArrayList = new ArrayList<>();
 
-        /*ashaArrayList.add("9425592627");
-        ashaArrayList.add("7587034008");
-        othersArrayList.add("9999");
-        othersArrayList.add("1111");*/
-
         lvAshaListeners = (ListView) findViewById(R.id.lv_asha_listeners);
         lvOtherListeners = (ListView) findViewById(R.id.lv_other_listeners);
 
         getListeners();
-        //showListView();
     }
 
     private void getListeners() {

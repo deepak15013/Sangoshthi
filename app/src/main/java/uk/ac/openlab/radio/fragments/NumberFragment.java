@@ -38,13 +38,6 @@ import uk.ac.openlab.radio.utilities.ContactManager;
  */
 public class NumberFragment extends Fragment {
 
-
-    public static final String EXTRA_TITLE = "EXTRA_TITLE";
-    public static final String EXTRA_TEXT = "EXTRA_TEXT";
-    public static final String EXTRA_MODE = "EXTRA_MODE"; //adding guest, or adding listener
-    public static final String EXTRA_RESULT_VALUE = "EXTRA_RESULT_VALUE"; //value being returned
-
-
     EditText editText;
     TextView textView;
     Spinner localeSpinner;
@@ -92,10 +85,6 @@ public class NumberFragment extends Fragment {
             modeID = getArguments().getString(ARG_MODE);
         }
     }
-
-
-
-
 
     private boolean isPin(){
         return (mode == NumberInputActivity.InputMode.ENTER_PIN || mode == NumberInputActivity.InputMode.SET_PIN);
@@ -195,18 +184,15 @@ public class NumberFragment extends Fragment {
         }
     }
 
-
     private void saveTelephoneNumber(){
         GlobalUtils.shared().setPhoneNumber(""+phoneNumber.getNationalNumber());
         GlobalUtils.shared().setAreacode(""+phoneNumber.getCountryCode());
         GlobalUtils.shared().setLang(""+lang);
     }
 
-
     private void joinStudio(IMessageListener listener){
         CloudStudioApi.shared().join(editText.getText().toString(),GlobalUtils.shared().areacode(),GlobalUtils.shared().phoneNumber(), GlobalUtils.shared().lang(),listener);
     }
-
 
     private @StringRes int errorMessage(){
         if(editText.getText().length() == 0){
@@ -272,11 +258,6 @@ public class NumberFragment extends Fragment {
         }else if (isJoinCode()){
             editText.setInputType(InputType.TYPE_CLASS_TEXT);
         }
-
-
-
-
-
         return view;
     }
 
@@ -285,8 +266,6 @@ public class NumberFragment extends Fragment {
         super.onResume();
 
     }
-
-
 
     @Override
     public void onAttach(Context context) {
@@ -304,7 +283,6 @@ public class NumberFragment extends Fragment {
         super.onDetach();
         mListener = null;
     }
-
 
     public interface OnFragmentInteractionListener {
 
