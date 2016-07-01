@@ -45,6 +45,9 @@
 
     <!-- Strings -->
     <string name="string_total_callers">Total callers %1$s</string>
+    <string name="string_asha">Asha</string>
+    <string name="string_others">Others</string>
+    <string name="string_all">All</string>
 
     <!-- Dialog Box -->
     <string name="dialog_update_number">Show already registered. Do you want to update your number?</string>
@@ -101,9 +104,6 @@
     <!-- Radio Buttons -->
     <string name="rb_mock_show">Mock Show</string>
     <string name="rb_real_show">Real Show</string>
-    <string name="rb_all">All</string>
-    <string name="rb_asha">Asha</string>
-    <string name="rb_others">Others</string>
 
     <!-- Title Arrays -->
 

@@ -27,7 +27,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="ASHA"
+                    android:text="@string/string_asha"
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:padding="8dp"/>
 
@@ -36,6 +36,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/action_delete_all"
                     android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
                     android:onClick="deleteAshaListeners"/>
 
             </RelativeLayout>
@@ -54,15 +55,16 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="OTHERS"
+                    android:text="@string/string_others"
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:padding="8dp"/>
 
                 <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="delete all"
+                    android:text="@string/action_delete_all"
                     android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
                     android:onClick="deleteOtherListeners"/>
 
             </RelativeLayout>
@@ -76,7 +78,5 @@
         </LinearLayout>
 
     </LinearLayout>
-
-
 
 </ScrollView>

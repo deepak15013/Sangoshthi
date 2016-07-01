@@ -40,7 +40,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_date_range_black_24px"
-            android:onClick="spreadDateChooser"/>
+            android:onClick="spreadDateChooser"
+            android:contentDescription="@string/cd_date_chooser"/>
 
     </LinearLayout>
 
@@ -68,7 +69,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_date_range_black_24px"
-            android:onClick="spreadTimeChooser"/>
+            android:onClick="spreadTimeChooser"
+            android:contentDescription="@string/cd_time_chooser"/>
 
     </LinearLayout>
 
@@ -84,7 +86,7 @@
             android:id="@+id/rb_spread_all"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/rb_all"
+            android:text="@string/string_all"
             android:textStyle="bold"
             android:textSize="20sp"
             android:layout_margin="10dp"
@@ -94,7 +96,7 @@
             android:id="@+id/rb_spread_asha"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/rb_asha"
+            android:text="@string/string_asha"
             android:textSize="20sp"
             android:textStyle="bold"
             android:layout_margin="10dp"/>
@@ -103,7 +105,7 @@
             android:id="@+id/rb_spread_others"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/rb_others"
+            android:text="@string/string_others"
             android:textSize="20sp"
             android:textStyle="bold"
             android:layout_margin="10dp"/>

@@ -25,12 +25,12 @@
     <!-- titles -->
     <string name="title_create_show">शो बनाए</string>
     <string name="prepare_show_title">शो त्यार करे</string>
-    <string name="edit_listeners_title">Edit Listeners</string>
+    <string name="edit_listeners_title">श्रोतगण</string>
     <string name="main_menu_title">@string/app_name</string>
-    <string name="create_trailer_title">Create Trailer</string>
-    <string name="edit_guest_title">Edit Guests</string>
-    <string name="show_guests_title">Show Guests</string>
-    <string name="show_listeners_title">Show Listeners</string>
+    <string name="create_trailer_title">ट्रेलर</string>
+    <string name="edit_guest_title">गेस्ट</string>
+    <string name="show_guests_title">गेस्ट देखे</string>
+    <string name="show_listeners_title">श्रोतगण देखे</string>
     <string name="show_overview_title">Show Dashboard</string>
     <string name="show_results_title">Quiz Results</string>
     <string name="spread_the_word_title">सबको सूचित करे</string>
@@ -42,9 +42,9 @@
     <string name="dialog_update_number">Show already registered. Do you want to update your number?</string>
     <string name="dialog_yes">Yes</string>
     <string name="dialog_no">No</string>
-    <string name="dialog_call_waiting_trailer">Please wait for the call</string>
+    <string name="dialog_call_waiting_trailer">कृपया कॉल की प्रतीक्षा करे</string>
     <string name="dialog_call_waiting_listen_trailer">Please wait for the call to listen trailer</string>
-    <string name="dialog_call_waiting_show_overview">Please wait for the call</string>
+    <string name="dialog_call_waiting_show_overview">कृपया कॉल की प्रतीक्षा करे</string>
 
     <!-- Error -->
     <string name="error_invalid_pin">Incorrect Pin</string>
@@ -79,8 +79,8 @@
     <!-- Buttons action -->
     <string name="action_quit">Quit</string>
     <string name="action_finished">Finished</string>
-    <string name="action_start_show">start show</string>
-    <string name="action_stop_show">stop show</string>
+    <string name="action_start_show">शुरू करे</string>
+    <string name="action_stop_show">अंत करे</string>
     <string name="action_show_done">show done</string>
     <string name="action_start_quiz">start quiz</string>
     <string name="action_stop_quiz">stop quiz</string>
@@ -93,15 +93,15 @@
     <!-- Radio Buttons -->
     <string name="rb_mock_show">रिहर्सल शो</string>
     <string name="rb_real_show">Real Show</string>
-    <string name="rb_all">All</string>
-    <string name="rb_asha">आशा</string>
-    <string name="rb_others">अन्य</string>
+    <string name="string_all">All</string>
+    <string name="string_asha">आशा</string>
+    <string name="string_others">अन्य</string>
 
     <!-- Title Arrays -->
 
     <string-array name="main_menu_titles">
-        <item>prepare show</item>
-        <item>spread the word</item>
+        <item>शो त्यार करे</item>
+        <item>सबको सूचित करे</item>
         <item>शो शुरू करे</item>
     </string-array>
 
@@ -122,9 +122,9 @@
     </string-array>
 
     <string-array name="create_trailer">
-        <item>Recording Request</item>
-        <item>Play Trailer</item>
-        <item>Delete Trailer</item>
+        <item>रेकॉर्डिंग बनाए</item>
+        <item>ट्रेलर सुने</item>
+        <item>ट्रेलर हटाए</item>
     </string-array>
 
     <!-- Spinners -->
