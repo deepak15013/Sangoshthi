@@ -36,14 +36,16 @@ public class ZMQSubscriber {
                     String message = new String(msg);
                     Log.v("dks","String: "+message);
 
-                    if(message.equalsIgnoreCase("start_timer")) {
+                    if(message.contains("timer")) {
                         Log.v("dks","start_timer");
-                        ShowOverviewActivity.chronometer.setBase(SystemClock.elapsedRealtime());
-                        ShowOverviewActivity.chronometer.start();
+
+                        ShowOverviewActivity.startTimers();
                     }
                     else {
 
                         String[] result = message.split(",",2);
+
+                        Log.v("dks","timer: "+message.contains("timer"));
 
                         Gson gson = new GsonBuilder().create();
                         TopicInfoResult callerObjects = gson.fromJson(result[1],TopicInfoResult.class);

@@ -11,7 +11,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Set the broadcast schedule"
+        android:text="@string/tv_set_broadcast_schedule"
         android:textSize="40sp"
         android:gravity="center"
         android:layout_marginTop="20dp"/>
@@ -26,7 +26,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Date: "/>
+            android:text="@string/tv_date"/>
 
         <EditText
             android:id="@+id/et_spread_date"
@@ -54,7 +54,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Time: "/>
+            android:text="@string/tv_time"/>
 
         <EditText
             android:id="@+id/et_spread_time"
@@ -84,9 +84,9 @@
             android:id="@+id/rb_spread_all"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="All"
+            android:text="@string/rb_all"
             android:textStyle="bold"
-            android:textSize="20dp"
+            android:textSize="20sp"
             android:layout_margin="10dp"
             android:checked="true"/>
 
@@ -94,8 +94,8 @@
             android:id="@+id/rb_spread_asha"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Asha"
-            android:textSize="20dp"
+            android:text="@string/rb_asha"
+            android:textSize="20sp"
             android:textStyle="bold"
             android:layout_margin="10dp"/>
 
@@ -103,8 +103,8 @@
             android:id="@+id/rb_spread_others"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Others"
-            android:textSize="20dp"
+            android:text="@string/rb_others"
+            android:textSize="20sp"
             android:textStyle="bold"
             android:layout_margin="10dp"/>
 
@@ -120,7 +120,7 @@
             android:id="@+id/btn_spread_add_more"
             android:layout_width="wrap_content"
             android:layout_height="60dp"
-            android:text="add more"
+            android:text="@string/action_add_more"
             android:textStyle="bold"
             android:layout_margin="10dp"
             android:layout_weight="1"
@@ -131,7 +131,7 @@
             android:id="@+id/btn_spread_submit"
             android:layout_width="wrap_content"
             android:layout_height="60dp"
-            android:text="Submit"
+            android:text="@string/action_submit"
             android:textStyle="bold"
             android:layout_margin="10dp"
             android:layout_weight="1"

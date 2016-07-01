@@ -37,7 +37,7 @@ public class ShowListenersActivity extends AppCompatActivity {
 
         toolbarItemView = (ChecklistItemView) findViewById(R.id.toolbar_item);
         assert toolbarItemView != null;
-        toolbarItemView.setTitle("Show Listeners");
+        toolbarItemView.setTitle(getResources().getString(R.string.show_listeners_title));
         toolbarItemView.hideCheckbox(true);
         toolbarItemView.setIcon(R.drawable.ic_person);
 

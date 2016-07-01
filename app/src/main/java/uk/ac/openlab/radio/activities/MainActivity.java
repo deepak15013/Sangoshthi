@@ -44,8 +44,6 @@ import uk.ac.openlab.radio.services.ZMQSubscriber;
 
 public class MainActivity extends AppCompatActivity implements IRecyclerViewItemClickedListener {
 
-    private static final String TAG = MainActivity.class.getSimpleName();
-
     public static final String EXTRA_TITLES_ID = "EXTRA_TITLES_ID";
     public static final String EXTRA_ICONS_ID = "EXTRA_ICONS_ID";
     public static final String EXTRA_PAGE_ID = "EXTRA_PAGE_ID";
@@ -57,11 +55,9 @@ public class MainActivity extends AppCompatActivity implements IRecyclerViewItem
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
     private CheckListAdapter adapter;
-    private int selectedIndex = -1;
 
     private Button button;
     private ChecklistItemView toolbarItemView;
-    private CheckListItem toolbarItem;
 
     private int pageID = R.string.main_menu_title;
 
@@ -145,7 +141,7 @@ public class MainActivity extends AppCompatActivity implements IRecyclerViewItem
 
     @Override
     public void recyclerViewItemClicked(View view, int position) {
-        Toast.makeText(this,"Clicked: "+position,Toast.LENGTH_SHORT).show();
+
     }
 
     protected void setupUI(int id){
@@ -173,7 +169,6 @@ public class MainActivity extends AppCompatActivity implements IRecyclerViewItem
                 button.setText(R.string.action_finished);
                 break;
             default:
-                Log.v("tag","view.gone");
                 button.setVisibility(View.GONE);
                 return;
         }
@@ -208,7 +203,6 @@ public class MainActivity extends AppCompatActivity implements IRecyclerViewItem
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
                 view.setTransitionName(getString(R.string.transition_name_listitem));
 
-            selectedIndex = position;
             switch(position) {
                 case 0:
                     //prepare show
@@ -236,7 +230,7 @@ public class MainActivity extends AppCompatActivity implements IRecyclerViewItem
 
                         @Override
                         public void fail() {
-                            Toast.makeText(MainActivity.this, "Please create a trailer first", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MainActivity.this, getResources().getString(R.string.toast_create_trailer_first), Toast.LENGTH_SHORT).show();
                         }
 
                         @Override
@@ -269,7 +263,6 @@ public class MainActivity extends AppCompatActivity implements IRecyclerViewItem
         @Override
         public void recyclerViewItemClicked(View view, int position) {
             Intent i =  null;
-            selectedIndex = position;
 
             CheckListItem item = adapter.getItem(position);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
@@ -323,7 +316,6 @@ public class MainActivity extends AppCompatActivity implements IRecyclerViewItem
         @Override
         public void recyclerViewItemClicked(View view, int position) {
             Intent i = null;
-            selectedIndex = position;
 
             CheckListItem item = adapter.getItem(position);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
@@ -331,7 +323,6 @@ public class MainActivity extends AppCompatActivity implements IRecyclerViewItem
 
             switch (position) {
                 case 0:
-                    Toast.makeText(MainActivity.this, "Add listeners", Toast.LENGTH_SHORT).show();
                     i = new Intent(MainActivity.this,NumberInputActivity.class);
                     i.putExtra(NumberInputActivity.EXTRA_TEXT,R.string.number_input_enter_listener_number);
                     i.putExtra(NumberInputActivity.EXTRA_MODE,NumberInputActivity.InputMode.ADD_LISTENER.ordinal());
@@ -343,8 +334,6 @@ public class MainActivity extends AppCompatActivity implements IRecyclerViewItem
                     break;
 
                 case 1:
-                    Toast.makeText(MainActivity.this, "Show Listeners", Toast.LENGTH_SHORT).show();
-
                     i = new Intent(MainActivity.this, ShowListenersActivity.class);
                     startActivity(i);
                     break;
@@ -357,7 +346,6 @@ public class MainActivity extends AppCompatActivity implements IRecyclerViewItem
         @Override
         public void recyclerViewItemClicked(View view, int position) {
             Intent i =  null;
-            selectedIndex = position;
 
             CheckListItem item = adapter.getItem(position);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
@@ -369,7 +357,7 @@ public class MainActivity extends AppCompatActivity implements IRecyclerViewItem
                 case 0:
 
                     AlertDialog.Builder createTrailerAlertDialogBuilder = new AlertDialog.Builder(MainActivity.this);
-                    createTrailerAlertDialogBuilder.setMessage("Please wait for the call");
+                    createTrailerAlertDialogBuilder.setMessage(getResources().getString(R.string.dialog_call_waiting_trailer));
                     createTrailerAlertDialogBuilder.setCancelable(false);
                     alertDialogRecordTrailer = createTrailerAlertDialogBuilder.create();
                     alertDialogRecordTrailer.show();
@@ -393,8 +381,6 @@ public class MainActivity extends AppCompatActivity implements IRecyclerViewItem
 
                         @Override
                         public void message(String message) {
-                            Toast.makeText(MainActivity.this, "Something's wrong. Please try again later", Toast.LENGTH_SHORT).show();
-                            Log.v("dks","message: "+message);
                         }
                     });
                     break;
@@ -404,7 +390,7 @@ public class MainActivity extends AppCompatActivity implements IRecyclerViewItem
 
 
                     AlertDialog.Builder playTrailerAlertDialogBuilder = new AlertDialog.Builder(MainActivity.this);
-                    playTrailerAlertDialogBuilder.setMessage("Please wait for the call to listen trailer");
+                    playTrailerAlertDialogBuilder.setMessage(getResources().getString(R.string.dialog_call_waiting_listen_trailer));
                     playTrailerAlertDialogBuilder.setCancelable(false);
                     alertDialogPlayTrailer = playTrailerAlertDialogBuilder.create();
                     alertDialogPlayTrailer.show();
@@ -441,7 +427,7 @@ public class MainActivity extends AppCompatActivity implements IRecyclerViewItem
                     FreeSwitchApi.shared().deleteTrailer(new IMessageListener() {
                         @Override
                         public void success() {
-                            Toast.makeText(MainActivity.this, "Trailer deleted", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MainActivity.this, getResources().getString(R.string.toast_trailer_deleted), Toast.LENGTH_SHORT).show();
                         }
 
                         @Override
@@ -469,7 +455,6 @@ public class MainActivity extends AppCompatActivity implements IRecyclerViewItem
         @Override
         public void recyclerViewItemClicked(View view, int position) {
             Intent i = null;
-            selectedIndex = position;
 
             CheckListItem item = adapter.getItem(position);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
@@ -479,9 +464,6 @@ public class MainActivity extends AppCompatActivity implements IRecyclerViewItem
                 case 0:
 
                     // Add guest
-
-                    Toast.makeText(MainActivity.this, "Add guest", Toast.LENGTH_SHORT).show();
-
                     i = new Intent(MainActivity.this,NumberInputActivity.class);
                     i.putExtra(NumberInputActivity.EXTRA_TEXT,R.string.number_input_enter_guest_number);
                     i.putExtra(NumberInputActivity.EXTRA_MODE,NumberInputActivity.InputMode.ADD_GUEST.ordinal());
@@ -497,9 +479,6 @@ public class MainActivity extends AppCompatActivity implements IRecyclerViewItem
                 case 1:
 
                     // show guests
-
-                    Toast.makeText(MainActivity.this, "Show Guests", Toast.LENGTH_SHORT).show();
-
                     i = new Intent(MainActivity.this, ShowGuestsActivity.class);
                     startActivity(i);
                     break;

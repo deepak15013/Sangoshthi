@@ -102,8 +102,6 @@ public class SplashActivity extends Activity {
             FreeSwitchApi.shared().checkShowStatus(new IMessageListener() {
                 @Override
                 public void success() {
-                    Log.v("tag","success no show already registered");
-
                     // start further process
                     finish();
                     Intent i = new Intent(SplashActivity.this, SetupActivity.class);
@@ -115,8 +113,8 @@ public class SplashActivity extends Activity {
                 @Override
                 public void fail() {
                     AlertDialog.Builder builder = new AlertDialog.Builder(SplashActivity.this);
-                    builder.setMessage("Show already registered. Do you want to update your number?");
-                    builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    builder.setMessage(R.string.dialog_update_number);
+                    builder.setPositiveButton(R.string.dialog_yes, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             finish();
@@ -127,7 +125,7 @@ public class SplashActivity extends Activity {
                         }
                     });
 
-                    builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    builder.setNegativeButton(R.string.dialog_no, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             finish();
@@ -154,7 +152,6 @@ public class SplashActivity extends Activity {
             FreeSwitchApi.shared().checkShowStatus(new IMessageListener() {
                 @Override
                 public void success() {
-                    Log.v("tag","success no show already registered");
 
                     // start further process
                     finish();

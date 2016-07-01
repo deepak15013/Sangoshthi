@@ -25,8 +25,6 @@ import uk.ac.openlab.radio.network.MessageHelper;
  */
 public class SetupActivity extends AppIntro2 implements NumberFragment.OnFragmentInteractionListener{
 
-    private static final String TAG = SetupActivity.class.getSimpleName();
-
     int index = 0;
 
     String status;
@@ -34,13 +32,11 @@ public class SetupActivity extends AppIntro2 implements NumberFragment.OnFragmen
     @Override
     public void init(@Nullable Bundle savedInstanceState) {
 
-        Log.v(TAG,"inside");
-
         status = getIntent().getStringExtra("STATUS");
 
         GlobalUtils.shared().init(getApplicationContext());
-        addSlide(NumberFragment.newInstance("What is your number", NumberInputActivity.InputMode.ADD_PRESENTER));
-        addSlide(AppIntroFragment.newInstance("All Done","You are now ready to run a radio show", R.drawable.ic_radio, Color.BLACK));
+        addSlide(NumberFragment.newInstance(getResources().getString(R.string.app_intro_slide1), NumberInputActivity.InputMode.ADD_PRESENTER));
+        addSlide(AppIntroFragment.newInstance(getResources().getString(R.string.app_intro_slide2_1),getResources().getString(R.string.app_intro_slide2_2), R.drawable.ic_radio, Color.BLACK));
 
         showStatusBar(true);
         setNavBarColor("#3F51B5");
@@ -73,7 +69,6 @@ public class SetupActivity extends AppIntro2 implements NumberFragment.OnFragmen
             FreeSwitchApi.shared().createHost(new IMessageListener() {
                 @Override
                 public void success() {
-                    Log.v("tag", "host updated successfully");
 
                     FreeSwitchApi.shared().getShowId(new IMessageListener() {
                         @Override
@@ -93,8 +88,6 @@ public class SetupActivity extends AppIntro2 implements NumberFragment.OnFragmen
 
                         @Override
                         public void message(String message) {
-                            Log.v("tag","getShowId message");
-                            Log.v("tag", "message: "+message);
                             if(message != null) {
 
                                 Boolean updated = GlobalUtils.shared().setStudioID(message);
@@ -119,13 +112,11 @@ public class SetupActivity extends AppIntro2 implements NumberFragment.OnFragmen
                 @Override
                 public void fail() {
                     Log.v("tag", "host updation failed");
-                    Toast.makeText(SetupActivity.this, "Error! Please try again", Toast.LENGTH_SHORT).show();
                 }
 
                 @Override
                 public void error() {
                     Log.v("tag", "host updation error");
-                    Toast.makeText(SetupActivity.this, "Error! Please try again", Toast.LENGTH_SHORT).show();
                     finish();
                 }
 

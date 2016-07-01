@@ -42,7 +42,7 @@ public class SpreadTheWordActivity extends AppCompatActivity {
 
         toolbarItemView = (ChecklistItemView) findViewById(R.id.toolbar_item);
         assert toolbarItemView != null;
-        toolbarItemView.setTitle("Spread the Word");
+        toolbarItemView.setTitle(getString(R.string.spread_the_word_title));
         toolbarItemView.hideCheckbox(true);
 
         etSpreadDate = (EditText) findViewById(R.id.et_spread_date);
@@ -73,7 +73,6 @@ public class SpreadTheWordActivity extends AppCompatActivity {
     }
 
     public void spreadDateChooser(View view) {
-        Log.v("TAG", "dateChooser");
         DialogFragment newFragment = new DatePickerFragment();
         newFragment.show(getSupportFragmentManager(), "datePicker");
     }
@@ -91,7 +90,7 @@ public class SpreadTheWordActivity extends AppCompatActivity {
     }
 
     public void spreadAddMore(View view) {
-        Toast.makeText(SpreadTheWordActivity.this, "add more", Toast.LENGTH_SHORT).show();
+        Toast.makeText(SpreadTheWordActivity.this, getString(R.string.toast_add_more), Toast.LENGTH_SHORT).show();
 
         int selectedId = rgSpreadWordCategory.getCheckedRadioButtonId();
         radioButton = (RadioButton) findViewById(selectedId);
@@ -102,7 +101,7 @@ public class SpreadTheWordActivity extends AppCompatActivity {
         FreeSwitchApi.shared().spreadWord(new IMessageListener() {
             @Override
             public void success() {
-                Toast.makeText(SpreadTheWordActivity.this, "Broadcast time saved", Toast.LENGTH_SHORT).show();
+                Toast.makeText(SpreadTheWordActivity.this, getString(R.string.toast_broadcast_time_saved), Toast.LENGTH_SHORT).show();
                 etSpreadDate.setText("");
                 etSpreadTime.setText("");
             }
@@ -126,7 +125,7 @@ public class SpreadTheWordActivity extends AppCompatActivity {
     }
 
     public void spreadSubmit(View view) {
-        Toast.makeText(SpreadTheWordActivity.this, "submit", Toast.LENGTH_SHORT).show();
+        Toast.makeText(SpreadTheWordActivity.this, getString(R.string.toast_submit), Toast.LENGTH_SHORT).show();
 
         int selectedId = rgSpreadWordCategory.getCheckedRadioButtonId();
         radioButton = (RadioButton) findViewById(selectedId);
@@ -137,7 +136,7 @@ public class SpreadTheWordActivity extends AppCompatActivity {
         FreeSwitchApi.shared().spreadWord(new IMessageListener() {
             @Override
             public void success() {
-                Toast.makeText(SpreadTheWordActivity.this, "Broadcast time saved", Toast.LENGTH_SHORT).show();
+                Toast.makeText(SpreadTheWordActivity.this, getString(R.string.toast_broadcast_time_saved), Toast.LENGTH_SHORT).show();
                 etSpreadDate.setText("");
                 etSpreadTime.setText("");
                 onBackPressed();
@@ -164,7 +163,6 @@ public class SpreadTheWordActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        Log.v("dks","onBackPressed");
         finish();
     }
 

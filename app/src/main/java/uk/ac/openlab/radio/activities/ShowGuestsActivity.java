@@ -34,7 +34,7 @@ public class ShowGuestsActivity extends AppCompatActivity {
 
         toolbarItemView = (ChecklistItemView) findViewById(R.id.toolbar_item);
         assert toolbarItemView != null;
-        toolbarItemView.setTitle("Show Guests");
+        toolbarItemView.setTitle(getResources().getString(R.string.show_guests_title));
         toolbarItemView.hideCheckbox(true);
         toolbarItemView.setIcon(R.drawable.ic_person);
 
@@ -42,6 +42,7 @@ public class ShowGuestsActivity extends AppCompatActivity {
         linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         showGuestsRecyclerView = (RecyclerView) findViewById(R.id.rv_show_guests);
+        assert showGuestsRecyclerView != null;
         showGuestsRecyclerView.setLayoutManager(linearLayoutManager);
         getGuests();
 
@@ -66,7 +67,6 @@ public class ShowGuestsActivity extends AppCompatActivity {
 
             @Override
             public void message(String message) {
-                Log.v("dks", "message: "+message);
                 parse(message);
             }
         });
@@ -82,7 +82,6 @@ public class ShowGuestsActivity extends AppCompatActivity {
             if(names.equalsIgnoreCase("") || names.equalsIgnoreCase(" ")) {
                 continue;
             }
-            Log.v("dks","names: "+names);
             guestArrayList.add(names);
         }
 

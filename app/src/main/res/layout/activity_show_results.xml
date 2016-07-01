@@ -12,7 +12,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:baselineAligned="false">
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -24,14 +25,14 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/prompt_num_of_option" />
+                android:text="@string/tv_num_of_option" />
 
             <Spinner
                 android:id="@+id/spnNumOfOptions"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:entries="@array/quiz_option_array"
-                android:prompt="@string/prompt_num_of_option"
+                android:prompt="@string/tv_num_of_option"
                 android:layout_margin="10dp" />
 
         </LinearLayout>
@@ -46,14 +47,14 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/prompt_correct_option" />
+                android:text="@string/tv_correct_option" />
 
             <Spinner
                 android:id="@+id/spnCorrectOption"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:entries="@array/quiz_option_array"
-                android:prompt="@string/prompt_correct_option"
+                android:prompt="@string/tv_correct_option"
                 android:layout_margin="10dp" />
 
         </LinearLayout>
@@ -64,7 +65,7 @@
         android:id="@+id/btn_create_results"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:text="Create Results"
+        android:text="@string/action_create_results"
         android:textStyle="bold"
         android:layout_marginBottom="20dp"
         android:layout_gravity="center_horizontal"

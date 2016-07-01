@@ -108,14 +108,14 @@ public class CreateShow extends AppCompatActivity {
         String category = "";
         int checkedId = rgShowType.getCheckedRadioButtonId();
         if(checkedId == -1) {
-            Toast.makeText(CreateShow.this, "Please select show type", Toast.LENGTH_SHORT).show();
+            Toast.makeText(CreateShow.this, R.string.toast_create_show_radio_error, Toast.LENGTH_SHORT).show();
         }
         else {
             rbShowType = (RadioButton) findViewById(checkedId);
             assert rbShowType != null;
-            if(rbShowType.getText().toString().equalsIgnoreCase("Mock Show")) {
+            if(rbShowType.getText().toString().equalsIgnoreCase(getResources().getString(R.string.rb_mock_show))) {
                 category = "mock";
-            } else if(rbShowType.getText().toString().equalsIgnoreCase("Real Show")) {
+            } else if(rbShowType.getText().toString().equalsIgnoreCase(getResources().getString(R.string.rb_real_show))) {
                 category = "real";
             }
 

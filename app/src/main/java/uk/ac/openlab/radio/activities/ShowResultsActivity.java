@@ -37,7 +37,7 @@ public class ShowResultsActivity extends AppCompatActivity {
 
         toolbarItemView = (ChecklistItemView) findViewById(R.id.toolbar_item);
         assert toolbarItemView != null;
-        toolbarItemView.setTitle("Quiz Results");
+        toolbarItemView.setTitle(getString(R.string.show_results_title));
         toolbarItemView.hideCheckbox(true);
         toolbarItemView.setIcon(R.drawable.ic_person);
 
@@ -93,7 +93,6 @@ public class ShowResultsActivity extends AppCompatActivity {
                     BarData data = new BarData(labels, dataSet);
 
                     quizChart.setData(data);
-                    quizChart.setDescription("Quiz Results");
                     YAxis leftAxis = quizChart.getAxisLeft();
                     YAxis rightAxis = quizChart.getAxisRight();
 
@@ -104,7 +103,7 @@ public class ShowResultsActivity extends AppCompatActivity {
 
                 }
                 else {
-                    Toast.makeText(ShowResultsActivity.this, "Please enter number of option and the correct option", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ShowResultsActivity.this, getString(R.string.toast_quiz_results_error), Toast.LENGTH_SHORT).show();
                 }
             }
         });

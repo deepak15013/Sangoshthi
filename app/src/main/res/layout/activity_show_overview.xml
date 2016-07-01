@@ -18,74 +18,57 @@
     <include layout="@layout/checklist_toolbar" />
 
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="75dp"
+        android:layout_marginBottom="10dp">
+
+        <Button
+            android:visibility="visible"
+            android:id="@+id/start_stop_button"
+            android:text="@string/action_start_show"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+
+        <Button
+            android:id="@+id/btn_start_quiz"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="@string/action_start_quiz"
+            android:onClick="overviewActivityStartQuiz"/>
+
         <LinearLayout
-            android:layout_width="match_parent"
-            android:orientation="horizontal"
-            android:layout_height="75dp"
-            android:layout_marginBottom="10dp">
+            android:id="@+id/ll_show_timer"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:visibility="invisible">
 
-            <Button
-                android:visibility="visible"
-                android:id="@+id/start_stop_button"
-                android:text="start show"
+            <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent" />
-
-            <Button
-                android:id="@+id/btn_start_quiz"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="Start quiz"
-                android:onClick="overviewActivityStartQuiz"/>
-
-            <LinearLayout
-                android:id="@+id/ll_show_timer"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:gravity="center"
-                android:visibility="invisible">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Quiz time" />
-
-                <Chronometer
-                    android:id="@+id/chrono_quiz_timer"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:format="%s"
-                    android:textSize="20sp" />
-
-            </LinearLayout>
+                android:layout_height="wrap_content"
+                android:text="@string/tv_quiz_time" />
 
             <Chronometer
-                android:id="@+id/show_chronometer"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:id="@+id/chrono_quiz_timer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:format="%s"
-                android:textSize="28sp"
-                android:gravity="center"/>
-
-            <!--<TextView
-                android:id="@+id/countdown"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:textSize="28sp"
-                android:padding="20dp"
-                android:gravity="center|end"
-                android:text="5:00"/-->>
+                android:textSize="20sp" />
 
         </LinearLayout>
 
-        <!--<android.support.v7.widget.RecyclerView
-            android:layout_weight="1.2"
-            android:id="@+id/timeline"
-            android:background="?colorPrimary"
-            android:orientation="horizontal"
+        <Chronometer
+            android:id="@+id/show_chronometer"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>-->
+            android:layout_height="match_parent"
+            android:format="%s"
+            android:textSize="28sp"
+            android:gravity="center"/>
+
+    </LinearLayout>
 
     <View
         android:layout_width="wrap_content"
@@ -101,7 +84,7 @@
             android:id="@+id/tv_total_callers"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Total Callers "
+            android:text="@string/string_total_callers"
             android:textSize="20sp"
             android:layout_marginLeft="30dp"
             android:layout_marginStart="30dp"
@@ -146,47 +129,10 @@
         android:background="@android:color/darker_gray"
         android:layout_margin="16dp"/>
 
-
-        <!--<android.support.v7.widget.RecyclerView
-            android:layout_weight="1.6"
-            android:padding="2dp"
-            android:id="@+id/caller_controls"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal" />-->
-
     <android.support.v7.widget.RecyclerView
         android:id="@+id/callerList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="8dp"/>
-
-    <!--<LinearLayout
-        android:layout_weight="1.5"
-        android:layout_gravity="bottom"
-        android:layout_width="match_parent"
-        android:layout_margin="@dimen/activity_margin"
-        android:layout_height="match_parent">
-        <Button
-            android:id="@+id/button_material"
-            android:padding="@dimen/button_padding"
-            android:layout_gravity="bottom"
-            android:layout_weight="1"
-            android:text="@string/action_recorded_materials"
-            android:textSize="@dimen/button_textSize"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="PlayRecordedMaterial"/>
-        <Button
-            android:id="@+id/button_clips"
-            android:padding="@dimen/button_padding"
-            android:layout_gravity="bottom"
-            android:layout_weight="1"
-            android:text="@string/action_previous_clips"
-            android:textSize="@dimen/button_textSize"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="PlayPreviousClips"/>
-    </LinearLayout>-->
 
 </LinearLayout>

@@ -3,6 +3,7 @@ package uk.ac.openlab.radio.activities;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.SystemClock;
@@ -74,7 +75,7 @@ public class ShowOverviewActivity extends AppCompatActivity {
 
         toolbarItemView = (ChecklistItemView) findViewById(R.id.toolbar_item);
         assert toolbarItemView != null;
-        toolbarItemView.setTitle("Show Dashboard");
+        toolbarItemView.setTitle(getResources().getString(R.string.show_overview_title));
         toolbarItemView.hideCheckbox(true);
         toolbarItemView.setIcon(R.drawable.ic_person);
 
@@ -104,6 +105,7 @@ public class ShowOverviewActivity extends AppCompatActivity {
         callerListRecyclerView.setAdapter(callerListAdapter);
 
         tvTotalCallers = (TextView) findViewById(R.id.tv_total_callers);
+        tvTotalCallers.setText(getResources().getString(R.string.string_total_callers,0));
 
         ibFlush.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -180,7 +182,7 @@ public class ShowOverviewActivity extends AppCompatActivity {
 
         if(!callReceived) {
             AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-            alertDialogBuilder.setMessage("Please wait for the call");
+            alertDialogBuilder.setMessage(getResources().getString(R.string.dialog_call_waiting_show_overview));
             alertDialogBuilder.setCancelable(false);
             alertDialog = alertDialogBuilder.create();
             alertDialog.show();
@@ -232,7 +234,7 @@ public class ShowOverviewActivity extends AppCompatActivity {
                         @Override
                         public void run() {
                             callerListAdapter.notifyDataSetChanged();
-                            tvTotalCallers.setText("Total callers "+(callers.getListeners()-1));
+                            tvTotalCallers.setText(Resources.getSystem().getString(R.string.string_total_callers,callers.getListeners()-1));
                         }
                     });
                 }
@@ -241,7 +243,7 @@ public class ShowOverviewActivity extends AppCompatActivity {
                     callerListRecyclerView.post(new Runnable() {
                         @Override
                         public void run() {
-                            tvTotalCallers.setText("Total callers "+(callers.getListeners()-1));
+                            tvTotalCallers.setText(Resources.getSystem().getString(R.string.string_total_callers,callers.getListeners()-1));
                         }
                     });
                 }
@@ -251,10 +253,22 @@ public class ShowOverviewActivity extends AppCompatActivity {
         }
     }
 
+    public static void startTimers() {
+
+        ShowOverviewActivity.chronometer.post(new Runnable() {
+            @Override
+            public void run() {
+                ShowOverviewActivity.chronometer.setBase(SystemClock.elapsedRealtime());
+                ShowOverviewActivity.chronometer.start();
+            }
+        });
+
+    }
+
     private void startStop() {
 
-        if(startStopButton.getText().toString().equalsIgnoreCase("start show")) {
-            Toast.makeText(ShowOverviewActivity.this, "start show", Toast.LENGTH_SHORT).show();
+        if(startStopButton.getText().toString().equalsIgnoreCase(getResources().getString(R.string.action_start_show))) {
+            Toast.makeText(ShowOverviewActivity.this, getString(R.string.action_start_show), Toast.LENGTH_SHORT).show();
 
             FreeSwitchApi.shared().startShow(new IMessageListener() {
                 @Override
@@ -263,7 +277,7 @@ public class ShowOverviewActivity extends AppCompatActivity {
                     startSeekBar = true;
                     chronometerThread.start();
 
-                    startStopButton.setText("Stop show");
+                    startStopButton.setText(getString(R.string.action_stop_show));
 
                 }
 
@@ -290,7 +304,7 @@ public class ShowOverviewActivity extends AppCompatActivity {
                 @Override
                 public void success() {
                     chronometer.stop();
-                    startStopButton.setText("Show Done");
+                    startStopButton.setText(getString(R.string.action_show_done));
                     startSeekBar = false;
 
                     SharedPreferences.Editor e = PreferenceManager.getDefaultSharedPreferences(getBaseContext()).edit();
@@ -327,7 +341,7 @@ public class ShowOverviewActivity extends AppCompatActivity {
     LinearLayout llShowTimer;
     public void overviewActivityStartQuiz(View view) {
 
-        if(btnStartQuiz.getText().toString().equalsIgnoreCase("start quiz")) {
+        if(btnStartQuiz.getText().toString().equalsIgnoreCase(getString(R.string.action_start_quiz))) {
 
             Toast.makeText(ShowOverviewActivity.this, "Quiz starting", Toast.LENGTH_SHORT).show();
 
@@ -339,7 +353,7 @@ public class ShowOverviewActivity extends AppCompatActivity {
             FreeSwitchApi.shared().startQuiz(new IMessageListener() {
                 @Override
                 public void success() {
-                    btnStartQuiz.setText("Stop Quiz");
+                    btnStartQuiz.setText(getString(R.string.action_stop_quiz));
 
                     llShowTimer.setVisibility(LinearLayout.VISIBLE);
 
@@ -363,14 +377,14 @@ public class ShowOverviewActivity extends AppCompatActivity {
                 }
             }, quizId, startTime);
         }
-        else if(btnStartQuiz.getText().toString().equalsIgnoreCase("stop quiz")) {
+        else if(btnStartQuiz.getText().toString().equalsIgnoreCase(getString(R.string.action_stop_quiz))) {
 
             String stopTime = new SimpleDateFormat("hh:mm:ss").format(new Date());
 
             FreeSwitchApi.shared().stopQuiz(new IMessageListener() {
                 @Override
                 public void success() {
-                    btnStartQuiz.setText("Results");
+                    btnStartQuiz.setText(getString(R.string.action_results));
                 }
 
                 @Override
@@ -390,7 +404,7 @@ public class ShowOverviewActivity extends AppCompatActivity {
             }, stopTime);
 
             chronoQuizTimer.stop();
-        } else if(btnStartQuiz.getText().toString().equalsIgnoreCase("results")) {
+        } else if(btnStartQuiz.getText().toString().equalsIgnoreCase(getString(R.string.action_results))) {
 
             FreeSwitchApi.shared().showResults(new IMessageListener() {
                 @Override
@@ -416,7 +430,6 @@ public class ShowOverviewActivity extends AppCompatActivity {
                 }
             });
 
-            Toast.makeText(ShowOverviewActivity.this, "Show Results", Toast.LENGTH_SHORT).show();
             llShowTimer.setVisibility(LinearLayout.INVISIBLE);
         }
     }

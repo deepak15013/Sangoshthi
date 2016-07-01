@@ -47,15 +47,10 @@ import uk.ac.openlab.radio.utilities.ContactManager;
 
 public class NumberInputActivity extends AppCompatActivity {
 
-    private static final String TAG = NumberInputActivity.class.getSimpleName();
-
     public static final int REQUEST_CODE = 1002;
 
-
-    public static final String EXTRA_TITLE = "EXTRA_TITLE";
     public static final String EXTRA_TEXT = "EXTRA_TEXT";
     public static final String EXTRA_MODE = "EXTRA_MODE"; //adding guest, or adding listener
-    public static final String EXTRA_RESULT_VALUE = "EXTRA_RESULT_VALUE"; //value being returned
 
     EditText editText;
     TextView textView;
@@ -91,8 +86,6 @@ public class NumberInputActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setTheme(GlobalUtils.appTheme());
         setContentView(R.layout.activity_number_input);
-
-        Log.d(TAG,"inside");
 
         llRoleCategory = (LinearLayout) findViewById(R.id.ll_role_category);
 
@@ -160,7 +153,6 @@ public class NumberInputActivity extends AppCompatActivity {
             localeSpinner.setVisibility(View.VISIBLE);
             localeAdapter = new LocaleAdapter(this);
             localeSpinner.setAdapter(localeAdapter);
-//            localeSpinner.setSelection(localeAdapter.indexOfLocale(Locale.getDefault()));
             localeSpinner.setSelection(290);
         }
 
@@ -195,7 +187,6 @@ public class NumberInputActivity extends AppCompatActivity {
     }
 
     private boolean validateNumber(){
-        Log.v("dks","is valid number");
         String number = editText.getText().toString();
         Locale locale = (Locale)localeSpinner.getSelectedItem();
         try {
@@ -213,7 +204,6 @@ public class NumberInputActivity extends AppCompatActivity {
     long timeout = 10000;
     private boolean validateCode() {
         String code = editText.getText().toString();
-        Log.d(TAG,"validating code: "+code);
         if(code.length() > 0) {
             asyncWait = true;
             IMessageListener listener = new IMessageListener() {
@@ -284,7 +274,6 @@ public class NumberInputActivity extends AppCompatActivity {
 
 
     private void addCallerNumber(Caller.TYPE role){
-        //CloudStudioApi.shared().addPerson(GlobalUtils.shared().studioID(),""+phoneNumber.getNationalNumber(),""+phoneNumber.getCountryCode(),role.name(), role.name());
 
         int selectedId = rgRoleCategory.getCheckedRadioButtonId();
         rbRoleCategory = (RadioButton) findViewById(selectedId);
@@ -305,23 +294,19 @@ public class NumberInputActivity extends AppCompatActivity {
         FreeSwitchApi.shared().addListener(new IMessageListener() {
             @Override
             public void success() {
-                Log.v("tag", "listener added successfully");
-                Toast.makeText(NumberInputActivity.this, "Added successfully", Toast.LENGTH_SHORT).show();
+                Toast.makeText(NumberInputActivity.this, getResources().getString(R.string.toast_listener_added), Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void fail() {
-                Log.v("tag", "host creation failed");
             }
 
             @Override
             public void error() {
-                Log.v("tag", "host creation error");
             }
 
             @Override
             public void message(String message) {
-                Log.v("tag", "message: "+message);
             }
         }, String.valueOf(phoneNumber.getCountryCode()), String.valueOf(phoneNumber.getNationalNumber()), role.name(), roleCategory);
 
