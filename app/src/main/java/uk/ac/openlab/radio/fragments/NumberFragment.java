@@ -250,7 +250,7 @@ public class NumberFragment extends Fragment {
             localeSpinner.setVisibility(View.VISIBLE);
             localeAdapter = new LocaleAdapter(getContext());
             localeSpinner.setAdapter(localeAdapter);
-            localeSpinner.setSelection(localeAdapter.indexOfLocale(Locale.getDefault()));
+            localeSpinner.setSelection(290);
         }
 
         if (isPin()) {

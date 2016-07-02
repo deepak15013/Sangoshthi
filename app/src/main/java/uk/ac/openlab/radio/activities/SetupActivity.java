@@ -25,9 +25,8 @@ import uk.ac.openlab.radio.network.MessageHelper;
  */
 public class SetupActivity extends AppIntro2 implements NumberFragment.OnFragmentInteractionListener{
 
-    int index = 0;
-
-    String status;
+    private int index = 0;
+    private String status;
 
     @Override
     public void init(@Nullable Bundle savedInstanceState) {
@@ -42,9 +41,7 @@ public class SetupActivity extends AppIntro2 implements NumberFragment.OnFragmen
         setNavBarColor("#3F51B5");
         setSwipeLock(true);
         setProgressButtonEnabled(false);
-
     }
-
 
     @Override
     public void onNextPressed() {

@@ -87,6 +87,8 @@ public class NumberInputActivity extends AppCompatActivity {
         setTheme(GlobalUtils.appTheme());
         setContentView(R.layout.activity_number_input);
 
+        Log.v("dks","numberInputActivity created");
+
         llRoleCategory = (LinearLayout) findViewById(R.id.ll_role_category);
 
         rgRoleCategory = (RadioGroup) findViewById(R.id.rg_role_category);
@@ -191,7 +193,7 @@ public class NumberInputActivity extends AppCompatActivity {
         Locale locale = (Locale)localeSpinner.getSelectedItem();
         try {
             phoneNumber = phoneUtil.parse(number, locale.getCountry());
-            lang = locale.getCountry();//todo change
+            lang = locale.getCountry();
         } catch (NumberParseException e) {
             e.printStackTrace();
             return false;
