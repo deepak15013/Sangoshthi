@@ -19,7 +19,7 @@
 
     <!-- App Intro slides -->
     <string name="app_intro_slide1">अपना फोन नंबर डाले</string>
-    <string name="app_intro_slide2_1">All Done</string>
+    <string name="app_intro_slide2_1">हार्दिक स्वागत</string>
     <string name="app_intro_slide2_2">"अब आप शो शुरू करने के लिए त्यार हैं"</string>
 
     <!-- titles -->
@@ -32,18 +32,18 @@
     <string name="show_guests_title">गेस्ट देखे</string>
     <string name="show_listeners_title">श्रोतगण देखे</string>
     <string name="show_overview_title">Show Dashboard</string>
-    <string name="show_results_title">Quiz Results</string>
+    <string name="show_results_title">प्रश्नोत्तरी नतीजा</string>
     <string name="spread_the_word_title">सबको सूचित करे</string>
 
     <!-- Strings -->
-    <string name="string_total_callers">Total callers %1$s</string>
+    <string name="string_total_callers">कुल श्रोता %1$s</string>
 
     <!-- Dialog Box -->
-    <string name="dialog_update_number">Show already registered. Do you want to update your number?</string>
-    <string name="dialog_yes">Yes</string>
-    <string name="dialog_no">No</string>
+    <string name="dialog_update_number">शो पहले से बना हुआ हैं, क्या आप अपना नया नंबर डालना चाहते हैं?</string>
+    <string name="dialog_yes">ठीक</string>
+    <string name="dialog_no">रहने दे</string>
     <string name="dialog_call_waiting_trailer">कृपया कॉल की प्रतीक्षा करे</string>
-    <string name="dialog_call_waiting_listen_trailer">Please wait for the call to listen trailer</string>
+    <string name="dialog_call_waiting_listen_trailer">कृपया कॉल का इंतज़ार करें</string>
     <string name="dialog_call_waiting_show_overview">कृपया कॉल की प्रतीक्षा करे</string>
 
     <!-- Error -->
@@ -51,7 +51,7 @@
     <string name="error_invalid_number">Invalid Number</string>
 
     <!-- Toasts -->
-    <string name="toast_create_show_radio_error">Please select show type</string>
+    <string name="toast_create_show_radio_error">कृपया शो का प्रकार चुने</string>
     <string name="toast_trailer_deleted">Trailer deleted</string>
     <string name="toast_create_trailer_first">Please create a trailer first</string>
     <string name="toast_listener_added">Listener added successfully</string>
@@ -61,16 +61,16 @@
     <string name="toast_submit">submit</string>
 
     <!-- Edit texts -->
-    <string name="number_input_enter_guest_number">Enter the Guest\'s telephone number</string>
+    <string name="number_input_enter_guest_number">गेस्ट का नंबर डाले</string>
     <string name="number_input_enter_listener_number">श्रोता का फोन नंबर डाले</string>
 
     <!-- TextViews -->
     <string name="tv_time">समय : </string>
     <string name="tv_date">तिथि : </string>
-    <string name="tv_quiz_time">Quiz time</string>
-    <string name="tv_num_of_option">Num of options</string>
-    <string name="tv_correct_option">Correct option</string>
-    <string name="tv_set_broadcast_schedule">Set the broadcast schedule</string>
+    <string name="tv_quiz_time">प्रश्नोत्तरी समय</string>
+    <string name="tv_num_of_option">विकल्प गिनती</string>
+    <string name="tv_correct_option">सही विकल्प</string>
+    <string name="tv_set_broadcast_schedule">ट्रेलर प्रसारण का समय चुने</string>
 
     <!-- Content Description -->
     <string name="cd_date_chooser">Select date</string>
@@ -82,18 +82,18 @@
     <string name="action_start_show">शुरू करे</string>
     <string name="action_stop_show">अंत करे</string>
     <string name="action_show_done">show done</string>
-    <string name="action_start_quiz">start quiz</string>
-    <string name="action_stop_quiz">stop quiz</string>
-    <string name="action_results">results</string>
+    <string name="action_start_quiz">प्रश्नोत्तरी शुरू</string>
+    <string name="action_stop_quiz">प्रश्नोत्तरी रोके</string>
+    <string name="action_results">नतीज़ा</string>
     <string name="action_create_results">Create Results</string>
-    <string name="action_add_more">add more</string>
-    <string name="action_submit">Submit</string>
+    <string name="action_add_more">और जोड़े</string>
+    <string name="action_submit">जमा करें</string>
     <string name="action_delete_all">सब हंटाए</string>
 
     <!-- Radio Buttons -->
     <string name="rb_mock_show">रिहर्सल शो</string>
-    <string name="rb_real_show">Real Show</string>
-    <string name="string_all">All</string>
+    <string name="rb_real_show">फाइनल शो</string>
+    <string name="string_all">सबको</string>
     <string name="string_asha">आशा</string>
     <string name="string_others">अन्य</string>
 
