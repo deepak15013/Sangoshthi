@@ -1,6 +1,7 @@
 package uk.ac.openlab.radio.activities;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
@@ -67,11 +68,14 @@ public class ShowOverviewActivity extends AppCompatActivity {
     private volatile boolean startSeekBar = true;
     private Thread chronometerThread;
 
+    private static Context context;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setTheme(GlobalUtils.appTheme());
         setContentView(R.layout.activity_show_overview);
+
+        this.context = getApplicationContext();
 
         toolbarItemView = (ChecklistItemView) findViewById(R.id.toolbar_item);
         assert toolbarItemView != null;
@@ -234,7 +238,7 @@ public class ShowOverviewActivity extends AppCompatActivity {
                         @Override
                         public void run() {
                             callerListAdapter.notifyDataSetChanged();
-                            tvTotalCallers.setText(Resources.getSystem().getString(R.string.string_total_callers,callers.getListeners()-1));
+                            tvTotalCallers.setText(context.getResources().getString(R.string.string_total_callers,callers.getListeners()-1));
                         }
                     });
                 }
@@ -298,7 +302,7 @@ public class ShowOverviewActivity extends AppCompatActivity {
             });
         }
         else {
-            Toast.makeText(ShowOverviewActivity.this, "stop show", Toast.LENGTH_SHORT).show();
+            Toast.makeText(ShowOverviewActivity.this, getResources().getString(R.string.action_stop_show), Toast.LENGTH_SHORT).show();
 
             FreeSwitchApi.shared().endShow(new IMessageListener() {
                 @Override

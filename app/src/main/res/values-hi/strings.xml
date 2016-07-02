@@ -156,7 +156,7 @@
     </string-array>
 
     <!-- Extras -->
-    <string name="show_overview_stop">stop show</string>
+    <string name="show_overview_stop">अंत करे</string>
     <string name="transition_name_listitem">transition:listitem</string>
     <string name="error_invalid_joincode">Invalid Joincode</string>
     <string name="error_null">Please enter a value</string>
