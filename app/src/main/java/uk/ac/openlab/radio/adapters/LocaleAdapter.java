@@ -48,15 +48,6 @@ public class LocaleAdapter implements SpinnerAdapter {
     }
 
 
-    public int indexOfLocale(Locale locale){
-        for(int i=0;i<this.items.size();i++){
-            if(locale.getDisplayName().equals(this.items.get(i).getDisplayName()))
-                return i;
-        }
-        return -1;
-    }
-
-
     @Override
     public void registerDataSetObserver(DataSetObserver observer) {
         dataSetObservers.add(observer);
@@ -119,6 +110,7 @@ public class LocaleAdapter implements SpinnerAdapter {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View rowView = inflater.inflate(android.R.layout.simple_spinner_dropdown_item, parent, false);
         CheckedTextView textView = (CheckedTextView)rowView.findViewById(android.R.id.text1);
+
         Locale l= (Locale)getItem(position);
         int countryCode = phoneUtil.getCountryCodeForRegion(l.getCountry());
         textView.setText(l.getDisplayName()+" ("+countryCode+")");

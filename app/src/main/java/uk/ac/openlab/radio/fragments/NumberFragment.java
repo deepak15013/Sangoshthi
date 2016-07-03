@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.StringRes;
 import android.support.v4.app.Fragment;
 import android.text.InputType;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -48,6 +49,8 @@ public class NumberFragment extends Fragment {
 
     PhoneNumberUtil phoneUtil = PhoneNumberUtil.getInstance();
     Phonenumber.PhoneNumber phoneNumber;
+
+    TextView localeText;
 
 
     // TODO: Rename parameter arguments, choose names that match
@@ -166,7 +169,7 @@ public class NumberFragment extends Fragment {
         String number = editText.getText().toString();
         Locale locale = (Locale)localeSpinner.getSelectedItem();
         try {
-            phoneNumber = phoneUtil.parse(number, locale.getCountry());
+            phoneNumber = phoneUtil.parse(number, "IN");
             lang = locale.getLanguage();
         } catch (NumberParseException e) {
             e.printStackTrace();
@@ -215,6 +218,7 @@ public class NumberFragment extends Fragment {
         localeSpinner = (Spinner) view.findViewById(R.id.locale);
 
         editText = (EditText) view.findViewById(R.id.number_input);
+        localeText = (TextView) view.findViewById(R.id.tv_locale);
         editText.requestFocus();
         editText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
@@ -247,10 +251,10 @@ public class NumberFragment extends Fragment {
         if(isJoinCode() || isPin()){
             localeSpinner.setVisibility(View.GONE);
         }else {
-            localeSpinner.setVisibility(View.VISIBLE);
+            //localeSpinner.setVisibility(View.VISIBLE);
             localeAdapter = new LocaleAdapter(getContext());
             localeSpinner.setAdapter(localeAdapter);
-            localeSpinner.setSelection(290);
+            //localeSpinner.setSelection(290);
         }
 
         if (isPin()) {

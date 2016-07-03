@@ -28,11 +28,9 @@ public class CallReceiver extends PhoneCallReceiver {
         super.onIncomingCallEnded(ctx, number, start, end);
         Log.v("dks","call incoming ended: "+number+" date start: "+start + "date end: "+end);
         if(number.contains("8860244278")) {
-            Log.v("dks","number verified"+callPickedUp);
-            if(callPickedUp) {
-                callPickedUp = false;
-                ShowOverviewActivity.finishActivity();
-            }
+
+            ShowOverviewActivity.alertDialog.dismiss();
+            ShowOverviewActivity.finishActivity();
         }
 
     }

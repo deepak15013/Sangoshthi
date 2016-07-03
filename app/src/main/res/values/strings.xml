@@ -48,6 +48,7 @@
     <string name="string_asha">Asha</string>
     <string name="string_others">Others</string>
     <string name="string_all">All</string>
+    <string name="string_locale">+91</string>
 
     <!-- Dialog Box -->
     <string name="dialog_update_number">Show already registered. Do you want to update your number?</string>
