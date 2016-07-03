@@ -37,6 +37,10 @@ public class FreeSwitchApi {
         sendMessage(callback, MessageHelper.shared().checkShowStatus());
     }
 
+    public void getHost(IMessageListener callback) {
+        sendMessage(callback, MessageHelper.shared().getHost());
+    }
+
     public void getShowId(IMessageListener callback) {
         sendMessage(callback, MessageHelper.shared().getShowId());
     }

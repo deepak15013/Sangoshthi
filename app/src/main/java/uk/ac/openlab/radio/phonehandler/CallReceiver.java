@@ -2,10 +2,14 @@ package uk.ac.openlab.radio.phonehandler;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.util.Log;
 
 import java.util.Date;
 
+import uk.ac.openlab.radio.GlobalUtils;
+import uk.ac.openlab.radio.R;
 import uk.ac.openlab.radio.activities.MainActivity;
 import uk.ac.openlab.radio.activities.ShowOverviewActivity;
 
@@ -14,7 +18,7 @@ import uk.ac.openlab.radio.activities.ShowOverviewActivity;
  */
 public class CallReceiver extends PhoneCallReceiver {
 
-    private static boolean callPickedUp = false;
+    private static boolean callReceived = false;
 
     @Override
     protected void onIncomingCallStarted(Context ctx, String number, Date start) {
@@ -27,10 +31,8 @@ public class CallReceiver extends PhoneCallReceiver {
     protected void onIncomingCallEnded(Context ctx, String number, Date start, Date end) {
         super.onIncomingCallEnded(ctx, number, start, end);
         Log.v("dks","call incoming ended: "+number+" date start: "+start + "date end: "+end);
-        if(number.contains("8860244278")) {
-
-            ShowOverviewActivity.alertDialog.dismiss();
-            ShowOverviewActivity.finishActivity();
+        if(number.contains(ctx.getString(R.string.server_number))) {
+            dismissAndBack();
         }
 
     }
@@ -39,14 +41,29 @@ public class CallReceiver extends PhoneCallReceiver {
     public void onCallStateChanged(Context context, int state, String number) {
         super.onCallStateChanged(context, state, number);
 
+        if(state == 0 && number != null) {
+            if(number.contains(context.getString(R.string.server_number)) && callReceived) {
+                callReceived = false;
+                dismissAndBack();
+            }
+        }
+
+
+        if(state == 1 && number != null) {
+            if(number.contains(context.getString(R.string.server_number))) {
+
+                callReceived = true;
+
+            }
+        }
+
         Log.v("dks","state changed: "+state + " number: "+number);
         if(state == 2 && number != null) {
-            if(number.contains("8860244278")) {
+            if(number.contains(context.getString(R.string.server_number))) {
 
                 if(ShowOverviewActivity.alertDialog != null) {
                     if(ShowOverviewActivity.alertDialog.isShowing()) {
 
-                        callPickedUp = true;
                         ShowOverviewActivity.callReceived = true;
                         ShowOverviewActivity.alertDialog.dismiss();
                     }
@@ -84,5 +101,14 @@ public class CallReceiver extends PhoneCallReceiver {
     @Override
     protected void onMissedCall(Context ctx, String number, Date start) {
         super.onMissedCall(ctx, number, start);
+    }
+
+    private void dismissAndBack() {
+
+        GlobalUtils.shared().setCallDisconnected(true);
+        if(ShowOverviewActivity.alertDialog != null && ShowOverviewActivity.alertDialog.isShowing()) {
+            ShowOverviewActivity.alertDialog.dismiss();
+        }
+        ShowOverviewActivity.finishActivity();
     }
 }

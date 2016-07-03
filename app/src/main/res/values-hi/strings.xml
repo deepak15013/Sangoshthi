@@ -25,12 +25,12 @@
     <!-- titles -->
     <string name="title_create_show">शो बनाए</string>
     <string name="prepare_show_title">शो त्यार करे</string>
-    <string name="edit_listeners_title">श्रोतगण</string>
+    <string name="edit_listeners_title">श्रोतागण</string>
     <string name="main_menu_title">@string/app_name</string>
     <string name="create_trailer_title">ट्रेलर</string>
     <string name="edit_guest_title">गेस्ट</string>
     <string name="show_guests_title">गेस्ट देखे</string>
-    <string name="show_listeners_title">श्रोतगण देखे</string>
+    <string name="show_listeners_title">श्रोतागण देखे</string>
     <string name="show_overview_title">Show Dashboard</string>
     <string name="show_results_title">प्रश्नोत्तरी नतीजा</string>
     <string name="spread_the_word_title">सबको सूचित करे</string>
@@ -40,13 +40,15 @@
 
     <!-- Dialog Box -->
     <string name="dialog_update_number">शो पहले से बना हुआ हैं, क्या आप अपना नया नंबर डालना चाहते हैं?</string>
-    <string name="dialog_yes">ठीक</string>
-    <string name="dialog_no">रहने दे</string>
+    <string name="dialog_yes">हाँ</string>
+    <string name="dialog_no">नही</string>
     <string name="dialog_call_waiting_trailer">कृपया कॉल की प्रतीक्षा करे</string>
     <string name="dialog_call_waiting_listen_trailer">कृपया कॉल का इंतज़ार करें</string>
     <string name="dialog_call_waiting_show_overview">कृपया कॉल की प्रतीक्षा करे</string>
     <string name="dialog_ok">ठीक</string>
     <string name="dialog_create_trailer_first">कृपया पहले ट्रेलर त्यार करें</string>
+    <string name="dialog_call_disconnected_error">होस्ट की कॉल कट</string>
+    <string name="dialog_call_disconnected">असुविधा के लिए खेद है! होस्ट की कॉल कटने से शो बंद हो गया हैं | कृपया शो दोबारा शुरू करें</string>
 
     <!-- Error -->
     <string name="error_invalid_pin">Incorrect Pin</string>
@@ -54,7 +56,7 @@
 
     <!-- Toasts -->
     <string name="toast_create_show_radio_error">कृपया शो का प्रकार चुने</string>
-    <string name="toast_trailer_deleted">Trailer deleted</string>
+    <string name="toast_trailer_deleted">ट्रेलर मिटा दिया गया ह</string>
     <string name="toast_listener_added">Listener added successfully</string>
     <string name="toast_quiz_results_error">Please enter number of option and the correct option</string>
     <string name="toast_add_more">add more</string>
@@ -74,8 +76,8 @@
     <string name="tv_set_broadcast_schedule">ट्रेलर प्रसारण का समय चुने</string>
 
     <!-- Content Description -->
-    <string name="cd_date_chooser">Select date</string>
-    <string name="cd_time_chooser">Select time</string>
+    <string name="cd_date_chooser">तिथि चुनिए </string>
+    <string name="cd_time_chooser">समय चुनिए </string>
 
     <!-- Buttons action -->
     <string name="action_quit">Quit</string>
@@ -86,7 +88,7 @@
     <string name="action_start_quiz">प्रश्नोत्तरी शुरू</string>
     <string name="action_stop_quiz">प्रश्नोत्तरी रोके</string>
     <string name="action_results">नतीज़ा</string>
-    <string name="action_create_results">Create Results</string>
+    <string name="action_create_results">प्रश्नोत्तरी दिखाए</string>
     <string name="action_add_more">और जोड़े</string>
     <string name="action_submit">जमा करें</string>
     <string name="action_delete_all">सब हंटाए</string>
@@ -97,6 +99,7 @@
     <string name="string_all">सबको</string>
     <string name="string_asha">आशा</string>
     <string name="string_others">अन्य</string>
+    <string name="string_no_guest_added">No Guests Added</string>
 
     <!-- Title Arrays -->
 

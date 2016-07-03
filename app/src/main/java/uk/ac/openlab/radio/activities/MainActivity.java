@@ -120,6 +120,22 @@ public class MainActivity extends AppCompatActivity implements IRecyclerViewItem
     @Override
     protected void onResume() {
         super.onResume();
+
+        if(GlobalUtils.shared().getCallDisconnected()) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+            builder.setTitle(R.string.dialog_call_disconnected_error);
+            builder.setMessage(R.string.dialog_call_disconnected);
+            builder.setNegativeButton(R.string.dialog_ok, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+
+                }
+            });
+            builder.create().show();
+
+            GlobalUtils.shared().setCallDisconnected(false);
+        }
+
     }
 
     @Override

@@ -229,6 +229,7 @@ public class ShowOverviewActivity extends AppCompatActivity {
     public static void setCallerObjects (TopicInfoResult callers) {
 
         final TopicInfoResult result = new TopicInfoResult(callers.getListeners(), callers.getCallers());
+        Log.v("dks","result object"+result);
 
         try {
             if(callers.getCallers() != null) {
@@ -282,7 +283,7 @@ public class ShowOverviewActivity extends AppCompatActivity {
                 public void success() {
 
                     startSeekBar = true;
-                    chronometerThread.start();
+                    //chronometerThread.start();
 
                     startStopButton.setText(getString(R.string.action_stop_show));
 

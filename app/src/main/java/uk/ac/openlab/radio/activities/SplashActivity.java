@@ -8,11 +8,13 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -22,6 +24,7 @@ import uk.ac.openlab.radio.GlobalUtils;
 import uk.ac.openlab.radio.R;
 import uk.ac.openlab.radio.network.FreeSwitchApi;
 import uk.ac.openlab.radio.network.IMessageListener;
+import uk.ac.openlab.radio.network.MessageHelper;
 
 /**
  * Created by Kyle Montague on 13/04/16.
@@ -85,10 +88,12 @@ public class SplashActivity extends Activity {
     private void getSetup(){
 
         Locale locale = new Locale("hi");
-        Locale.setDefault(locale);
-        Configuration config = new Configuration();
-        config.locale = locale;
-        getApplicationContext().getResources().updateConfiguration(config, null);
+        Resources resources = getResources();
+        DisplayMetrics displayMetrics = resources.getDisplayMetrics();
+        Configuration configuration = resources.getConfiguration();
+        configuration.locale = locale;
+        resources.updateConfiguration(configuration, displayMetrics);
+        onConfigurationChanged(configuration);
 
         //  Initialize SharedPreferences
         SharedPreferences getPrefs = PreferenceManager
@@ -112,28 +117,7 @@ public class SplashActivity extends Activity {
 
                 @Override
                 public void fail() {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(SplashActivity.this);
-                    builder.setMessage(R.string.dialog_update_number);
-                    builder.setPositiveButton(R.string.dialog_yes, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            finish();
-
-                            Intent i = new Intent(SplashActivity.this, SetupActivity.class);
-                            i.putExtra("STATUS","update");
-                            startActivity(i);
-                        }
-                    });
-
-                    builder.setNegativeButton(R.string.dialog_no, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            finish();
-                        }
-                    });
-
-                    builder.create();
-                    builder.show();
+                    showUpdateNumberDialog();
                 }
 
                 @Override
@@ -153,7 +137,7 @@ public class SplashActivity extends Activity {
                 @Override
                 public void success() {
 
-                    // start further process
+                    // no show running, insert new host
                     finish();
                     Intent i = new Intent(SplashActivity.this, SetupActivity.class);
                     i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -163,7 +147,40 @@ public class SplashActivity extends Activity {
 
                 @Override
                 public void fail() {
-                    startPreparation();
+
+                    FreeSwitchApi.shared().getHost(new IMessageListener() {
+                        @Override
+                        public void success() {
+
+                        }
+
+                        @Override
+                        public void fail() {
+                            // insert new user, database is empty
+                            finish();
+                            Intent i = new Intent(SplashActivity.this, SetupActivity.class);
+                            i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            i.putExtra("STATUS","insert");
+                            startActivity(i);
+                        }
+
+                        @Override
+                        public void error() {
+
+                        }
+
+                        @Override
+                        public void message(String message) {
+                            Log.v("dks: ",message);
+                            if(message.equals(GlobalUtils.shared().phoneNumber())) {
+                                startPreparation();
+                            }
+                            else {
+                                showUpdateNumberDialog();
+                            }
+
+                        }
+                    });
                 }
 
                 @Override
@@ -183,5 +200,30 @@ public class SplashActivity extends Activity {
         finish();
         Intent i = new Intent(this, MainActivity.class);
         startActivity(i);
+    }
+
+    private void showUpdateNumberDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(SplashActivity.this);
+        builder.setMessage(R.string.dialog_update_number);
+        builder.setPositiveButton(R.string.dialog_yes, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                finish();
+
+                Intent i = new Intent(SplashActivity.this, SetupActivity.class);
+                i.putExtra("STATUS","update");
+                startActivity(i);
+            }
+        });
+
+        builder.setNegativeButton(R.string.dialog_no, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                finish();
+            }
+        });
+
+        builder.create();
+        builder.show();
     }
 }

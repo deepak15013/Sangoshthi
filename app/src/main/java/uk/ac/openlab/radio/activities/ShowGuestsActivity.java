@@ -5,12 +5,15 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
+import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import uk.ac.openlab.radio.R;
 import uk.ac.openlab.radio.adapters.ShowGuestsAdapter;
@@ -27,6 +30,8 @@ public class ShowGuestsActivity extends AppCompatActivity {
 
     LinearLayoutManager linearLayoutManager;
 
+    TextView tvNoGuest;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +42,8 @@ public class ShowGuestsActivity extends AppCompatActivity {
         toolbarItemView.setTitle(getResources().getString(R.string.show_guests_title));
         toolbarItemView.hideCheckbox(true);
         toolbarItemView.setIcon(R.drawable.ic_person);
+
+        tvNoGuest = (TextView) findViewById(R.id.tv_no_guest);
 
         guestArrayList = new ArrayList<>();
         linearLayoutManager = new LinearLayoutManager(this);
@@ -78,14 +85,21 @@ public class ShowGuestsActivity extends AppCompatActivity {
 
         String[] guestNames = message.split(",");
 
-        for(String names: guestNames) {
-            if(names.equalsIgnoreCase("") || names.equalsIgnoreCase(" ")) {
-                continue;
-            }
-            guestArrayList.add(names);
+        if(guestNames.length == 1 && guestNames[0].equals("")) {
+            tvNoGuest.setVisibility(View.VISIBLE);
         }
+        else {
+            tvNoGuest.setVisibility(View.GONE);
 
-        showGuests();
+            for(String names: guestNames) {
+                if(names.equalsIgnoreCase("") || names.equalsIgnoreCase(" ")) {
+                    continue;
+                }
+                guestArrayList.add(names);
+            }
+
+            showGuests();
+        }
     }
 
     private void showGuests() {

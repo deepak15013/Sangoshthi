@@ -111,6 +111,9 @@ public class NumberInputActivity extends AppCompatActivity {
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
                     //todo validate number
                     if(isValid()){
+
+
+
                         handleInput();
                         editText.setText("");
 

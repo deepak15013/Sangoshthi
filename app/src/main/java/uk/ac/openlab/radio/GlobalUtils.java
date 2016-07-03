@@ -40,6 +40,7 @@ public class GlobalUtils {
     public static final String PREF_CITIZEN_RADIO_NUMBER = "PRE_CITIZEN_RADIO_NUMBER";
     public static final String PREF_CITIZEN_RADIO_NAME = "PREF_CITIZEN_RADIO_NAME";
     public static final String PREF_LANG = "PRE_LANG";
+    public static final String PREF_CALL_DISCONNECTED = "CALL_DISCONNECTED";
 
     public static final String PREF_AREA_CODE = "PREF_AREA_CODE";
 
@@ -198,6 +199,14 @@ public class GlobalUtils {
                 return R.style.AppTheme;
         }
         return R.style.AppTheme;
+    }
+
+    public boolean setCallDisconnected(boolean callDisconnected) {
+        return sharedPreferences != null && sharedPreferences.edit().putBoolean(PREF_CALL_DISCONNECTED, callDisconnected).commit();
+    }
+
+    public boolean getCallDisconnected() {
+        return sharedPreferences.getBoolean(PREF_CALL_DISCONNECTED, false);
     }
 }
 

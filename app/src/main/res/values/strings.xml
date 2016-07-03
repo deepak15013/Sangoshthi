@@ -11,6 +11,8 @@
 <resources>
     <string name="app_name">Sehat Ki Vaani</string>
 
+    <string name="server_number">8860244278</string>
+
     <string name="pref_ivr_host">tcp://52.38.67.78</string>
     <integer name="pref_ivr_port">6002</integer>
 
@@ -49,6 +51,7 @@
     <string name="string_others">Others</string>
     <string name="string_all">All</string>
     <string name="string_locale">+91</string>
+    <string name="string_no_guest_added">No Guests Added</string>
 
     <!-- Dialog Box -->
     <string name="dialog_update_number">Show already registered. Do you want to update your number?</string>
@@ -59,6 +62,8 @@
     <string name="dialog_call_waiting_show_overview">Please wait for the call</string>
     <string name="dialog_ok">OK</string>
     <string name="dialog_create_trailer_first">Please create a trailer first</string>
+    <string name="dialog_call_disconnected_error">Call Disconnected</string>
+    <string name="dialog_call_disconnected">Sorry! the host\'s call is disconnected! Please run show again</string>
 
     <!-- Error -->
     <string name="error_invalid_pin">Incorrect Pin</string>

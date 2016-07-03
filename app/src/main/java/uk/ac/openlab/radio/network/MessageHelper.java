@@ -22,6 +22,7 @@ public class MessageHelper {
     private final String FS_CREATE_SHOW="create_show";
     private final String FS_ADD_HOST = "add_host";
     private final String FS_CHECK_SHOW_STATUS = "check_show_status";
+    private final String FS_GET_HOST = "get_host";
     private final String FS_GET_SHOW_ID = "get_show_id";
     private final String FS_ADD_PERSON = "add_person";
     private final String FS_SHOW_LISTENERS = "show_listeners";
@@ -77,6 +78,10 @@ public class MessageHelper {
 
     public String checkShowStatus() {
         return String.format("{\"cmd\":\"%s\" }",FS_CHECK_SHOW_STATUS);
+    }
+
+    public String getHost() {
+        return String.format("{\"cmd\":\"%s\", \"studio\" : \"%s\"}",FS_GET_HOST, this.studio_id);
     }
 
     public String getShowId() {

@@ -71,6 +71,7 @@ public class SetupActivity extends AppIntro2 implements NumberFragment.OnFragmen
                         @Override
                         public void success() {
                             Log.v("tag","getShowId successful");
+
                         }
 
                         @Override
