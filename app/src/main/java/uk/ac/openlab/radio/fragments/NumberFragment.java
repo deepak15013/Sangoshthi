@@ -50,8 +50,6 @@ public class NumberFragment extends Fragment {
     PhoneNumberUtil phoneUtil = PhoneNumberUtil.getInstance();
     Phonenumber.PhoneNumber phoneNumber;
 
-    TextView localeText;
-
 
     // TODO: Rename parameter arguments, choose names that match
     private static final String ARG_TEXT = "text";
@@ -218,7 +216,6 @@ public class NumberFragment extends Fragment {
         localeSpinner = (Spinner) view.findViewById(R.id.locale);
 
         editText = (EditText) view.findViewById(R.id.number_input);
-        localeText = (TextView) view.findViewById(R.id.tv_locale);
         editText.requestFocus();
         editText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override

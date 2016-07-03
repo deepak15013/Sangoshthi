@@ -156,10 +156,10 @@ public class NumberInputActivity extends AppCompatActivity {
         if(isJoinCode() || isPin()){
             localeSpinner.setVisibility(View.GONE);
         }else {
-            localeSpinner.setVisibility(View.VISIBLE);
+            //localeSpinner.setVisibility(View.VISIBLE);
             localeAdapter = new LocaleAdapter(this);
             localeSpinner.setAdapter(localeAdapter);
-            localeSpinner.setSelection(290);
+            //localeSpinner.setSelection(290);
         }
 
         if (isPin()) {
@@ -196,7 +196,7 @@ public class NumberInputActivity extends AppCompatActivity {
         String number = editText.getText().toString();
         Locale locale = (Locale)localeSpinner.getSelectedItem();
         try {
-            phoneNumber = phoneUtil.parse(number, locale.getCountry());
+            phoneNumber = phoneUtil.parse(number, "IN");
             lang = locale.getCountry();
         } catch (NumberParseException e) {
             e.printStackTrace();
