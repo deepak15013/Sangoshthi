@@ -1,7 +1,17 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
+<!--
+  ~ Copyright (c) 2016. Kyle Montague
+  ~
+  ~ Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+  ~
+  ~ The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+  ~
+  ~ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+  -->
 
-    <string name="app_name">सेहत की वाणी</string>
+<resources>
+    <string name="app_name">Sehat Ki Vaani</string>
+
+    <string name="server_number">8860244278</string>
 
     <string name="pref_ivr_host">tcp://52.38.67.78</string>
     <integer name="pref_ivr_port">6002</integer>
@@ -18,45 +28,51 @@
 
 
     <!-- App Intro slides -->
-    <string name="app_intro_slide1">अपना फोन नंबर डाले</string>
-    <string name="app_intro_slide2_1">हार्दिक स्वागत</string>
-    <string name="app_intro_slide2_2">"अब आप शो शुरू करने के लिए त्यार हैं"</string>
+    <string name="app_intro_slide1">What is your number</string>
+    <string name="app_intro_slide2_1">All Done</string>
+    <string name="app_intro_slide2_2">You are now ready to run a radio show</string>
 
     <!-- titles -->
-    <string name="title_create_show">शो बनाए</string>
-    <string name="prepare_show_title">शो त्यार करे</string>
-    <string name="edit_listeners_title">श्रोतागण</string>
+    <string name="title_create_show">Create Show</string>
+    <string name="prepare_show_title">Prepare Show</string>
+    <string name="edit_listeners_title">Edit Listeners</string>
     <string name="main_menu_title">@string/app_name</string>
-    <string name="create_trailer_title">ट्रेलर</string>
-    <string name="edit_guest_title">गेस्ट</string>
-    <string name="show_guests_title">गेस्ट देखे</string>
-    <string name="show_listeners_title">श्रोतागण देखे</string>
+    <string name="create_trailer_title">Create Trailer</string>
+    <string name="edit_guest_title">Edit Guests</string>
+    <string name="show_guests_title">Show Guests</string>
+    <string name="show_listeners_title">Show Listeners</string>
     <string name="show_overview_title">Show Dashboard</string>
-    <string name="show_results_title">प्रश्नोत्तरी नतीजा</string>
-    <string name="spread_the_word_title">सबको सूचित करे</string>
+    <string name="show_results_title">Quiz Results</string>
+    <string name="spread_the_word_title">Spread the Word</string>
 
     <!-- Strings -->
-    <string name="string_total_callers">कुल श्रोता %1$s</string>
+    <string name="string_total_callers">Total callers %1$s</string>
+    <string name="string_asha">Asha</string>
+    <string name="string_others">Others</string>
+    <string name="string_all">All</string>
+    <string name="string_locale">+91</string>
+    <string name="string_no_guest_added">No Guests Added</string>
 
     <!-- Dialog Box -->
-    <string name="dialog_update_number">शो पहले से बना हुआ हैं, क्या आप अपना नया नंबर डालना चाहते हैं?</string>
-    <string name="dialog_yes">हाँ</string>
-    <string name="dialog_no">नही</string>
-    <string name="dialog_call_waiting_trailer">कृपया कॉल की प्रतीक्षा करे</string>
-    <string name="dialog_call_waiting_listen_trailer">कृपया कॉल का इंतज़ार करें</string>
-    <string name="dialog_call_waiting_show_overview">कृपया कॉल की प्रतीक्षा करे</string>
-    <string name="dialog_ok">ठीक</string>
-    <string name="dialog_create_trailer_first">कृपया पहले ट्रेलर त्यार करें</string>
-    <string name="dialog_call_disconnected_error">होस्ट की कॉल कट</string>
-    <string name="dialog_call_disconnected">असुविधा के लिए खेद है! होस्ट की कॉल कटने से शो बंद हो गया हैं | कृपया शो दोबारा शुरू करें</string>
+    <string name="dialog_update_number">Show already registered. Do you want to update your number?</string>
+    <string name="dialog_yes">Yes</string>
+    <string name="dialog_no">No</string>
+    <string name="dialog_call_waiting_trailer">Please wait for the call</string>
+    <string name="dialog_call_waiting_listen_trailer">Please wait for the call to listen trailer</string>
+    <string name="dialog_call_waiting_show_overview">Please wait for the call</string>
+    <string name="dialog_ok">OK</string>
+    <string name="dialog_create_trailer_first">Please create a trailer first</string>
+    <string name="dialog_call_disconnected_error">Call Disconnected</string>
+    <string name="dialog_call_disconnected">Sorry! the host\'s call is disconnected! Please run show again</string>
 
     <!-- Error -->
     <string name="error_invalid_pin">Incorrect Pin</string>
     <string name="error_invalid_number">Invalid Number</string>
 
     <!-- Toasts -->
-    <string name="toast_create_show_radio_error">कृपया शो का प्रकार चुने</string>
-    <string name="toast_trailer_deleted">ट्रेलर मिटा दिया गया ह</string>
+    <string name="toast_create_show_radio_error">Please select show type</string>
+    <string name="toast_trailer_deleted">Trailer deleted</string>
+
     <string name="toast_listener_added">Listener added successfully</string>
     <string name="toast_quiz_results_error">Please enter number of option and the correct option</string>
     <string name="toast_add_more">add more</string>
@@ -64,71 +80,67 @@
     <string name="toast_submit">submit</string>
 
     <!-- Edit texts -->
-    <string name="number_input_enter_guest_number">गेस्ट का नंबर डाले</string>
-    <string name="number_input_enter_listener_number">श्रोता का फोन नंबर डाले</string>
+    <string name="number_input_enter_guest_number">Enter the Guest\'s telephone number</string>
+    <string name="number_input_enter_listener_number">Enter the Listener\'s telephone number</string>
 
     <!-- TextViews -->
-    <string name="tv_time">समय : </string>
-    <string name="tv_date">तिथि : </string>
-    <string name="tv_quiz_time">प्रश्नोत्तरी समय</string>
-    <string name="tv_num_of_option">विकल्प गिनती</string>
-    <string name="tv_correct_option">सही विकल्प</string>
-    <string name="tv_set_broadcast_schedule">ट्रेलर प्रसारण का समय चुने</string>
+    <string name="tv_time">Time: </string>
+    <string name="tv_date">Date: </string>
+    <string name="tv_quiz_time">Quiz time</string>
+    <string name="tv_num_of_option">Num of options</string>
+    <string name="tv_correct_option">Correct option</string>
+    <string name="tv_set_broadcast_schedule">Set the broadcast schedule</string>
 
     <!-- Content Description -->
-    <string name="cd_date_chooser">तिथि चुनिए </string>
-    <string name="cd_time_chooser">समय चुनिए </string>
+    <string name="cd_date_chooser">Select date</string>
+    <string name="cd_time_chooser">Select time</string>
 
     <!-- Buttons action -->
     <string name="action_quit">Quit</string>
     <string name="action_finished">Finished</string>
-    <string name="action_start_show">शुरू करे</string>
-    <string name="action_stop_show">अंत करे</string>
+    <string name="action_start_show">start show</string>
+    <string name="action_stop_show">stop show</string>
     <string name="action_show_done">show done</string>
-    <string name="action_start_quiz">प्रश्नोत्तरी शुरू</string>
-    <string name="action_stop_quiz">प्रश्नोत्तरी रोके</string>
-    <string name="action_results">नतीज़ा</string>
-    <string name="action_create_results">प्रश्नोत्तरी दिखाए</string>
-    <string name="action_add_more">और जोड़े</string>
-    <string name="action_submit">जमा करें</string>
-    <string name="action_delete_all">सब हंटाए</string>
+    <string name="action_start_quiz">start quiz</string>
+    <string name="action_stop_quiz">stop quiz</string>
+    <string name="action_results">results</string>
+    <string name="action_create_results">Create Results</string>
+    <string name="action_add_more">add more</string>
+    <string name="action_submit">Submit</string>
+    <string name="action_delete_all">delete all</string>
 
     <!-- Radio Buttons -->
-    <string name="rb_mock_show">रिहर्सल शो</string>
-    <string name="rb_real_show">फाइनल शो</string>
-    <string name="string_all">सबको</string>
-    <string name="string_asha">आशा</string>
-    <string name="string_others">अन्य</string>
-    <string name="string_no_guest_added">No Guests Added</string>
+    <string name="rb_mock_show">Mock Show</string>
+    <string name="rb_real_show">Real Show</string>
 
     <!-- Title Arrays -->
 
     <string-array name="main_menu_titles">
-        <item>शो त्यार करे</item>
-        <item>सबको सूचित करे</item>
-        <item>शो शुरू करे</item>
+        <item>prepare show</item>
+        <item>spread the word</item>
+        <item>run show</item>
     </string-array>
 
     <string-array name="prepare_show_titles">
-        <item>गेस्ट</item>
-        <item>श्रोतगण</item>
-        <item>ट्रेलर</item>
+        <item>Edit Guests</item>
+        <item>Edit Listeners</item>
+        <item>Create Trailers</item>
     </string-array>
 
     <string-array name="edit_guests_titles">
-        <item>गेस्ट जोड़े</item>
-        <item>गेस्ट देखे</item>
+        <item>Add Guests</item>
+        <item>Show Guests</item>
     </string-array>
 
     <string-array name="edit_listeners_titles">
-        <item>श्रोता जोड़े</item>
-        <item>श्रोतगण देखे</item>
+        <item>Add Listeners</item>
+        <item>Show Listeners</item>
     </string-array>
 
     <string-array name="create_trailer">
-        <item>रेकॉर्डिंग बनाए</item>
-        <item>ट्रेलर सुने</item>
-        <item>ट्रेलर हटाए</item>
+        <item>Recording Request</item>
+        <item>Play Trailer</item>
+        <item>Delete Trailer</item>
     </string-array>
 
     <!-- Spinners -->
@@ -160,8 +172,11 @@
     </string-array>
 
     <!-- Extras -->
-    <string name="show_overview_stop">अंत करे</string>
+    <string name="show_overview_stop">stop show</string>
+
     <string name="transition_name_listitem">transition:listitem</string>
+
+
     <string name="error_invalid_joincode">Invalid Joincode</string>
     <string name="error_null">Please enter a value</string>
 

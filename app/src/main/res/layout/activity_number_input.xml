@@ -48,7 +48,6 @@
             android:layout_marginEnd="20dp"
             android:layout_marginRight="20dp"/>
 
-
         <EditText
             android:layout_weight="1"
             android:id="@+id/number_input"

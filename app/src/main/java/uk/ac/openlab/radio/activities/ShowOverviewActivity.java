@@ -123,6 +123,7 @@ public class ShowOverviewActivity extends AppCompatActivity {
                         callerListRecyclerView.post(new Runnable() {
                             @Override
                             public void run() {
+
                                 callerListAdapter.notifyDataSetChanged();
                             }
                         });
@@ -237,6 +238,8 @@ public class ShowOverviewActivity extends AppCompatActivity {
                     callersArrayList.clear();
 
                     callersArrayList.addAll(result.getCallers());
+
+                    callerListRecyclerView.setRecycledViewPool(new RecyclerView.RecycledViewPool());
 
                     callerListRecyclerView.post(new Runnable() {
                         @Override

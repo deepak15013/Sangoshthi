@@ -85,15 +85,7 @@ public class SplashActivity extends Activity {
         }
     }
 
-    private void getSetup(){
-
-        Locale locale = new Locale("hi");
-        Resources resources = getResources();
-        DisplayMetrics displayMetrics = resources.getDisplayMetrics();
-        Configuration configuration = resources.getConfiguration();
-        configuration.locale = locale;
-        resources.updateConfiguration(configuration, displayMetrics);
-        onConfigurationChanged(configuration);
+    private void getSetup() {
 
         //  Initialize SharedPreferences
         SharedPreferences getPrefs = PreferenceManager

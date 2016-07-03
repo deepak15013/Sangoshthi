@@ -203,4 +203,9 @@ public class CallerListAdapter extends RecyclerView.Adapter<CallerListAdapter.Vi
     public int getItemCount() {
         return callersList.size();
     }
+
+    @Override
+    public int getItemViewType(int position) {
+        return super.getItemViewType(position);
+    }
 }
