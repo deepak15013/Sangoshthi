@@ -14,6 +14,8 @@ import uk.ac.openlab.radio.activities.ShowOverviewActivity;
  */
 public class CallReceiver extends PhoneCallReceiver {
 
+    private static boolean callPickedUp = false;
+
     @Override
     protected void onIncomingCallStarted(Context ctx, String number, Date start) {
         super.onIncomingCallStarted(ctx, number, start);
@@ -25,6 +27,13 @@ public class CallReceiver extends PhoneCallReceiver {
     protected void onIncomingCallEnded(Context ctx, String number, Date start, Date end) {
         super.onIncomingCallEnded(ctx, number, start, end);
         Log.v("dks","call incoming ended: "+number+" date start: "+start + "date end: "+end);
+        if(number.contains("8860244278")) {
+            Log.v("dks","number verified"+callPickedUp);
+            if(callPickedUp) {
+                callPickedUp = false;
+                ShowOverviewActivity.finishActivity();
+            }
+        }
 
     }
 
@@ -32,14 +41,14 @@ public class CallReceiver extends PhoneCallReceiver {
     public void onCallStateChanged(Context context, int state, String number) {
         super.onCallStateChanged(context, state, number);
 
-
-
         Log.v("dks","state changed: "+state + " number: "+number);
         if(state == 2 && number != null) {
             if(number.contains("8860244278")) {
-                Log.v("dks","removing alertdialog");
+
                 if(ShowOverviewActivity.alertDialog != null) {
                     if(ShowOverviewActivity.alertDialog.isShowing()) {
+
+                        callPickedUp = true;
                         ShowOverviewActivity.callReceived = true;
                         ShowOverviewActivity.alertDialog.dismiss();
                     }

@@ -1,5 +1,6 @@
 package uk.ac.openlab.radio.activities;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -59,8 +60,6 @@ public class ShowOverviewActivity extends AppCompatActivity {
 
     private static TextView tvTotalCallers;
 
-    private MediaPlayer mMediaPlayer;
-
     public static boolean callReceived = false;
     public static AlertDialog alertDialog;
 
@@ -69,13 +68,15 @@ public class ShowOverviewActivity extends AppCompatActivity {
     private Thread chronometerThread;
 
     private static Context context;
+    private static Activity activity;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setTheme(GlobalUtils.appTheme());
         setContentView(R.layout.activity_show_overview);
 
-        this.context = getApplicationContext();
+        context = getApplicationContext();
+        activity = this;
 
         toolbarItemView = (ChecklistItemView) findViewById(R.id.toolbar_item);
         assert toolbarItemView != null;
@@ -440,4 +441,8 @@ public class ShowOverviewActivity extends AppCompatActivity {
         }
     }
 
+    public static void finishActivity() {
+        Log.v("dks","finish activiy");
+        activity.finish();
+    }
 }

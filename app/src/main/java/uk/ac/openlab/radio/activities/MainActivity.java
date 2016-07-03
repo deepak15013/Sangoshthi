@@ -229,12 +229,12 @@ public class MainActivity extends AppCompatActivity implements IRecyclerViewItem
 
                         @Override
                         public void fail() {
-                            AlertDialog.Builder builder = new AlertDialog.Builder(getApplicationContext());
+                            AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
                             builder.setTitle(R.string.dialog_create_trailer_first);
                             builder.setNegativeButton(R.string.dialog_ok, new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-                                    finish();
+
                                 }
                             });
                             builder.create().show();
@@ -413,6 +413,16 @@ public class MainActivity extends AppCompatActivity implements IRecyclerViewItem
                         @Override
                         public void fail() {
                             alertDialogPlayTrailer.dismiss();
+                            AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                            builder.setTitle(R.string.dialog_create_trailer_first);
+                            builder.setNegativeButton(R.string.dialog_ok, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+
+                                }
+                            });
+                            builder.create().show();
+
                         }
 
                         @Override
