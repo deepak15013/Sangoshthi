@@ -42,6 +42,7 @@
     <string name="string_all">सबको</string>
     <string name="string_asha">आशा</string>
     <string name="string_others">अन्य</string>
+    <string name="string_locale">+91</string>
     <string name="string_no_guest_added">अभी कोई गेस्ट नही हैं</string>
 
     <!-- Dialog Box -->
@@ -113,7 +114,7 @@
 
     <string-array name="prepare_show_titles">
         <item>गेस्ट</item>
-        <item>श्रोतगण</item>
+        <item>श्रोतागण</item>
         <item>ट्रेलर</item>
     </string-array>
 
@@ -124,7 +125,7 @@
 
     <string-array name="edit_listeners_titles">
         <item>श्रोता जोड़े</item>
-        <item>श्रोतगण देखे</item>
+        <item>श्रोतागण देखे</item>
     </string-array>
 
     <string-array name="create_trailer">
