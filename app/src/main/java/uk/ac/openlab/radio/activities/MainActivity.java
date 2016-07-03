@@ -12,6 +12,7 @@
 package uk.ac.openlab.radio.activities;
 
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -22,7 +23,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -36,7 +36,6 @@ import uk.ac.openlab.radio.adapters.IRecyclerViewItemClickedListener;
 import uk.ac.openlab.radio.adapters.RHDCheckLists;
 import uk.ac.openlab.radio.datatypes.CheckListItem;
 import uk.ac.openlab.radio.drawables.ChecklistItemView;
-import uk.ac.openlab.radio.network.CloudStudioApi;
 import uk.ac.openlab.radio.network.FreeSwitchApi;
 import uk.ac.openlab.radio.network.IMessageListener;
 import uk.ac.openlab.radio.network.MessageHelper;
@@ -230,7 +229,15 @@ public class MainActivity extends AppCompatActivity implements IRecyclerViewItem
 
                         @Override
                         public void fail() {
-                            Toast.makeText(MainActivity.this, getResources().getString(R.string.toast_create_trailer_first), Toast.LENGTH_SHORT).show();
+                            AlertDialog.Builder builder = new AlertDialog.Builder(getApplicationContext());
+                            builder.setTitle(R.string.dialog_create_trailer_first);
+                            builder.setNegativeButton(R.string.dialog_ok, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    finish();
+                                }
+                            });
+                            builder.create().show();
                         }
 
                         @Override

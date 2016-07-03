@@ -102,6 +102,7 @@ public class NumberInputActivity extends AppCompatActivity {
         }
 
         editText = (EditText) findViewById(R.id.number_input);
+        assert editText != null;
         editText.requestFocus();
 
         editText.setOnEditorActionListener(new TextView.OnEditorActionListener() {

@@ -31,6 +31,9 @@ public class CallReceiver extends PhoneCallReceiver {
     @Override
     public void onCallStateChanged(Context context, int state, String number) {
         super.onCallStateChanged(context, state, number);
+
+
+
         Log.v("dks","state changed: "+state + " number: "+number);
         if(state == 2 && number != null) {
             if(number.contains("8860244278")) {

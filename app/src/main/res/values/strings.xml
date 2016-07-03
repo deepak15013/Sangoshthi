@@ -56,6 +56,8 @@
     <string name="dialog_call_waiting_trailer">Please wait for the call</string>
     <string name="dialog_call_waiting_listen_trailer">Please wait for the call to listen trailer</string>
     <string name="dialog_call_waiting_show_overview">Please wait for the call</string>
+    <string name="dialog_ok">OK</string>
+    <string name="dialog_create_trailer_first">Please create a trailer first</string>
 
     <!-- Error -->
     <string name="error_invalid_pin">Incorrect Pin</string>
@@ -64,7 +66,7 @@
     <!-- Toasts -->
     <string name="toast_create_show_radio_error">Please select show type</string>
     <string name="toast_trailer_deleted">Trailer deleted</string>
-    <string name="toast_create_trailer_first">Please create a trailer first</string>
+
     <string name="toast_listener_added">Listener added successfully</string>
     <string name="toast_quiz_results_error">Please enter number of option and the correct option</string>
     <string name="toast_add_more">add more</string>

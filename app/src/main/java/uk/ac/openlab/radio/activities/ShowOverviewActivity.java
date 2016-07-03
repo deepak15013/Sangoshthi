@@ -225,20 +225,22 @@ public class ShowOverviewActivity extends AppCompatActivity {
         super.onPause();
     }
 
-    public static void setCallerObjects (final TopicInfoResult callers) {
+    public static void setCallerObjects (TopicInfoResult callers) {
+
+        final TopicInfoResult result = new TopicInfoResult(callers.getListeners(), callers.getCallers());
 
         try {
             if(callers.getCallers() != null) {
                 if(callersArrayList != null) {
                     callersArrayList.clear();
 
-                    callersArrayList.addAll(callers.getCallers());
+                    callersArrayList.addAll(result.getCallers());
 
                     callerListRecyclerView.post(new Runnable() {
                         @Override
                         public void run() {
                             callerListAdapter.notifyDataSetChanged();
-                            tvTotalCallers.setText(context.getResources().getString(R.string.string_total_callers,callers.getListeners()-1));
+                            tvTotalCallers.setText(context.getResources().getString(R.string.string_total_callers,result.getListeners()-1));
                         }
                     });
                 }
@@ -247,7 +249,7 @@ public class ShowOverviewActivity extends AppCompatActivity {
                     callerListRecyclerView.post(new Runnable() {
                         @Override
                         public void run() {
-                            tvTotalCallers.setText(Resources.getSystem().getString(R.string.string_total_callers,callers.getListeners()-1));
+                            tvTotalCallers.setText(Resources.getSystem().getString(R.string.string_total_callers,result.getListeners()-1));
                         }
                     });
                 }
