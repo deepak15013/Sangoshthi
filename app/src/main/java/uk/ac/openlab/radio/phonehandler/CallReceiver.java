@@ -33,9 +33,15 @@ public class CallReceiver extends PhoneCallReceiver {
         Log.v("dks","call incoming ended: "+number+" date start: "+start + "date end: "+end);
         if(number.contains(ctx.getString(R.string.server_number) )) {
 
-            if(ShowOverviewActivity.alertDialog != null && ShowOverviewActivity.alertDialog.isShowing()) {
+            if(ShowOverviewActivity.alertDialog != null) {
+
+                Log.v("dks","Call disconnected in showOverViewActivity");
+
+                if(ShowOverviewActivity.alertDialog.isShowing()) {
+                    ShowOverviewActivity.alertDialog.dismiss();
+                }
+
                 GlobalUtils.shared().setCallDisconnected(true);
-                ShowOverviewActivity.alertDialog.dismiss();
                 ShowOverviewActivity.finishActivity();
             }
 
@@ -51,12 +57,16 @@ public class CallReceiver extends PhoneCallReceiver {
         if(state == 0 && number != null) {
 
             if(number.contains(context.getString(R.string.server_number)) && callReceived) {
+                Log.v("dks","call disconnected in other activity");
                 callReceived = false;
-                GlobalUtils.shared().setCallDisconnected(true);
-                if(ShowOverviewActivity.alertDialog != null && ShowOverviewActivity.alertDialog.isShowing()) {
-                    ShowOverviewActivity.alertDialog.dismiss();
+                if(ShowOverviewActivity.alertDialog != null) {
+                        if(ShowOverviewActivity.alertDialog.isShowing()) {
+                            ShowOverviewActivity.alertDialog.dismiss();
+                        }
+                    GlobalUtils.shared().setCallDisconnected(true);
+                    ShowOverviewActivity.finishActivity();
                 }
-                ShowOverviewActivity.finishActivity();
+
             }
 
         }

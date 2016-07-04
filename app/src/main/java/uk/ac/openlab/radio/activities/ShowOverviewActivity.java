@@ -447,6 +447,9 @@ public class ShowOverviewActivity extends AppCompatActivity {
 
     public static void finishActivity() {
         Log.v("dks","finish activiy");
-        activity.finish();
+        if(activity != null) {
+            activity.finish();
+        }
+
     }
 }
