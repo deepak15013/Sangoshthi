@@ -52,6 +52,7 @@
     <string name="string_all">All</string>
     <string name="string_locale">+91</string>
     <string name="string_no_guest_added">No Guests Added</string>
+    <string name="string_save_timestamp">Save timestamp</string>
 
     <!-- Dialog Box -->
     <string name="dialog_update_number">Show already registered. Do you want to update your number?</string>

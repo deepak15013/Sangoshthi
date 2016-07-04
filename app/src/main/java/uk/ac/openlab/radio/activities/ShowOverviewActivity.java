@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
-import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.preference.PreferenceManager;
@@ -14,15 +13,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
-import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.appyvet.rangebar.RangeBar;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -45,6 +44,7 @@ import uk.ac.openlab.radio.network.MessageHelper;
 public class ShowOverviewActivity extends AppCompatActivity {
 
     public static String EXTRA_SHOULD_DIAL = "EXTRA_SHOULD_DIAL";
+    private static final long ONE_MINUTE_CLOCK = 60*1000;
 
     Button startStopButton;
     public static Chronometer chronometer;
@@ -63,9 +63,11 @@ public class ShowOverviewActivity extends AppCompatActivity {
     public static boolean callReceived = false;
     public static AlertDialog alertDialog;
 
-    private SeekBar sbTimeline;
-    private volatile boolean startSeekBar = true;
-    private Thread chronometerThread;
+    private RangeBar rangebarTimeline;
+    private TextView tvMinutes;
+    private static Thread timelineThread;
+    private static volatile boolean chronometerRunning = false;
+    private Button btnSaveTimestamp;
 
     private static Context context;
     private static Activity activity;
@@ -90,6 +92,11 @@ public class ShowOverviewActivity extends AppCompatActivity {
         chronoQuizTimer = (Chronometer) findViewById(R.id.chrono_quiz_timer);
         llShowTimer = (LinearLayout) findViewById(R.id.ll_show_timer);
         ibFlush = (ImageButton) findViewById(R.id.ib_flush);
+
+        rangebarTimeline = (RangeBar) findViewById(R.id.rangebar_timeline);
+        tvMinutes = (TextView) findViewById(R.id.tv_minutes);
+        btnSaveTimestamp = (Button) findViewById(R.id.btn_save_timestamp);
+
 
         callerListRecyclerView = (RecyclerView) findViewById(R.id.callerList);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 2);
@@ -188,30 +195,17 @@ public class ShowOverviewActivity extends AppCompatActivity {
 
         }
 
-        chronometerThread = new Thread(new Runnable() {
+        initTimelineThread();
+
+        btnSaveTimestamp.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void run() {
-                int currentTime;
-                while(startSeekBar) {
-
-                    currentTime = (int) (SystemClock.elapsedRealtime() - chronometer.getBase());
-                    Log.v("dks","timeElaspsed: "+currentTime);
-                    if(currentTime > 90) {
-                        Log.v("dks","max changed");
-                        sbTimeline.setMax((int) sbTimeline.getMax()*2);
-                    }
-
-                    sbTimeline.setProgress(currentTime);
-                    Log.v("dks","max: "+sbTimeline.getMax()+" current val: "+sbTimeline.getProgress());
-
-                    try {
-                        Thread.sleep(1000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
+            public void onClick(View v) {
+                Toast.makeText(ShowOverviewActivity.this, "Timestamp saved", Toast.LENGTH_SHORT).show();
+                Log.v("dks","leftPinValue: "+rangebarTimeline.getLeftPinValue());
+                Log.v("dks","rightPinValue: "+rangebarTimeline.getRightPinValue());
             }
         });
+
     }
 
     @Override
@@ -266,7 +260,42 @@ public class ShowOverviewActivity extends AppCompatActivity {
             }
         });
 
+        chronometerRunning = true;
+        timelineThread.start();
+
     }
+
+    private void initTimelineThread() {
+        timelineThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                int tickCount = 0;
+                while(chronometerRunning) {
+                    try {
+                        Thread.sleep(ONE_MINUTE_CLOCK);
+                        tickCount++;
+                        setTickData(tickCount);
+
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
+    }
+
+    private void setTickData(final int tickCount) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Log.v("rangebar","tickCount: "+tickCount);
+                rangebarTimeline.setTickEnd(tickCount);
+                tvMinutes.setText(String.valueOf(tickCount));
+            }
+        });
+    }
+
+
 
     private void startStop() {
 
@@ -277,10 +306,8 @@ public class ShowOverviewActivity extends AppCompatActivity {
                 @Override
                 public void success() {
 
-                    startSeekBar = true;
-                    //chronometerThread.start();
-
                     startStopButton.setText(getString(R.string.action_stop_show));
+                    chronometerRunning = false;
 
                 }
 
@@ -308,7 +335,7 @@ public class ShowOverviewActivity extends AppCompatActivity {
                 public void success() {
                     chronometer.stop();
                     startStopButton.setText(getString(R.string.action_show_done));
-                    startSeekBar = false;
+
 
                     SharedPreferences.Editor e = PreferenceManager.getDefaultSharedPreferences(getBaseContext()).edit();
                     e.putBoolean("firstStart", true);

@@ -124,9 +124,9 @@
             android:gravity="center"/>
 
         <com.appyvet.rangebar.RangeBar
-            android:id="@+id/rb_timeline"
+            android:id="@+id/rangebar_timeline"
             android:layout_width="300dp"
-            android:layout_height="80dp"
+            android:layout_height="wrap_content"
             app:tickStart="0"
             app:tickEnd="1"
             app:tickInterval="1"
@@ -143,6 +143,13 @@
             android:gravity="center"/>
 
     </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_save_timestamp"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:text="@string/string_save_timestamp"
+        android:layout_gravity="center_horizontal"/>
 
     <View
         android:layout_width="wrap_content"

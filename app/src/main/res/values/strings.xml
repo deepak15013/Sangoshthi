@@ -44,6 +44,7 @@
     <string name="string_others">अन्य</string>
     <string name="string_locale">+91</string>
     <string name="string_no_guest_added">अभी कोई गेस्ट नही हैं</string>
+    <string name="string_save_timestamp">Save timestamp</string>
 
     <!-- Dialog Box -->
     <string name="dialog_update_number">शो पहले से बना हुआ हैं, क्या आप अपना नया नंबर डालना चाहते हैं?</string>
