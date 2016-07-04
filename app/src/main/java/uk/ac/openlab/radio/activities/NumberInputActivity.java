@@ -65,7 +65,6 @@ public class NumberInputActivity extends AppCompatActivity {
     String lang;
 
     RadioGroup rgRoleCategory;
-    RadioButton rbRoleCategory;
 
     LinearLayout llRoleCategory;
 
@@ -281,12 +280,17 @@ public class NumberInputActivity extends AppCompatActivity {
 
     private void addCallerNumber(Caller.TYPE role){
 
-        int selectedId = rgRoleCategory.getCheckedRadioButtonId();
-        rbRoleCategory = (RadioButton) findViewById(selectedId);
-
         String roleCategory = null;
+
+        int selectedId = rgRoleCategory.getCheckedRadioButtonId();
+
+
         if(showRadio) {
-            roleCategory = rbRoleCategory.getText().toString();
+            if(selectedId == R.id.rb_others) {
+                roleCategory = "OTHERS";
+            } else {
+                roleCategory = "ASHA";
+            }
         }
         else if(role.name().equals("GUEST")) {
             roleCategory = "GUEST";
@@ -305,6 +309,9 @@ public class NumberInputActivity extends AppCompatActivity {
 
             @Override
             public void fail() {
+
+                Toast.makeText(NumberInputActivity.this, R.string.toast_fail, Toast.LENGTH_SHORT).show();
+                
             }
 
             @Override

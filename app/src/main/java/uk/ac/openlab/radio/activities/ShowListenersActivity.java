@@ -235,7 +235,7 @@ public class ShowListenersActivity extends AppCompatActivity {
             public void message(String message) {
 
             }
-        }, "OTHER");
+        }, "OTHERS");
     }
 
 }

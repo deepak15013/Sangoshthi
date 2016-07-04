@@ -87,7 +87,6 @@ public class CallReceiver extends PhoneCallReceiver {
                 if(ShowOverviewActivity.alertDialog != null) {
                     if(ShowOverviewActivity.alertDialog.isShowing()) {
 
-                        ShowOverviewActivity.callReceived = true;
                         ShowOverviewActivity.alertDialog.dismiss();
                     }
                 }

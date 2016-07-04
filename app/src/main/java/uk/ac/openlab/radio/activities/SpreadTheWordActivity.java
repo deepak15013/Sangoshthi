@@ -35,6 +35,8 @@ public class SpreadTheWordActivity extends AppCompatActivity {
     private int year, month, day, hour, minute;
     private Calendar calendar;
 
+    String roleCategory;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -93,10 +95,15 @@ public class SpreadTheWordActivity extends AppCompatActivity {
         Toast.makeText(SpreadTheWordActivity.this, getString(R.string.toast_add_more), Toast.LENGTH_SHORT).show();
 
         int selectedId = rgSpreadWordCategory.getCheckedRadioButtonId();
-        radioButton = (RadioButton) findViewById(selectedId);
-
-        assert radioButton != null;
-        String roleCategory =  radioButton.getText().toString();
+        if(selectedId == R.id.rb_spread_asha) {
+            roleCategory = "ASHA";
+        }
+        else if(selectedId == R.id.rb_spread_others) {
+            roleCategory = "OTHERS";
+        }
+        else {
+            roleCategory = "ALL";
+        }
 
         FreeSwitchApi.shared().spreadWord(new IMessageListener() {
             @Override
@@ -128,10 +135,15 @@ public class SpreadTheWordActivity extends AppCompatActivity {
         Toast.makeText(SpreadTheWordActivity.this, getString(R.string.toast_submit), Toast.LENGTH_SHORT).show();
 
         int selectedId = rgSpreadWordCategory.getCheckedRadioButtonId();
-        radioButton = (RadioButton) findViewById(selectedId);
-
-        assert radioButton != null;
-        String roleCategory =  radioButton.getText().toString();
+        if(selectedId == R.id.rb_asha) {
+            roleCategory = "ASHA";
+        }
+        else if(selectedId == R.id.rb_spread_others) {
+            roleCategory = "OTHERS";
+        }
+        else {
+            roleCategory = "ALL";
+        }
 
         FreeSwitchApi.shared().spreadWord(new IMessageListener() {
             @Override
@@ -157,7 +169,6 @@ public class SpreadTheWordActivity extends AppCompatActivity {
 
             }
         }, etSpreadDate.getText().toString(), etSpreadTime.getText().toString(), roleCategory.toUpperCase());
-
     }
 
     @Override

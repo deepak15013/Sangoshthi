@@ -192,7 +192,6 @@ public class ShowOverviewActivity extends AppCompatActivity {
             alertDialog = alertDialogBuilder.create();
             alertDialog.show();
             alertDialog.setCancelable(false);
-
         }
 
         initTimelineThread();
@@ -336,7 +335,6 @@ public class ShowOverviewActivity extends AppCompatActivity {
                     chronometer.stop();
                     startStopButton.setText(getString(R.string.action_show_done));
 
-
                     SharedPreferences.Editor e = PreferenceManager.getDefaultSharedPreferences(getBaseContext()).edit();
                     e.putBoolean("firstStart", true);
                     e.apply();
@@ -468,6 +466,19 @@ public class ShowOverviewActivity extends AppCompatActivity {
         Log.v("dks","finish activiy");
         if(activity != null) {
             activity.finish();
+        }
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        // if app closed then last state of the callers is retained in recycler view
+        // this is used to stop that and flush the old callers
+
+        if(callerListRecyclerView != null) {
+            callerListRecyclerView.setRecycledViewPool(new RecyclerView.RecycledViewPool());
         }
 
     }

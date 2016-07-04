@@ -79,6 +79,7 @@
     <string name="toast_add_more">add more</string>
     <string name="toast_broadcast_time_saved">Broadcast time saved</string>
     <string name="toast_submit">submit</string>
+    <string name="toast_fail">Fail! Please try again!</string>
 
     <!-- Edit texts -->
     <string name="number_input_enter_guest_number">Enter the Guest\'s telephone number</string>

@@ -9,6 +9,7 @@
     android:paddingEnd="8dp"
     android:paddingStart="8dp"
     android:background="?attr/colorPrimaryDark">
+
     <uk.ac.openlab.radio.drawables.ChecklistItemView
         android:id="@+id/toolbar_item"
         android:transitionName="@string/transition_name_listitem"
@@ -17,4 +18,5 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
     </uk.ac.openlab.radio.drawables.ChecklistItemView>
+
 </android.support.v7.widget.Toolbar>

@@ -70,6 +70,7 @@
     <string name="toast_add_more">और जोड़े</string>
     <string name="toast_broadcast_time_saved">सफल</string>
     <string name="toast_submit">जमा क्रे</string>
+    <string name="toast_fail">असफल, कृपया दुबारा कोशिश करे</string>
 
     <!-- Edit texts -->
     <string name="number_input_enter_guest_number">गेस्ट का नंबर डाले</string>
