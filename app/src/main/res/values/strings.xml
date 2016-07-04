@@ -81,6 +81,8 @@
     <string name="tv_num_of_option">विकल्प गिनती</string>
     <string name="tv_correct_option">सही विकल्प</string>
     <string name="tv_set_broadcast_schedule">ट्रेलर प्रसारण का समय चुने</string>
+    <string name="tv_timeline_start">0</string>
+    <string name="tv_timeline_end">1</string>
 
     <!-- Content Description -->
     <string name="cd_date_chooser">तिथि चुनिए </string>

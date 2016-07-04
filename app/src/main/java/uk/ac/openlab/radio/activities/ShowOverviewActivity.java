@@ -90,14 +90,6 @@ public class ShowOverviewActivity extends AppCompatActivity {
         chronoQuizTimer = (Chronometer) findViewById(R.id.chrono_quiz_timer);
         llShowTimer = (LinearLayout) findViewById(R.id.ll_show_timer);
         ibFlush = (ImageButton) findViewById(R.id.ib_flush);
-        sbTimeline = (SeekBar) findViewById(R.id.sb_timeline);
-        assert sbTimeline != null;
-        sbTimeline.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                return true;
-            }
-        });
 
         callerListRecyclerView = (RecyclerView) findViewById(R.id.callerList);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 2);

@@ -90,6 +90,8 @@
     <string name="tv_num_of_option">Num of options</string>
     <string name="tv_correct_option">Correct option</string>
     <string name="tv_set_broadcast_schedule">Set the broadcast schedule</string>
+    <string name="tv_timeline_start">0</string>
+    <string name="tv_timeline_end">1</string>
 
     <!-- Content Description -->
     <string name="cd_date_chooser">Select date</string>
