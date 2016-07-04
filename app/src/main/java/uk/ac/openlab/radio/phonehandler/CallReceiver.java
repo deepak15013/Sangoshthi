@@ -31,8 +31,14 @@ public class CallReceiver extends PhoneCallReceiver {
     protected void onIncomingCallEnded(Context ctx, String number, Date start, Date end) {
         super.onIncomingCallEnded(ctx, number, start, end);
         Log.v("dks","call incoming ended: "+number+" date start: "+start + "date end: "+end);
-        if(number.contains(ctx.getString(R.string.server_number))) {
-            dismissAndBack();
+        if(number.contains(ctx.getString(R.string.server_number) )) {
+
+            if(ShowOverviewActivity.alertDialog != null && ShowOverviewActivity.alertDialog.isShowing()) {
+                GlobalUtils.shared().setCallDisconnected(true);
+                ShowOverviewActivity.alertDialog.dismiss();
+                ShowOverviewActivity.finishActivity();
+            }
+
         }
 
     }
@@ -41,11 +47,18 @@ public class CallReceiver extends PhoneCallReceiver {
     public void onCallStateChanged(Context context, int state, String number) {
         super.onCallStateChanged(context, state, number);
 
+
         if(state == 0 && number != null) {
+
             if(number.contains(context.getString(R.string.server_number)) && callReceived) {
                 callReceived = false;
-                dismissAndBack();
+                GlobalUtils.shared().setCallDisconnected(true);
+                if(ShowOverviewActivity.alertDialog != null && ShowOverviewActivity.alertDialog.isShowing()) {
+                    ShowOverviewActivity.alertDialog.dismiss();
+                }
+                ShowOverviewActivity.finishActivity();
             }
+
         }
 
 
@@ -101,14 +114,5 @@ public class CallReceiver extends PhoneCallReceiver {
     @Override
     protected void onMissedCall(Context ctx, String number, Date start) {
         super.onMissedCall(ctx, number, start);
-    }
-
-    private void dismissAndBack() {
-
-        GlobalUtils.shared().setCallDisconnected(true);
-        if(ShowOverviewActivity.alertDialog != null && ShowOverviewActivity.alertDialog.isShowing()) {
-            ShowOverviewActivity.alertDialog.dismiss();
-        }
-        ShowOverviewActivity.finishActivity();
     }
 }

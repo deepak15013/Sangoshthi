@@ -54,7 +54,7 @@
     <string name="dialog_call_waiting_show_overview">कृपया कॉल की प्रतीक्षा करे</string>
     <string name="dialog_ok">ठीक</string>
     <string name="dialog_create_trailer_first">कृपया पहले ट्रेलर त्यार करें</string>
-    <string name="dialog_call_disconnected_error">होस्ट की कॉल कट</string>
+    <string name="dialog_call_disconnected_error">कृपया प्रतीक्षा करे</string>
     <string name="dialog_call_disconnected">असुविधा के लिए खेद है! होस्ट की कॉल कटने से शो बंद हो गया हैं | कृपया शो दोबारा शुरू करें</string>
 
     <!-- Error -->

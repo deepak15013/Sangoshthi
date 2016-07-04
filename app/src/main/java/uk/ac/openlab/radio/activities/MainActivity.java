@@ -62,6 +62,7 @@ public class MainActivity extends AppCompatActivity implements IRecyclerViewItem
 
     public static AlertDialog alertDialogRecordTrailer;
     public static AlertDialog alertDialogPlayTrailer;
+    public static AlertDialog alertDialogCallCut;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -122,18 +123,32 @@ public class MainActivity extends AppCompatActivity implements IRecyclerViewItem
         super.onResume();
 
         if(GlobalUtils.shared().getCallDisconnected()) {
+
             AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
             builder.setTitle(R.string.dialog_call_disconnected_error);
             builder.setMessage(R.string.dialog_call_disconnected);
-            builder.setNegativeButton(R.string.dialog_ok, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
+            builder.setCancelable(false);
+            alertDialogCallCut = builder.create();
+            alertDialogCallCut.show();
 
-                }
-            });
-            builder.create().show();
 
             GlobalUtils.shared().setCallDisconnected(false);
+
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        Thread.sleep(35000);
+
+                        alertDialogCallCut.dismiss();
+
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+            }).start();
+
         }
 
     }
@@ -384,7 +399,6 @@ public class MainActivity extends AppCompatActivity implements IRecyclerViewItem
                     createTrailerAlertDialogBuilder.setCancelable(false);
                     alertDialogRecordTrailer = createTrailerAlertDialogBuilder.create();
                     alertDialogRecordTrailer.show();
-                    alertDialogRecordTrailer.setCancelable(false);
 
                     FreeSwitchApi.shared().createTrailer(new IMessageListener() {
                         @Override
@@ -417,7 +431,6 @@ public class MainActivity extends AppCompatActivity implements IRecyclerViewItem
                     playTrailerAlertDialogBuilder.setCancelable(false);
                     alertDialogPlayTrailer = playTrailerAlertDialogBuilder.create();
                     alertDialogPlayTrailer.show();
-                    alertDialogPlayTrailer.setCancelable(false);
 
                     FreeSwitchApi.shared().playTrailer(new IMessageListener() {
                         @Override
