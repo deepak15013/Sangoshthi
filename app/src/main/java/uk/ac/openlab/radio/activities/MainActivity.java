@@ -71,6 +71,7 @@ public class MainActivity extends AppCompatActivity implements IRecyclerViewItem
         setContentView(R.layout.activity_checklist);
 
         if(getIntent().getBooleanExtra("EXIT",false)) {
+            GlobalUtils.shared().setCallDisconnected(false);
             finish();
         }
 
