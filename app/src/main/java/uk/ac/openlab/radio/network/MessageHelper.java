@@ -42,6 +42,7 @@ public class MessageHelper {
     private final String FS_SHOW_RESULTS = "show_results";
     private final String FS_START_LISTENER_RATING = "start_listener_rating";
     private final String FS_STOP_LISTENER_RATING = "stop_listener_rating";
+    private final String FS_CALL_REJECTED = "call_rejected";
 
     public enum MuteState{
         mute,
@@ -136,10 +137,6 @@ public class MessageHelper {
         return String.format("{\"cmd\":\"%s\", \"studio\" : \"%s\"}", FS_END_SHOW, this.studio_id);
     }
 
-    public String showInfo(){
-        return String.format("{\"cmd\":\"%s\", \"studio\" : \"%s\", \"session\" : \"%s\" }", FS_CMD_SHOW_INFO,this.studio_id, this.session_id);
-    }
-
     public String flushCallers() {
         return String.format("{\"cmd\":\"%s\", \"studio\" : \"%s\"}", FS_FLUSH_CALLERS, this.studio_id);
     }
@@ -178,6 +175,10 @@ public class MessageHelper {
 
     public String stopListenerRating(String phoneNum) {
         return String.format("{\"cmd\":\"%s\", \"phone_number\" : \"%s\"}", FS_STOP_LISTENER_RATING, phoneNum);
+    }
+
+    public String callRejected() {
+        return String.format("{\"cmd\":\"%s\", \"studio\" : \"%s\", \"phone_number\" : \"%s\"}", FS_CALL_REJECTED, this.studio_id, this.host_phone_num);
     }
 
 }

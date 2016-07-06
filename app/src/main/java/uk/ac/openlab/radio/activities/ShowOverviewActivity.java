@@ -45,6 +45,7 @@ public class ShowOverviewActivity extends AppCompatActivity {
 
     public static String EXTRA_SHOULD_DIAL = "EXTRA_SHOULD_DIAL";
     private static final long ONE_MINUTE_CLOCK = 60*1000;
+    private static final long TWENTY_SECOND_CLOCK = 20 *1000;
 
     Button startStopButton;
     public static Chronometer chronometer;
@@ -192,6 +193,19 @@ public class ShowOverviewActivity extends AppCompatActivity {
             alertDialog = alertDialogBuilder.create();
             alertDialog.show();
             alertDialog.setCancelable(false);
+
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        Thread.sleep(TWENTY_SECOND_CLOCK);
+                        alertDialog.dismiss();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }).start();
+
         }
 
         initTimelineThread();

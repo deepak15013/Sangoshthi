@@ -125,30 +125,41 @@ public class MainActivity extends AppCompatActivity implements IRecyclerViewItem
 
         if(GlobalUtils.shared().getCallDisconnected()) {
 
+            FreeSwitchApi.shared().callRejected(new IMessageListener() {
+                @Override
+                public void success() {
+
+                }
+
+                @Override
+                public void fail() {
+
+                }
+
+                @Override
+                public void error() {
+
+                }
+
+                @Override
+                public void message(String message) {
+
+                }
+            });
+
             AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-            builder.setTitle(R.string.dialog_call_disconnected_error);
             builder.setMessage(R.string.dialog_call_disconnected);
-            builder.setCancelable(false);
+            builder.setNegativeButton(R.string.dialog_ok, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+
+                }
+            });
             alertDialogCallCut = builder.create();
             alertDialogCallCut.show();
 
 
             GlobalUtils.shared().setCallDisconnected(false);
-
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        Thread.sleep(35000);
-
-                        alertDialogCallCut.dismiss();
-
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-
-            }).start();
 
         }
 

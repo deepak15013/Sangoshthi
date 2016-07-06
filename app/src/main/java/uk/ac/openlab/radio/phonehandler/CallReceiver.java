@@ -68,9 +68,7 @@ public class CallReceiver extends PhoneCallReceiver {
                 }
 
             }
-
         }
-
 
         if(state == 1 && number != null) {
             if(number.contains(context.getString(R.string.server_number))) {

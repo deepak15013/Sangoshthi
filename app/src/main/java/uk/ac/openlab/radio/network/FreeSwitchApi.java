@@ -143,16 +143,12 @@ public class FreeSwitchApi {
         sendMessage(callback, MessageHelper.shared().endShow());
     }
 
-    /**
-     * Request the overview of the show i.e. guests, listeners, callers, likes, topics.
-     * @param callback
-     */
-    public void showInfo(IMessageListener callback){
-        sendMessage(callback, MessageHelper.shared().showInfo());
-    }
-
     public void flushCallers(IMessageListener callback) {
         sendMessage(callback, MessageHelper.shared().flushCallers());
+    }
+
+    public void callRejected(IMessageListener callback) {
+        sendMessage(callback, MessageHelper.shared().callRejected());
     }
 
     private void sendMessage(IMessageListener callback, String message){
