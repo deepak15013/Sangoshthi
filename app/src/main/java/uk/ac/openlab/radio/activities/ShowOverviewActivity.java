@@ -200,8 +200,12 @@ public class ShowOverviewActivity extends AppCompatActivity {
                 public void run() {
                     try {
                         Thread.sleep(TWENTY_SECOND_CLOCK);
-                        alertDialog.dismiss();
-                        finishActivity();
+
+                        if(alertDialog.isShowing()) {
+                            alertDialog.dismiss();
+                            finishActivity();
+                        }
+
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
