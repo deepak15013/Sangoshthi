@@ -147,6 +147,8 @@ public class MainActivity extends AppCompatActivity implements IRecyclerViewItem
                 }
             });
 
+            GlobalUtils.shared().setCallDisconnected(false);
+
             AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
             builder.setMessage(R.string.dialog_call_disconnected);
             builder.setNegativeButton(R.string.dialog_ok, new DialogInterface.OnClickListener() {
@@ -157,9 +159,6 @@ public class MainActivity extends AppCompatActivity implements IRecyclerViewItem
             });
             alertDialogCallCut = builder.create();
             alertDialogCallCut.show();
-
-
-            GlobalUtils.shared().setCallDisconnected(false);
 
         }
 

@@ -187,6 +187,7 @@ public class ShowOverviewActivity extends AppCompatActivity {
         }
 
         if(!callReceived) {
+
             AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
             alertDialogBuilder.setMessage(getResources().getString(R.string.dialog_call_waiting_show_overview));
             alertDialogBuilder.setCancelable(false);
@@ -200,6 +201,7 @@ public class ShowOverviewActivity extends AppCompatActivity {
                     try {
                         Thread.sleep(TWENTY_SECOND_CLOCK);
                         alertDialog.dismiss();
+                        finishActivity();
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
