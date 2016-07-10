@@ -41,6 +41,7 @@ import uk.ac.openlab.radio.network.MessageHelper;
 /**
  * Created by kylemontague on 21/03/16.
  */
+
 public class ShowOverviewActivity extends AppCompatActivity {
 
     public static String EXTRA_SHOULD_DIAL = "EXTRA_SHOULD_DIAL";
@@ -97,7 +98,6 @@ public class ShowOverviewActivity extends AppCompatActivity {
         rangebarTimeline = (RangeBar) findViewById(R.id.rangebar_timeline);
         tvMinutes = (TextView) findViewById(R.id.tv_minutes);
         btnSaveTimestamp = (Button) findViewById(R.id.btn_save_timestamp);
-
 
         callerListRecyclerView = (RecyclerView) findViewById(R.id.callerList);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 2);
@@ -224,7 +224,6 @@ public class ShowOverviewActivity extends AppCompatActivity {
                 Log.v("dks","rightPinValue: "+rangebarTimeline.getRightPinValue());
             }
         });
-
     }
 
     @Override
@@ -271,17 +270,22 @@ public class ShowOverviewActivity extends AppCompatActivity {
 
     public static void startTimers() {
 
-        ShowOverviewActivity.chronometer.post(new Runnable() {
-            @Override
-            public void run() {
-                ShowOverviewActivity.chronometer.setBase(SystemClock.elapsedRealtime());
-                ShowOverviewActivity.chronometer.start();
+        if(!chronometerRunning) {
+
+            ShowOverviewActivity.chronometer.post(new Runnable() {
+                @Override
+                public void run() {
+                    ShowOverviewActivity.chronometer.setBase(SystemClock.elapsedRealtime());
+                    ShowOverviewActivity.chronometer.start();
+                }
+            });
+
+            chronometerRunning = true;
+            if(!timelineThread.isAlive()) {
+                timelineThread.start();
             }
-        });
 
-        chronometerRunning = true;
-        timelineThread.start();
-
+        }
     }
 
     private void initTimelineThread() {
@@ -353,6 +357,8 @@ public class ShowOverviewActivity extends AppCompatActivity {
                 @Override
                 public void success() {
                     chronometer.stop();
+                    chronometerRunning = false;
+
                     startStopButton.setText(getString(R.string.action_show_done));
 
                     SharedPreferences.Editor e = PreferenceManager.getDefaultSharedPreferences(getBaseContext()).edit();
