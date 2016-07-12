@@ -3,22 +3,28 @@ package uk.ac.openlab.radio.activities;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.File;
+
+import uk.ac.openlab.radio.GlobalUtils;
 import uk.ac.openlab.radio.R;
 import uk.ac.openlab.radio.drawables.ChecklistItemView;
+import uk.ac.openlab.radio.network.AWSHandler;
 import uk.ac.openlab.radio.utilities.FileBrowserActivity;
 
 public class UploadFilesActivity extends AppCompatActivity {
 
-    private final int REQUEST_CODE_PICK_DIR = 1;
     private final int REQUEST_CODE_PICK_FILE = 2;
 
     private ChecklistItemView toolbarItemView;
 
     private Button btnBrowse;
+    private TextView tvFileLocation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +38,7 @@ public class UploadFilesActivity extends AppCompatActivity {
         toolbarItemView.setIcon(R.drawable.ic_person);
 
         btnBrowse = (Button) findViewById(R.id.btn_browse);
+        tvFileLocation = (TextView) findViewById(R.id.tv_file_location);
 
         btnBrowse.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,6 +65,20 @@ public class UploadFilesActivity extends AppCompatActivity {
             if(resultCode == RESULT_OK) {
                 String newFile = data.getStringExtra(
                         FileBrowserActivity.returnFileParameter);
+
+                tvFileLocation.setText(newFile);
+
+                File fileToUpload = new File(newFile);
+                if(fileToUpload.exists()) {
+                    String fileKey = GlobalUtils.shared().getStudioId()+"/trailer/"+fileToUpload.getName();
+
+                    AWSHandler.shared().storeAwsFile(fileToUpload, fileKey);
+                }
+                else {
+                    Log.v("dks","file not found");
+                }
+
+
                 Toast.makeText(
                         this,
                         "Received FILE path from file browser:\n"+newFile,

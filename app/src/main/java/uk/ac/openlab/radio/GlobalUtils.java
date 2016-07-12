@@ -99,6 +99,10 @@ public class GlobalUtils {
         return sharedPreferences.edit().putString(PREF_STUDIO_ID,this.studioID).commit();
     }
 
+    public String getStudioId() {
+        return sharedPreferences.getString(PREF_STUDIO_ID,"default_show");
+    }
+
     public String sessionID(){
         if(this.sessionID == null)
             this.sessionID = sharedPreferences.getString(PREF_SESSION_ID,null);

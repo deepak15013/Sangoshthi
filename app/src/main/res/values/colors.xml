@@ -16,4 +16,7 @@
     <color name="transparent">#00000000</color>
     <color name="primaryColor">#000000</color>
 
+    <color name="green">#32ff32</color>
+    <color name="red">#d9410e</color>
+
 </resources>

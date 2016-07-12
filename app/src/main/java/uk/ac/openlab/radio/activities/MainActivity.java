@@ -36,6 +36,7 @@ import uk.ac.openlab.radio.adapters.IRecyclerViewItemClickedListener;
 import uk.ac.openlab.radio.adapters.RHDCheckLists;
 import uk.ac.openlab.radio.datatypes.CheckListItem;
 import uk.ac.openlab.radio.drawables.ChecklistItemView;
+import uk.ac.openlab.radio.network.AWSHandler;
 import uk.ac.openlab.radio.network.FreeSwitchApi;
 import uk.ac.openlab.radio.network.IMessageListener;
 import uk.ac.openlab.radio.network.MessageHelper;
@@ -116,6 +117,7 @@ public class MainActivity extends AppCompatActivity implements IRecyclerViewItem
         setupUI(pageID);
 
         FreeSwitchApi.shared().init(getApplicationContext());
+        AWSHandler.shared().init(getApplicationContext());
     }
 
     @Override

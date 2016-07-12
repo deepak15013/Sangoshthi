@@ -9,15 +9,24 @@
     <include layout="@layout/checklist_toolbar" />
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
 
         <Button
             android:id="@+id/btn_browse"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:text="@string/action_browse"
+            android:layout_marginTop="50dp"/>
+
+        <TextView
+            android:id="@+id/tv_file_location"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/action_browse"/>
+            android:text="file location"
+            android:layout_marginTop="20dp"/>
 
     </LinearLayout>
 

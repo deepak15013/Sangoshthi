@@ -18,13 +18,12 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Chronometer;
+import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
-
-import com.appyvet.rangebar.RangeBar;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -231,15 +230,42 @@ public class ShowOverviewActivity extends AppCompatActivity {
             }
         });*/
 
-        tbPlayPrerecorded.setOnClickListener(new View.OnClickListener() {
+        tbPlayPrerecorded.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @TargetApi(Build.VERSION_CODES.LOLLIPOP)
             @Override
-            public void onClick(View v) {
-                if(tbPlayPrerecorded.isChecked()) {
-                    tbPlayPrerecorded.setCompoundDrawables(null, getDrawable(R.drawable.ic_pause_black_24dp), null, null);
-                }
-                else {
-                    tbPlayPrerecorded.setCompoundDrawables(null, getDrawable(R.drawable.ic_play_arrow_black_24dp), null, null);
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked) {
+                    Toast.makeText(ShowOverviewActivity.this, "Started playing audio", Toast.LENGTH_SHORT).show();
+                    tbPlayPrerecorded.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.ic_stop_black_24dp, 0, 0);
+                    tbPlayPrerecorded.setBackgroundColor(context.getResources().getColor(R.color.green));
+
+                    FreeSwitchApi.shared().playPrerecordedMaterial(new IMessageListener() {
+                        @Override
+                        public void success() {
+
+                        }
+
+                        @Override
+                        public void fail() {
+
+                        }
+
+                        @Override
+                        public void error() {
+
+                        }
+
+                        @Override
+                        public void message(String message) {
+
+                        }
+                    });
+
+                } else {
+                    Toast.makeText(ShowOverviewActivity.this, "End playing audio", Toast.LENGTH_SHORT).show();
+                    tbPlayPrerecorded.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.ic_play_arrow_black_24dp, 0, 0);
+
+                    tbPlayPrerecorded.setBackgroundColor(context.getResources().getColor(R.color.red));
                 }
             }
         });
