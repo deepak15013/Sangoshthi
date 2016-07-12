@@ -151,6 +151,14 @@ public class FreeSwitchApi {
         sendMessage(callback, MessageHelper.shared().callRejected());
     }
 
+    /**
+     *  Tell FreeSwitch to play the prerecorded material to callers from amazon S3.
+     * @param callback
+     */
+    public void playPrerecordedMaterial(IMessageListener callback) {
+        sendMessage(callback, MessageHelper.shared().playPrerecordedMaterial());
+    }
+
     private void sendMessage(IMessageListener callback, String message){
         if(!isInit) {
             callback.message("Not initialised.");

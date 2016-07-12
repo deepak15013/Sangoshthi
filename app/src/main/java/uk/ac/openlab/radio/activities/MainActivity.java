@@ -60,7 +60,6 @@ public class MainActivity extends AppCompatActivity implements IRecyclerViewItem
 
     private int pageID = R.string.main_menu_title;
 
-    public static AlertDialog alertDialogRecordTrailer;
     public static AlertDialog alertDialogPlayTrailer;
     public static AlertDialog alertDialogCallCut;
 
@@ -405,32 +404,9 @@ public class MainActivity extends AppCompatActivity implements IRecyclerViewItem
                 //create trailer
                 case 0:
 
-                    AlertDialog.Builder createTrailerAlertDialogBuilder = new AlertDialog.Builder(MainActivity.this);
-                    createTrailerAlertDialogBuilder.setMessage(getResources().getString(R.string.dialog_call_waiting_trailer));
-                    createTrailerAlertDialogBuilder.setCancelable(false);
-                    alertDialogRecordTrailer = createTrailerAlertDialogBuilder.create();
-                    alertDialogRecordTrailer.show();
+                    Intent intent = new Intent(MainActivity.this, UploadFilesActivity.class);
+                    startActivity(intent);
 
-                    FreeSwitchApi.shared().createTrailer(new IMessageListener() {
-                        @Override
-                        public void success() {
-
-                        }
-
-                        @Override
-                        public void fail() {
-                            alertDialogRecordTrailer.dismiss();
-                        }
-
-                        @Override
-                        public void error() {
-                            alertDialogRecordTrailer.dismiss();
-                        }
-
-                        @Override
-                        public void message(String message) {
-                        }
-                    });
                     break;
 
                 //play trailer

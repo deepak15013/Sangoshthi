@@ -5,7 +5,6 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
     <application
@@ -16,7 +15,6 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/Lebanon">
-
         <activity
             android:name=".activities.SplashActivity"
             android:label="@string/app_name"
@@ -28,46 +26,38 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".activities.SetupActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Base.Theme.AppCompat.Light.DarkActionBar" />
-
         <activity
             android:name=".activities.MainActivity"
             android:label="Radio - Prepare Show"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".activities.ShowOverviewActivity"
             android:label="Radio - Show Overview"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".activities.NumberInputActivity"
             android:label="Radio - Number"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysVisible" />
-
         <activity
             android:name=".activities.CreateShow"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".activities.ShowListenersActivity"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".activities.SpreadTheWordActivity"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".activities.ShowResultsActivity"
             android:screenOrientation="portrait" />
-
-        <activity android:name=".activities.ShowGuestsActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".activities.ShowGuestsActivity"
+            android:screenOrientation="portrait" />
 
         <receiver android:name=".phonehandler.CallReceiver">
             <intent-filter>
@@ -78,5 +68,19 @@
             </intent-filter>
         </receiver>
 
+        <activity android:name=".activities.UploadFilesActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity
+            android:name=".utilities.FileBrowserActivity"
+            android:label="File browser"
+            android:configChanges="orientation|keyboardHidden">
+            <intent-filter>
+                <action android:name="ua.com.vassiliev.androidfilebrowser.SELECT_DIRECTORY_ACTION"/>
+            </intent-filter>
+
+        </activity>
+
     </application>
+
 </manifest>

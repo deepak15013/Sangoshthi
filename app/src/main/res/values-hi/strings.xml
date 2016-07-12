@@ -112,6 +112,8 @@
     <string name="action_add_more">add more</string>
     <string name="action_submit">Submit</string>
     <string name="action_delete_all">delete all</string>
+    <string name="action_play_prerecorded">Play prerecorded material</string>
+    <string name="action_browse">Browse</string>
 
     <!-- Radio Buttons -->
     <string name="rb_mock_show">Mock Show</string>
@@ -183,5 +185,8 @@
 
     <string name="error_invalid_joincode">Invalid Joincode</string>
     <string name="error_null">Please enter a value</string>
+
+    <!-- Content Description Strings -->
+    <string name="cd_timeline">TimelineLinearLayout</string>
 
 </resources>

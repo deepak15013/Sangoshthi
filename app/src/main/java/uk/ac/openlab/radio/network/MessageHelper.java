@@ -44,6 +44,8 @@ public class MessageHelper {
     private final String FS_STOP_LISTENER_RATING = "stop_listener_rating";
     private final String FS_CALL_REJECTED = "call_rejected";
 
+    private final String FS_PLAY_PRERECORDED_MATERIAL = "play_recording";
+
     public enum MuteState{
         mute,
         unmute
@@ -179,6 +181,14 @@ public class MessageHelper {
 
     public String callRejected() {
         return String.format("{\"cmd\":\"%s\", \"studio\" : \"%s\", \"phone_number\" : \"%s\"}", FS_CALL_REJECTED, this.studio_id, this.host_phone_num);
+    }
+
+    /**
+     *  Play preRecorded material from amazon s3 in ShowOverViewActivity
+     *
+     */
+    public String playPrerecordedMaterial() {
+        return String.format("{\"cmd\":\"%s\", \"studio\" : \"%s\"}", FS_PLAY_PRERECORDED_MATERIAL, this.studio_id);
     }
 
 }

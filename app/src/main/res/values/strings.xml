@@ -103,6 +103,8 @@
     <string name="action_add_more">और जोड़े</string>
     <string name="action_submit">जमा करें</string>
     <string name="action_delete_all">सब हंटाए</string>
+    <string name="action_play_prerecorded">रेकॉर्डिंग</string>
+    <string name="action_browse">खोजें</string>
 
     <!-- Radio Buttons -->
     <string name="rb_mock_show">रिहर्सल शो</string>
@@ -171,5 +173,8 @@
     <string name="transition_name_listitem">transition:listitem</string>
     <string name="error_invalid_joincode">Invalid Joincode</string>
     <string name="error_null">Please enter a value</string>
+
+    <!-- Content Description Strings -->
+    <string name="cd_timeline">TimelineLinearLayout</string>
 
 </resources>

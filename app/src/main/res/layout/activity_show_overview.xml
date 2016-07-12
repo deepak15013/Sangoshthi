@@ -102,54 +102,86 @@
 
     </RelativeLayout>
 
-    <View
-        android:layout_width="wrap_content"
-        android:layout_height="1dp"
-        android:background="@android:color/darker_gray"
-        android:layout_margin="8dp"/>
-
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="horizontal">
+        android:orientation="vertical"
+        android:gravity="center">
 
-        <TextView
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray"
+            android:layout_margin="8dp"/>
+
+        <ToggleButton
+            android:id="@+id/tb_play_prerecorded"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/tv_timeline_start"
-            android:layout_gravity="bottom"
-            android:layout_weight="1"
-            android:layout_marginBottom="8dp"
-            android:gravity="center"/>
-
-        <com.appyvet.rangebar.RangeBar
-            android:id="@+id/rangebar_timeline"
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            app:tickStart="0"
-            app:tickEnd="1"
-            app:tickInterval="1"
-            android:layout_weight="1"/>
-
-        <TextView
-            android:id="@+id/tv_minutes"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/tv_timeline_end"
-            android:layout_gravity="bottom"
-            android:layout_weight="1"
-            android:layout_marginBottom="8dp"
-            android:gravity="center"/>
+            android:drawableTop="@drawable/ic_play_arrow_black_24dp"
+            android:textOn="@string/action_play_prerecorded"
+            android:textOff="@string/action_play_prerecorded"/>
 
     </LinearLayout>
 
-    <Button
-        android:id="@+id/btn_save_timestamp"
-        android:layout_width="200dp"
+    <LinearLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/string_save_timestamp"
-        android:layout_gravity="center_horizontal"/>
+        android:orientation="vertical"
+        android:contentDescription="@string/cd_timeline"
+        android:visibility="gone">
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray"
+            android:layout_margin="8dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tv_timeline_start"
+                android:layout_gravity="bottom"
+                android:layout_weight="1"
+                android:layout_marginBottom="8dp"
+                android:gravity="center"/>
+
+            <com.appyvet.rangebar.RangeBar
+                android:id="@+id/rangebar_timeline"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                app:tickStart="0"
+                app:tickEnd="1"
+                app:tickInterval="1"
+                android:layout_weight="1"/>
+
+            <TextView
+                android:id="@+id/tv_minutes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tv_timeline_end"
+                android:layout_gravity="bottom"
+                android:layout_weight="1"
+                android:layout_marginBottom="8dp"
+                android:gravity="center"/>
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btn_save_timestamp"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:text="@string/string_save_timestamp"
+            android:layout_gravity="center_horizontal"/>
+
+    </LinearLayout>
 
     <View
         android:layout_width="wrap_content"

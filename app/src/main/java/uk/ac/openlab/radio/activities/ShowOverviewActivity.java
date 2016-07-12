@@ -1,11 +1,13 @@
 package uk.ac.openlab.radio.activities;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.preference.PreferenceManager;
@@ -20,6 +22,7 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import com.appyvet.rangebar.RangeBar;
 
@@ -65,11 +68,13 @@ public class ShowOverviewActivity extends AppCompatActivity {
     public static boolean callReceived = false;
     public static AlertDialog alertDialog;
 
-    private RangeBar rangebarTimeline;
+    //private RangeBar rangebarTimeline;
     private TextView tvMinutes;
-    private static Thread timelineThread;
+    //private static Thread timelineThread;
     private static volatile boolean chronometerRunning = false;
     private Button btnSaveTimestamp;
+
+    private ToggleButton tbPlayPrerecorded;
 
     private static Context context;
     private static Activity activity;
@@ -95,7 +100,7 @@ public class ShowOverviewActivity extends AppCompatActivity {
         llShowTimer = (LinearLayout) findViewById(R.id.ll_show_timer);
         ibFlush = (ImageButton) findViewById(R.id.ib_flush);
 
-        rangebarTimeline = (RangeBar) findViewById(R.id.rangebar_timeline);
+        //rangebarTimeline = (RangeBar) findViewById(R.id.rangebar_timeline);
         tvMinutes = (TextView) findViewById(R.id.tv_minutes);
         btnSaveTimestamp = (Button) findViewById(R.id.btn_save_timestamp);
 
@@ -111,6 +116,8 @@ public class ShowOverviewActivity extends AppCompatActivity {
 
         tvTotalCallers = (TextView) findViewById(R.id.tv_total_callers);
         tvTotalCallers.setText(getResources().getString(R.string.string_total_callers,0));
+
+        tbPlayPrerecorded = (ToggleButton) findViewById(R.id.tb_play_prerecorded);
 
         ibFlush.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -211,19 +218,32 @@ public class ShowOverviewActivity extends AppCompatActivity {
                     }
                 }
             }).start();
-
         }
 
-        initTimelineThread();
+        //initTimelineThread();
 
-        btnSaveTimestamp.setOnClickListener(new View.OnClickListener() {
+        /*btnSaveTimestamp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(ShowOverviewActivity.this, "Timestamp saved", Toast.LENGTH_SHORT).show();
                 Log.v("dks","leftPinValue: "+rangebarTimeline.getLeftPinValue());
                 Log.v("dks","rightPinValue: "+rangebarTimeline.getRightPinValue());
             }
+        });*/
+
+        tbPlayPrerecorded.setOnClickListener(new View.OnClickListener() {
+            @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+            @Override
+            public void onClick(View v) {
+                if(tbPlayPrerecorded.isChecked()) {
+                    tbPlayPrerecorded.setCompoundDrawables(null, getDrawable(R.drawable.ic_pause_black_24dp), null, null);
+                }
+                else {
+                    tbPlayPrerecorded.setCompoundDrawables(null, getDrawable(R.drawable.ic_play_arrow_black_24dp), null, null);
+                }
+            }
         });
+
     }
 
     @Override
@@ -281,14 +301,14 @@ public class ShowOverviewActivity extends AppCompatActivity {
             });
 
             chronometerRunning = true;
-            if(!timelineThread.isAlive()) {
+            /*if(!timelineThread.isAlive()) {
                 timelineThread.start();
-            }
+            }*/
 
         }
     }
 
-    private void initTimelineThread() {
+    /*private void initTimelineThread() {
         timelineThread = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -305,9 +325,9 @@ public class ShowOverviewActivity extends AppCompatActivity {
                 }
             }
         });
-    }
+    }*/
 
-    private void setTickData(final int tickCount) {
+    /*private void setTickData(final int tickCount) {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -316,7 +336,7 @@ public class ShowOverviewActivity extends AppCompatActivity {
                 tvMinutes.setText(String.valueOf(tickCount));
             }
         });
-    }
+    }*/
 
 
 
@@ -325,11 +345,12 @@ public class ShowOverviewActivity extends AppCompatActivity {
         if(startStopButton.getText().toString().equalsIgnoreCase(getResources().getString(R.string.action_start_show))) {
             Toast.makeText(ShowOverviewActivity.this, getString(R.string.action_start_show), Toast.LENGTH_SHORT).show();
 
+            startStopButton.setText(getString(R.string.action_stop_show));
+
             FreeSwitchApi.shared().startShow(new IMessageListener() {
                 @Override
                 public void success() {
 
-                    startStopButton.setText(getString(R.string.action_stop_show));
                     chronometerRunning = false;
 
                 }
