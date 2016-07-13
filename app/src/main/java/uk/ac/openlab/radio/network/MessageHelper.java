@@ -27,7 +27,6 @@ public class MessageHelper {
     private final String FS_ADD_PERSON = "add_person";
     private final String FS_SHOW_LISTENERS = "show_listeners";
     private final String FS_END_SHOW = "end_show";
-    private final String FS_CREATE_TRAILER = "create_trailer";
     private final String FS_PLAY_TRAILER = "play_trailer";
     private final String FS_DELETE_TRAILER = "delete_trailer";
     private final String FS_FLUSH_CALLERS = "flush_callers";
@@ -45,6 +44,11 @@ public class MessageHelper {
     private final String FS_CALL_REJECTED = "call_rejected";
 
     private final String FS_PLAY_PRERECORDED_MATERIAL = "play_recording";
+    private final String FS_TRAILER_UPLOAD = "trailer_upload";
+    private final String FS_CONTENT_UPLOAD = "content_upload";
+    private final String FS_PLAY_CONTENT = "play_content";
+    private final String FS_DELETE_CONTENT = "delete_content";
+
 
     public enum MuteState{
         mute,
@@ -109,10 +113,6 @@ public class MessageHelper {
 
     public String showGuests() {
         return String.format("{\"cmd\":\"%s\", \"studio\" : \"%s\"}",FS_SHOW_GUESTS, this.studio_id);
-    }
-
-    public String createTrailer() {
-        return String.format("{\"cmd\":\"%s\", \"studio\" : \"%s\"}", FS_CREATE_TRAILER, this.studio_id);
     }
 
     public String playTrailer() {
@@ -189,6 +189,36 @@ public class MessageHelper {
      */
     public String playPrerecordedMaterial() {
         return String.format("{\"cmd\":\"%s\", \"studio\" : \"%s\"}", FS_PLAY_PRERECORDED_MATERIAL, this.studio_id);
+    }
+
+    /**
+     *  Command trailer upload
+     */
+    public String trailerUpload(String fileName) {
+        return String.format("{\"cmd\":\"%s\", \"studio\" : \"%s\", \"filename\" : \"%s\"}", FS_TRAILER_UPLOAD, this.studio_id, fileName);
+    }
+
+    /**
+     * Command content upload
+     */
+    public String contentUpload(String fileName) {
+        return String.format("{\"cmd\":\"%s\", \"studio\" : \"%s\", \"filename\" : \"%s\"}", FS_CONTENT_UPLOAD, this.studio_id, fileName);
+    }
+
+    /**
+     * Command play content
+     * @return
+     */
+    public String playContent() {
+        return String.format("{\"cmd\":\"%s\", \"studio\" : \"%s\"}", FS_PLAY_CONTENT, this.studio_id);
+    }
+
+    /**
+     * Command delete content
+     * @return
+     */
+    public String deleteContent() {
+        return String.format("{\"cmd\":\"%s\", \"studio\" : \"%s\"}", FS_DELETE_CONTENT, this.studio_id);
     }
 
 }

@@ -89,7 +89,6 @@ public class ShowOverviewActivity extends AppCompatActivity {
         toolbarItemView = (ChecklistItemView) findViewById(R.id.toolbar_item);
         assert toolbarItemView != null;
         toolbarItemView.setTitle(getResources().getString(R.string.show_overview_title));
-        toolbarItemView.hideCheckbox(true);
         toolbarItemView.setIcon(R.drawable.ic_person);
 
         chronometer = (Chronometer) findViewById(R.id.show_chronometer);

@@ -144,7 +144,6 @@ public class NumberInputActivity extends AppCompatActivity {
             boolean state = extras.getBoolean(MainActivity.EXTRA_TITLE_ITEM_STATE, false);
             if (title != null) {
                 toolbarItemView.setTitle(title);
-                toolbarItemView.setChecked(state);
                 toolbarItemView.setIcon(icon);
             } else {
                 toolbarItemView.setVisibility(View.INVISIBLE);

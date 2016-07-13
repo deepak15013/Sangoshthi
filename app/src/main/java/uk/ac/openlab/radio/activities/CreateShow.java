@@ -52,7 +52,6 @@ public class CreateShow extends AppCompatActivity {
         toolbarItemView = (ChecklistItemView) findViewById(R.id.toolbar_item);
         assert toolbarItemView != null;
         toolbarItemView.setTitle(R.string.title_create_show);
-        toolbarItemView.hideCheckbox(true);
 
         status = getIntent().getStringExtra("STATUS");
 

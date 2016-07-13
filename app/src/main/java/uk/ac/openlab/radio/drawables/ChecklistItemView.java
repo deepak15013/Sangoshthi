@@ -27,7 +27,6 @@ public class ChecklistItemView extends LinearLayout {
     protected View linearLayout;
     protected ImageView icon;
     protected TextView title;
-    protected CheckBox checkBox;
 
     public ChecklistItemView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -62,15 +61,8 @@ public class ChecklistItemView extends LinearLayout {
         title = (TextView)findViewById(R.id.title);
         title.setTextColor(colors);
 
-        checkBox = (CheckBox)findViewById(R.id.checkbox);
-        checkBox.setTextColor(colors);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            checkBox.setButtonTintList(colors);
-        }
-
         setTitle(text);
         setIcon(iconRes);
-        setChecked(checked);
     }
 
 
@@ -111,20 +103,8 @@ public class ChecklistItemView extends LinearLayout {
     }
 
 
-    public void setChecked(boolean isChecked){
-        checkBox.setChecked(isChecked);
-    }
-
     public void setEnabled(boolean isEnabled){
         linearLayout.setFocusableInTouchMode(false);
     }
-
-    public void hideCheckbox(boolean value){
-        if(value)
-            this.checkBox.setVisibility(INVISIBLE);
-        else
-            this.checkBox.setVisibility(VISIBLE);
-    }
-
 
 }

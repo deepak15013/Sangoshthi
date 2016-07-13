@@ -40,7 +40,6 @@ public class ShowGuestsActivity extends AppCompatActivity {
         toolbarItemView = (ChecklistItemView) findViewById(R.id.toolbar_item);
         assert toolbarItemView != null;
         toolbarItemView.setTitle(getResources().getString(R.string.show_guests_title));
-        toolbarItemView.hideCheckbox(true);
         toolbarItemView.setIcon(R.drawable.ic_person);
 
         tvNoGuest = (TextView) findViewById(R.id.tv_no_guest);

@@ -2,6 +2,7 @@ package uk.ac.openlab.radio.network;
 
 import android.content.Context;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.amazonaws.auth.CognitoCachingCredentialsProvider;
 import com.amazonaws.mobileconnectors.s3.transferutility.TransferListener;
@@ -14,6 +15,9 @@ import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3Client;
 
 import java.io.File;
+
+import uk.ac.openlab.radio.R;
+import uk.ac.openlab.radio.activities.MainActivity;
 
 /**
  * Created by deepaksood619 on 12/7/16.
@@ -33,6 +37,8 @@ public class AWSHandler {
     private static final String BUCKET_NAME = "sehatkivaani";
 
     private TransferUtility transferUtility;
+
+    private String fileName;
 
     public void init(Context context) {
         this.context = context;
@@ -54,6 +60,8 @@ public class AWSHandler {
 
     public void storeAwsFile(File fileToUpload, String fileKey) {
 
+        fileName = fileKey;
+
         TransferObserver observer = transferUtility.upload(
                 BUCKET_NAME,      //The bucket to upload to
                 fileKey,     //The key for the uploaded object
@@ -70,6 +78,54 @@ public class AWSHandler {
             @Override
             public void onStateChanged(int id, TransferState state) {
                 Log.e("statechange", state+"");
+                if(state.toString().equalsIgnoreCase("COMPLETED")) {
+                    if(MainActivity.uploadTrailer) {
+                        FreeSwitchApi.shared().trailerUpload(new IMessageListener() {
+                            @Override
+                            public void success() {
+                                Toast.makeText(context, R.string.toast_file_upload_success, Toast.LENGTH_SHORT).show();
+                            }
+
+                            @Override
+                            public void fail() {
+                                Toast.makeText(context, R.string.toast_file_upload_failed, Toast.LENGTH_SHORT).show();
+                            }
+
+                            @Override
+                            public void error() {
+
+                            }
+
+                            @Override
+                            public void message(String message) {
+
+                            }
+                        }, fileName);
+                    }
+                    else {
+                        FreeSwitchApi.shared().contentUpload(new IMessageListener() {
+                            @Override
+                            public void success() {
+                                Toast.makeText(context, R.string.toast_file_upload_success, Toast.LENGTH_SHORT).show();
+                            }
+
+                            @Override
+                            public void fail() {
+                                Toast.makeText(context, R.string.toast_file_upload_failed, Toast.LENGTH_SHORT).show();
+                            }
+
+                            @Override
+                            public void error() {
+
+                            }
+
+                            @Override
+                            public void message(String message) {
+
+                            }
+                        }, fileName);
+                    }
+                }
             }
 
             @Override

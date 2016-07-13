@@ -33,7 +33,7 @@ import uk.ac.openlab.radio.datatypes.CheckListItem;
 /**
  * Created by Kyle Montague on 25/02/16.
  */
-public class CheckListAdapter  extends RecyclerView.Adapter<CheckListAdapter.ViewHolder>{
+public class CheckListAdapter extends RecyclerView.Adapter<CheckListAdapter.ViewHolder>{
 
     ArrayList<CheckListItem> items;
     IRecyclerViewItemClickedListener listener;
@@ -66,8 +66,7 @@ public class CheckListAdapter  extends RecyclerView.Adapter<CheckListAdapter.Vie
         // set the view's size, margins, paddings and layout parameters
         TextView title = (TextView) v.findViewById(R.id.title);
         ImageView icon = (ImageView) v.findViewById(R.id.icon);
-        CheckBox checkbox = (CheckBox) v.findViewById(R.id.checkbox);
-        ViewHolder vh = new ViewHolder(v,title,icon,checkbox);
+        ViewHolder vh = new ViewHolder(v,title,icon);
         return vh;
     }
 
@@ -77,11 +76,7 @@ public class CheckListAdapter  extends RecyclerView.Adapter<CheckListAdapter.Vie
         holder.position = position;
         holder.textView.setText(GlobalUtils.capitalizeWords(items.get(position).getTitle()));
         holder.icon.setImageResource(items.get(position).getIcon());
-        holder.checkBox.setChecked(items.get(position).isComplete());
 
-//        holder.view.setTitle(items.get(position).getTitle());
-//        holder.view.setIcon(items.get(position).getIcon());
-//        holder.view.setChecked(items.get(position).isComplete());
         holder.view.setEnabled(true);
         holder.view.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -95,23 +90,14 @@ public class CheckListAdapter  extends RecyclerView.Adapter<CheckListAdapter.Vie
         View view;
         TextView textView;
         ImageView icon;
-        CheckBox checkBox;
         int position;
 
-        public ViewHolder(View view,TextView textView, ImageView icon, CheckBox checkBox) {
+        public ViewHolder(View view,TextView textView, ImageView icon) {
             super(view);
             this.view = view;
             this.textView = textView;
             this.icon = icon;
-            this.checkBox = checkBox;
         }
-
-        int[][] states = new int[][] {
-                new int[] { android.R.attr.state_enabled}, // enabled
-                new int[] {-android.R.attr.state_enabled}, // disabled
-                new int[] {-android.R.attr.state_checked}, // unchecked
-                new int[] { android.R.attr.state_pressed}  // pressed
-        };
 
     }
 

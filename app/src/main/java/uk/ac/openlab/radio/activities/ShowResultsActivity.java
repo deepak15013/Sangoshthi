@@ -38,7 +38,6 @@ public class ShowResultsActivity extends AppCompatActivity {
         toolbarItemView = (ChecklistItemView) findViewById(R.id.toolbar_item);
         assert toolbarItemView != null;
         toolbarItemView.setTitle(getString(R.string.show_results_title));
-        toolbarItemView.hideCheckbox(true);
         toolbarItemView.setIcon(R.drawable.ic_person);
 
         spnNumOfOptions = (Spinner) findViewById(R.id.spnNumOfOptions);

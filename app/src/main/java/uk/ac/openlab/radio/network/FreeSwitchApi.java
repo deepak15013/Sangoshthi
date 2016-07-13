@@ -65,10 +65,6 @@ public class FreeSwitchApi {
         sendMessage(callback, MessageHelper.shared().createHost(status));
     }
 
-    public void createTrailer(IMessageListener callback) {
-        sendMessage(callback, MessageHelper.shared().createTrailer());
-    }
-
     public void playTrailer(IMessageListener callback) {
         sendMessage(callback, MessageHelper.shared().playTrailer());
     }
@@ -157,6 +153,38 @@ public class FreeSwitchApi {
      */
     public void playPrerecordedMaterial(IMessageListener callback) {
         sendMessage(callback, MessageHelper.shared().playPrerecordedMaterial());
+    }
+
+    /**
+     *  Tell FreeSwitch that the trailer has been uploaded to s3
+     * @param callback
+     */
+    public void trailerUpload(IMessageListener callback, String fileName) {
+        sendMessage(callback, MessageHelper.shared().trailerUpload(fileName));
+    }
+
+    /**
+     *  Tell FreeSwitch that the content has been uploaded to s3
+     * @param callback
+     */
+    public void contentUpload(IMessageListener callback, String fileName) {
+        sendMessage(callback, MessageHelper.shared().contentUpload(fileName));
+    }
+
+    /**
+     * Tell FreeSwich that the content should be played by calling the host
+     * @param callback
+     */
+    public void playContent(IMessageListener callback) {
+        sendMessage(callback, MessageHelper.shared().playTrailer());
+    }
+
+    /**
+     * Tell FreeSwitch to delete the content from its database, but it persists in the S3
+     * @param callback
+     */
+    public void deleteContent(IMessageListener callback) {
+        sendMessage(callback, MessageHelper.shared().deleteTrailer());
     }
 
     private void sendMessage(IMessageListener callback, String message){

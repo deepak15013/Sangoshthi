@@ -60,9 +60,6 @@
             android:name=".activities.ShowGuestsActivity"
             android:screenOrientation="portrait" />
 
-        <activity android:name=".activities.UploadFilesActivity"
-            android:screenOrientation="portrait"/>
-
         <activity
             android:name=".utilities.FileBrowserActivity"
             android:label="File browser"

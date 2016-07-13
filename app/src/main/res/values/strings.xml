@@ -121,7 +121,7 @@
     <string-array name="prepare_show_titles">
         <item>गेस्ट</item>
         <item>श्रोतागण</item>
-        <item>ट्रेलर</item>
+        <item>रेकॉर्डिंगं</item>
     </string-array>
 
     <string-array name="edit_guests_titles">
@@ -135,7 +135,7 @@
     </string-array>
 
     <string-array name="create_trailer">
-        <item>रेकॉर्डिंग बनाए</item>
+        <item>ट्रेलर जमा करें</item>
         <item>ट्रेलर सुने</item>
         <item>ट्रेलर हटाए</item>
     </string-array>
@@ -152,20 +152,20 @@
     <!-- Icons Don't need translation-->
 
     <string-array name="main_menu_icons">
-        <item>@drawable/ic_person</item>
-        <item>@drawable/ic_done</item>
-        <item>@drawable/ic_phone_active</item>
+        <item>@drawable/ic_radio</item>
+        <item>@drawable/ic_broadcast</item>
+        <item>@drawable/ic_start_show</item>
     </string-array>
 
     <string-array name="prepare_show_icons">
-        <item>@drawable/ic_phone_active</item>
-        <item>@drawable/ic_phone_active</item>
-        <item>@drawable/ic_person</item>
+        <item>@drawable/ic_guest</item>
+        <item>@drawable/ic_listeners</item>
+        <item>@drawable/ic_recording</item>
     </string-array>
 
     <string-array name="record_topics_icons">
-        <item>@drawable/ic_box</item>
-        <item>@drawable/ic_box</item>
+        <item>@drawable/ic_add</item>
+        <item>@drawable/ic_show_guests</item>
     </string-array>
 
     <!-- Extras -->
@@ -177,4 +177,42 @@
     <!-- Content Description Strings -->
     <string name="cd_timeline">TimelineLinearLayout</string>
 
+    <!-- new -->
+    <string name="edit_recording_title">Edit recordings</string>
+
+    <string-array name="edit_recording">
+        <item>ट्रेलर</item>
+        <item>शो रेकॉर्डिंग</item>
+    </string-array>
+
+    <string-array name="edit_recording_icons">
+        <item>@drawable/ic_trailer</item>
+        <item>@drawable/ic_recording_trailer</item>
+    </string-array>
+
+    <string-array name="edit_contents_array">
+        <item>रेकॉर्डिंग जमा करें</item>
+        <item>रेकॉर्डिंग सुने</item>
+        <item>रेकॉर्डिंग हटाए</item>
+    </string-array>
+
+    <string-array name="edit_contents_icons">
+        <item>@drawable/ic_add</item>
+        <item>@drawable/ic_listen_recording</item>
+        <item>@drawable/ic_delete_forever_black_24px</item>
+    </string-array>
+
+    <string-array name="edit_trailer_icons">
+        <item>@drawable/ic_add</item>
+        <item>@drawable/ic_listen_recording</item>
+        <item>@drawable/ic_delete_forever_black_24px</item>
+    </string-array>
+
+    <string name="edit_content_title">Edit Content</string>
+
+    <string name="toast_success">सफल</string>
+    <string name="toast_file_uploading">File Uploading</string>
+    <string name="toast_file_upload_success">File uploaded</string>
+    <string name="toast_file_upload_failed">File upload failed</string>
+    <string name="dialog_create_content_first">कृपया पहले रेकॉर्डिंग त्यार करें</string>
 </resources>

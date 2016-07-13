@@ -23,11 +23,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
+
+import java.io.File;
 
 import uk.ac.openlab.radio.GlobalUtils;
 import uk.ac.openlab.radio.R;
@@ -41,6 +44,7 @@ import uk.ac.openlab.radio.network.FreeSwitchApi;
 import uk.ac.openlab.radio.network.IMessageListener;
 import uk.ac.openlab.radio.network.MessageHelper;
 import uk.ac.openlab.radio.services.ZMQSubscriber;
+import uk.ac.openlab.radio.utilities.FileBrowserActivity;
 
 public class MainActivity extends AppCompatActivity implements IRecyclerViewItemClickedListener {
 
@@ -51,6 +55,8 @@ public class MainActivity extends AppCompatActivity implements IRecyclerViewItem
     public static final String EXTRA_TITLE_ITEM_ICON = "EXTRA_TITLE_ITEM_ICON";
     public static final String EXTRA_TITLE_ITEM_STATE = "EXTRA_TITLE_ITEM_STATE";
     private static final String EXTRA_TITLE_ITEM_ID = "EXTRA_TITLE_ITEM_ID";
+
+    private final int REQUEST_CODE_PICK_FILE = 2;
 
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
@@ -63,6 +69,8 @@ public class MainActivity extends AppCompatActivity implements IRecyclerViewItem
 
     public static AlertDialog alertDialogPlayTrailer;
     public static AlertDialog alertDialogCallCut;
+
+    public static boolean uploadTrailer = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,7 +101,6 @@ public class MainActivity extends AppCompatActivity implements IRecyclerViewItem
             if(title!=null){
                 toolbarItemView.setTitle(title);
                 toolbarItemView.setIcon(iconRes);
-                toolbarItemView.setChecked(state);
                 toolbarItemView.setEnabled(false);
             }
 
@@ -196,18 +203,21 @@ public class MainActivity extends AppCompatActivity implements IRecyclerViewItem
         };
         switch (id){
             case R.string.main_menu_title:
-                toolbarItemView.hideCheckbox(true);
                 button.setText(R.string.action_quit);
                 break;
             case R.string.prepare_show_title:
                 button.setText(R.string.action_finished);
                 break;
             case R.string.edit_listeners_title:
-                toolbarItemView.hideCheckbox(true);
+                button.setText(R.string.action_finished);
+                break;
+            case R.string.edit_recording_title:
+                button.setText(R.string.action_finished);
+                break;
+            case R.string.edit_content_title:
                 button.setText(R.string.action_finished);
                 break;
             case R.string.create_trailer_title:
-                toolbarItemView.hideCheckbox(true);
                 button.setText(R.string.action_finished);
                 break;
             default:
@@ -227,8 +237,12 @@ public class MainActivity extends AppCompatActivity implements IRecyclerViewItem
                 return prepareShowListener;
             case R.string.edit_listeners_title:
                 return editListenersTitle;
+            case R.string.edit_recording_title:
+                return editRecordingTitle;
             case R.string.create_trailer_title:
                 return createTrailerTitle;
+            case R.string.edit_content_title:
+                return editContentsTitle;
             case R.string.edit_guest_title:
                 return editGuestTitle;
             default:
@@ -347,11 +361,11 @@ public class MainActivity extends AppCompatActivity implements IRecyclerViewItem
                     break;
 
                 case 2:
-                    //record trailer
+                    // Edit recordings
                     i = new Intent(MainActivity.this,MainActivity.class);
-                    i.putExtra(EXTRA_TITLES_ID,R.array.create_trailer);
-                    i.putExtra(EXTRA_ICONS_ID,R.array.prepare_show_icons);
-                    i.putExtra(EXTRA_PAGE_ID,R.string.create_trailer_title);
+                    i.putExtra(EXTRA_TITLES_ID,R.array.edit_recording);
+                    i.putExtra(EXTRA_ICONS_ID,R.array.edit_recording_icons);
+                    i.putExtra(EXTRA_PAGE_ID,R.string.edit_recording_title);
                     i.putExtra(EXTRA_TITLE_ITEM_TEXT,item.getTitle());
                     i.putExtra(EXTRA_TITLE_ITEM_ICON,item.getIcon());
                     i.putExtra(EXTRA_TITLE_ITEM_STATE,item.isComplete());
@@ -392,6 +406,51 @@ public class MainActivity extends AppCompatActivity implements IRecyclerViewItem
         }
     };
 
+    private IRecyclerViewItemClickedListener editRecordingTitle = new IRecyclerViewItemClickedListener() {
+        @Override
+        public void recyclerViewItemClicked(View view, int position) {
+            Intent i =  null;
+
+            CheckListItem item = adapter.getItem(position);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+                view.setTransitionName(getString(R.string.transition_name_listitem));
+
+            switch (position) {
+
+                // Edit Trailers
+                case 0:
+
+                    i = new Intent(MainActivity.this,MainActivity.class);
+                    i.putExtra(EXTRA_TITLES_ID,R.array.create_trailer);
+                    i.putExtra(EXTRA_ICONS_ID,R.array.edit_trailer_icons);
+                    i.putExtra(EXTRA_PAGE_ID,R.string.create_trailer_title);
+                    i.putExtra(EXTRA_TITLE_ITEM_TEXT,item.getTitle());
+                    i.putExtra(EXTRA_TITLE_ITEM_ICON,item.getIcon());
+                    i.putExtra(EXTRA_TITLE_ITEM_STATE,item.isComplete());
+                    options = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this, new Pair<View, String>(view, getString(R.string.transition_name_listitem)));
+                    ActivityCompat.startActivity(MainActivity.this, i, options.toBundle());
+
+                    break;
+
+                // Edit contents
+                case 1:
+
+                    i = new Intent(MainActivity.this,MainActivity.class);
+                    i.putExtra(EXTRA_TITLES_ID,R.array.edit_contents_array);
+                    i.putExtra(EXTRA_ICONS_ID,R.array.edit_contents_icons);
+                    i.putExtra(EXTRA_PAGE_ID,R.string.edit_content_title);
+                    i.putExtra(EXTRA_TITLE_ITEM_TEXT,item.getTitle());
+                    i.putExtra(EXTRA_TITLE_ITEM_ICON,item.getIcon());
+                    i.putExtra(EXTRA_TITLE_ITEM_STATE,item.isComplete());
+                    options = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this, new Pair<View, String>(view, getString(R.string.transition_name_listitem)));
+                    ActivityCompat.startActivity(MainActivity.this, i, options.toBundle());
+
+                    break;
+
+            }
+        }
+    };
+
     private IRecyclerViewItemClickedListener createTrailerTitle = new IRecyclerViewItemClickedListener() {
         @Override
         public void recyclerViewItemClicked(View view, int position) {
@@ -406,8 +465,18 @@ public class MainActivity extends AppCompatActivity implements IRecyclerViewItem
                 //create trailer
                 case 0:
 
-                    Intent intent = new Intent(MainActivity.this, UploadFilesActivity.class);
-                    startActivity(intent);
+                    uploadTrailer = true;
+
+                    Intent fileExploreIntent = new Intent(FileBrowserActivity.INTENT_ACTION_SELECT_FILE,
+                            null,
+                            getApplicationContext(),
+                            FileBrowserActivity.class
+                    );
+
+                    startActivityForResult(
+                            fileExploreIntent,
+                            REQUEST_CODE_PICK_FILE
+                    );
 
                     break;
 
@@ -494,6 +563,116 @@ public class MainActivity extends AppCompatActivity implements IRecyclerViewItem
         }
     };
 
+    private IRecyclerViewItemClickedListener editContentsTitle = new IRecyclerViewItemClickedListener() {
+        @Override
+        public void recyclerViewItemClicked(View view, int position) {
+            Intent i =  null;
+
+            CheckListItem item = adapter.getItem(position);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+                view.setTransitionName(getString(R.string.transition_name_listitem));
+
+            switch (position) {
+
+                //upload content
+                case 0:
+
+                    uploadTrailer = false;
+
+                    Intent fileExploreIntent = new Intent(FileBrowserActivity.INTENT_ACTION_SELECT_FILE,
+                            null,
+                            getApplicationContext(),
+                            FileBrowserActivity.class
+                    );
+
+                    startActivityForResult(
+                            fileExploreIntent,
+                            REQUEST_CODE_PICK_FILE
+                    );
+
+                    break;
+
+                //play content
+                case 1:
+
+                    AlertDialog.Builder playTrailerAlertDialogBuilder = new AlertDialog.Builder(MainActivity.this);
+                    playTrailerAlertDialogBuilder.setMessage(getResources().getString(R.string.dialog_call_waiting_listen_trailer));
+                    playTrailerAlertDialogBuilder.setCancelable(false);
+                    alertDialogPlayTrailer = playTrailerAlertDialogBuilder.create();
+                    alertDialogPlayTrailer.show();
+
+                    FreeSwitchApi.shared().playContent(new IMessageListener() {
+                        @Override
+                        public void success() {
+
+                        }
+
+                        @Override
+                        public void fail() {
+                            alertDialogPlayTrailer.dismiss();
+                            AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                            builder.setTitle(R.string.dialog_create_content_first);
+                            builder.setNegativeButton(R.string.dialog_ok, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+
+                                }
+                            });
+                            builder.create().show();
+
+                        }
+
+                        @Override
+                        public void error() {
+
+                        }
+
+                        @Override
+                        public void message(String message) {
+
+                        }
+                    });
+
+                    break;
+
+                //delete content
+                case 2:
+
+                    FreeSwitchApi.shared().deleteContent(new IMessageListener() {
+                        @Override
+                        public void success() {
+                            Toast.makeText(MainActivity.this, getResources().getString(R.string.toast_trailer_deleted), Toast.LENGTH_SHORT).show();
+                        }
+
+                        @Override
+                        public void fail() {
+                            AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                            builder.setTitle(R.string.dialog_create_content_first);
+                            builder.setNegativeButton(R.string.dialog_ok, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+
+                                }
+                            });
+                            builder.create().show();
+                        }
+
+                        @Override
+                        public void error() {
+
+                        }
+
+                        @Override
+                        public void message(String message) {
+
+                        }
+                    });
+
+                    break;
+            }
+        }
+    };
+
     private IRecyclerViewItemClickedListener editGuestTitle = new IRecyclerViewItemClickedListener() {
         @Override
         public void recyclerViewItemClicked(View view, int position) {
@@ -530,6 +709,38 @@ public class MainActivity extends AppCompatActivity implements IRecyclerViewItem
         }
     };
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_CODE_PICK_FILE) {
+            if(resultCode == RESULT_OK) {
+                String newFile = data.getStringExtra(
+                        FileBrowserActivity.returnFileParameter);
+
+                File fileToUpload = new File(newFile);
+                if(fileToUpload.exists()) {
+
+                    String fileKey = "";
+                    if(uploadTrailer) {
+                        fileKey = GlobalUtils.shared().getStudioId()+"/trailer/"+fileToUpload.getName();
+                    }
+                    else {
+                        fileKey = GlobalUtils.shared().getStudioId()+"/content/"+fileToUpload.getName();
+                    }
+
+                    AWSHandler.shared().storeAwsFile(fileToUpload, fileKey);
+                }
+                else {
+                    Log.v("dks","file not found");
+                }
+                Toast.makeText(MainActivity.this, R.string.toast_file_uploading, Toast.LENGTH_SHORT).show();
+
+            } else {
+                Toast.makeText(MainActivity.this, R.string.toast_fail, Toast.LENGTH_SHORT).show();
+            }
+        }
+
+        super.onActivityResult(requestCode, resultCode, data);
+    }
 
     @Override
     public void onBackPressed() {
