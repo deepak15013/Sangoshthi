@@ -67,6 +67,11 @@ public class CallReceiver extends PhoneCallReceiver {
                     ShowOverviewActivity.finishActivity();
                 }
 
+                if(MainActivity.alertDialogPlayTrailer != null) {
+                    if(MainActivity.alertDialogPlayTrailer.isShowing()) {
+                        MainActivity.alertDialogPlayTrailer.dismiss();
+                    }
+                }
             }
         }
 
@@ -88,11 +93,6 @@ public class CallReceiver extends PhoneCallReceiver {
                         ShowOverviewActivity.alertDialog.dismiss();
                     }
                 }
-                /*if(MainActivity.alertDialogRecordTrailer != null) {
-                    if(MainActivity.alertDialogRecordTrailer.isShowing()) {
-                        MainActivity.alertDialogRecordTrailer.dismiss();
-                    }
-                }*/
 
                 if(MainActivity.alertDialogPlayTrailer != null) {
                     if(MainActivity.alertDialogPlayTrailer.isShowing()) {

@@ -56,6 +56,8 @@ public class MainActivity extends AppCompatActivity implements IRecyclerViewItem
     public static final String EXTRA_TITLE_ITEM_STATE = "EXTRA_TITLE_ITEM_STATE";
     private static final String EXTRA_TITLE_ITEM_ID = "EXTRA_TITLE_ITEM_ID";
 
+    private static final long TWENTY_SECOND_CLOCK = 20 *1000;
+
     private final int REQUEST_CODE_PICK_FILE = 2;
 
     private RecyclerView recyclerView;
@@ -490,6 +492,24 @@ public class MainActivity extends AppCompatActivity implements IRecyclerViewItem
                     alertDialogPlayTrailer = playTrailerAlertDialogBuilder.create();
                     alertDialogPlayTrailer.show();
 
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                Thread.sleep(TWENTY_SECOND_CLOCK);
+
+                                if(alertDialogPlayTrailer != null) {
+                                    if(alertDialogPlayTrailer.isShowing()) {
+                                        alertDialogPlayTrailer.dismiss();
+                                    }
+                                }
+
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }).start();
+
                     FreeSwitchApi.shared().playTrailer(new IMessageListener() {
                         @Override
                         public void success() {
@@ -600,6 +620,24 @@ public class MainActivity extends AppCompatActivity implements IRecyclerViewItem
                     playTrailerAlertDialogBuilder.setCancelable(false);
                     alertDialogPlayTrailer = playTrailerAlertDialogBuilder.create();
                     alertDialogPlayTrailer.show();
+
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                Thread.sleep(TWENTY_SECOND_CLOCK);
+
+                                if(alertDialogPlayTrailer != null) {
+                                    if(alertDialogPlayTrailer.isShowing()) {
+                                        alertDialogPlayTrailer.dismiss();
+                                    }
+                                }
+
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }).start();
 
                     FreeSwitchApi.shared().playContent(new IMessageListener() {
                         @Override
