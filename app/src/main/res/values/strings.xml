@@ -210,8 +210,8 @@
     <string name="edit_content_title">Edit Content</string>
 
     <string name="toast_success">सफल</string>
-    <string name="toast_file_uploading">File Uploading</string>
-    <string name="toast_file_upload_success">File uploaded</string>
-    <string name="toast_file_upload_failed">File upload failed</string>
+    <string name="toast_file_uploading">फाइल जमा हो रही है</string>
+    <string name="toast_file_upload_success">सफल</string>
+    <string name="toast_file_upload_failed">कृपया दुबारा कोशिश करे</string>
     <string name="dialog_create_content_first">कृपया पहले रेकॉर्डिंग त्यार करें</string>
 </resources>

@@ -7,7 +7,6 @@ import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.format.DateFormat;
-import android.util.Log;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -30,7 +29,6 @@ public class SpreadTheWordActivity extends AppCompatActivity {
     private static EditText etSpreadDate, etSpreadTime;
 
     RadioGroup rgSpreadWordCategory;
-    RadioButton radioButton;
 
     private int year, month, day, hour, minute;
     private Calendar calendar;
