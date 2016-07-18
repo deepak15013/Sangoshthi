@@ -176,7 +176,7 @@ public class FreeSwitchApi {
      * @param callback
      */
     public void playContent(IMessageListener callback) {
-        sendMessage(callback, MessageHelper.shared().playTrailer());
+        sendMessage(callback, MessageHelper.shared().playContent());
     }
 
     /**
@@ -184,7 +184,7 @@ public class FreeSwitchApi {
      * @param callback
      */
     public void deleteContent(IMessageListener callback) {
-        sendMessage(callback, MessageHelper.shared().deleteTrailer());
+        sendMessage(callback, MessageHelper.shared().deleteContent());
     }
 
     private void sendMessage(IMessageListener callback, String message){

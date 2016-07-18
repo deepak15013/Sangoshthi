@@ -69,9 +69,8 @@
     <string name="toast_quiz_results_error">कृपया विकल्प गिनती और सही विकल्प चुने</string>
     <string name="toast_add_more">और जोड़े</string>
     <string name="toast_broadcast_time_saved">सफल</string>
-    <string name="toast_submit">जमा क्रे</string>
+    <string name="toast_submit">जमा करें</string>
     <string name="toast_fail">असफल, कृपया दुबारा कोशिश करे</string>
-
     <!-- Edit texts -->
     <string name="number_input_enter_guest_number">गेस्ट का नंबर डाले</string>
     <string name="number_input_enter_listener_number">श्रोता का फोन नंबर डाले</string>
@@ -91,8 +90,8 @@
     <string name="cd_time_chooser">समय चुनिए </string>
 
     <!-- Buttons action -->
-    <string name="action_quit">Quit</string>
-    <string name="action_finished">Finished</string>
+    <string name="action_quit">अंत करें</string>
+    <string name="action_finished">पीछे जाएँ</string>
     <string name="action_start_show">शुरू करे</string>
     <string name="action_stop_show">अंत करे</string>
     <string name="action_show_done">सफल</string>
