@@ -17,7 +17,6 @@ public class MessageHelper {
     private final String FS_CMD_START_SHOW = "start_show";
     private final String FS_CMD_DIAL_LISTENERS = "dial_listeners";
     private final String FS_CMD_MUTE_STATE = "mute_state";
-    private final String FS_CMD_SHOW_INFO = "show_info";
 
     private final String FS_CREATE_SHOW="create_show";
     private final String FS_ADD_HOST = "add_host";
@@ -49,6 +48,13 @@ public class MessageHelper {
     private final String FS_PLAY_CONTENT = "play_content";
     private final String FS_DELETE_CONTENT = "delete_content";
 
+    /**
+     * Commands for ivr library handle - add, play, record and delete
+     */
+    private final String FS_ADD_IVR_LIBRARY = "add_ivr_library";
+    private final String FS_PLAY_PREVIOUS_IVR_INTRO = "play_previous_ivr_intro";
+    private final String FS_RECORD_IVRLIBRARY_INTRO = "record_ivrlibrary_intro";
+    private final String FS_DELETE_IVRLIBRARY_INTRO = "delete_ivrlibrary_intro";
 
     public enum MuteState{
         mute,
@@ -219,6 +225,26 @@ public class MessageHelper {
      */
     public String deleteContent() {
         return String.format("{\"cmd\":\"%s\", \"studio\" : \"%s\"}", FS_DELETE_CONTENT, this.studio_id);
+    }
+
+    /**
+     * Command for ivr libraries, add, play, record and delete
+     * @return
+     */
+    public String addIvrLibrary() {
+        return String.format("{\"cmd\":\"%s\", \"studio\" : \"%s\"}", FS_ADD_IVR_LIBRARY, this.studio_id);
+    }
+
+    public String playPreviousIvrIntro() {
+        return String.format("{\"cmd\":\"%s\", \"studio\" : \"%s\"}", FS_PLAY_PREVIOUS_IVR_INTRO, this.studio_id);
+    }
+
+    public String recordIvrLibraryIntro() {
+        return String.format("{\"cmd\":\"%s\", \"studio\" : \"%s\"}", FS_RECORD_IVRLIBRARY_INTRO, this.studio_id);
+    }
+
+    public String deleteIvrLibraryIntro() {
+        return String.format("{\"cmd\":\"%s\", \"studio\" : \"%s\"}", FS_DELETE_IVRLIBRARY_INTRO, this.studio_id);
     }
 
 }

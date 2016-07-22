@@ -4,7 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+
     <include layout="@layout/checklist_toolbar" />
+
     <android.support.v7.widget.RecyclerView
         android:layout_weight="1"
         android:layout_marginTop="@dimen/activity_margin"
@@ -16,10 +18,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
     </android.support.v7.widget.RecyclerView>
+
     <Button
         android:layout_weight="0"
         android:id="@+id/bottomButton"
-        android:textColor="@color/white"
+        android:textColor="#3f3f3f"
         android:textSize="@dimen/button_textSize"
         android:padding="@dimen/button_padding"
         android:layout_marginLeft="@dimen/activity_margin"
@@ -28,4 +31,5 @@
         android:text="@string/action_quit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+
 </LinearLayout>

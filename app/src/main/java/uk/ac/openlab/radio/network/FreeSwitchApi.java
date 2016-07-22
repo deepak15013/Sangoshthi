@@ -187,6 +187,27 @@ public class FreeSwitchApi {
         sendMessage(callback, MessageHelper.shared().deleteContent());
     }
 
+
+    /**
+     * FreeSwitch handlers for ivr handle i.e. add, play, record and delete.
+     * @param callback
+     */
+    public void addIvrLibrary(IMessageListener callback) {
+        sendMessage(callback, MessageHelper.shared().addIvrLibrary());
+    }
+
+    public void playPreviousIvrIntro(IMessageListener callback) {
+        sendMessage(callback, MessageHelper.shared().playPreviousIvrIntro());
+    }
+
+    public void recordIvrLibraryIntro(IMessageListener callback) {
+        sendMessage(callback, MessageHelper.shared().recordIvrLibraryIntro());
+    }
+
+    public void deleteIvrLibraryIntro(IMessageListener callback) {
+        sendMessage(callback, MessageHelper.shared().deleteIvrLibraryIntro());
+    }
+
     private void sendMessage(IMessageListener callback, String message){
         if(!isInit) {
             callback.message("Not initialised.");

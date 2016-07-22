@@ -10,6 +10,7 @@ import java.util.Date;
 
 import uk.ac.openlab.radio.GlobalUtils;
 import uk.ac.openlab.radio.R;
+import uk.ac.openlab.radio.activities.IvrLibraryActivity;
 import uk.ac.openlab.radio.activities.MainActivity;
 import uk.ac.openlab.radio.activities.ShowOverviewActivity;
 
@@ -72,6 +73,10 @@ public class CallReceiver extends PhoneCallReceiver {
                         MainActivity.alertDialogPlayTrailer.dismiss();
                     }
                 }
+
+                if(IvrLibraryActivity.ivrAlertDialog != null && IvrLibraryActivity.ivrAlertDialog.isShowing()) {
+                    IvrLibraryActivity.ivrAlertDialog.dismiss();
+                }
             }
         }
 
@@ -89,7 +94,6 @@ public class CallReceiver extends PhoneCallReceiver {
 
                 if(ShowOverviewActivity.alertDialog != null) {
                     if(ShowOverviewActivity.alertDialog.isShowing()) {
-
                         ShowOverviewActivity.alertDialog.dismiss();
                     }
                 }
@@ -98,6 +102,10 @@ public class CallReceiver extends PhoneCallReceiver {
                     if(MainActivity.alertDialogPlayTrailer.isShowing()) {
                         MainActivity.alertDialogPlayTrailer.dismiss();
                     }
+                }
+
+                if(IvrLibraryActivity.ivrAlertDialog != null && IvrLibraryActivity.ivrAlertDialog.isShowing()) {
+                    IvrLibraryActivity.ivrAlertDialog.dismiss();
                 }
             }
         }

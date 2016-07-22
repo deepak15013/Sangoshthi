@@ -36,6 +36,7 @@
     <string name="show_overview_title">शो स्क्रीन</string>
     <string name="show_results_title">प्रश्नोत्तरी नतीजा</string>
     <string name="spread_the_word_title">सबको सूचित करे</string>
+    <string name="ivr_library_title">IVR लाइब्ररी</string>
 
     <!-- Strings -->
     <string name="string_total_callers">कुल श्रोता %1$s</string>
@@ -57,6 +58,9 @@
     <string name="dialog_create_trailer_first">कृपया पहले ट्रेलर त्यार करें</string>
     <string name="dialog_call_disconnected_error">कृपया प्रतीक्षा करे</string>
     <string name="dialog_call_disconnected">असुविधा के लिए खेद है! होस्ट की कॉल कटने से शो बंद हो गया हैं | कृपया शो दोबारा शुरू करें</string>
+    <string name="dialog_add_ivr_library">क्या आप इस शो की रेकॉर्डिंग को IVR लाइब्ररी मे डालना चाहते हैं</string>
+    <string name="dialog_call_waiting_ivr_dialog">कृपया कॉल की प्रतीक्षा करे</string>
+    <string name="dialog_no_previous_recording">यह पहला शो हैं, नयी रेकॉर्डिंग बनाये</string>
 
     <!-- Error -->
     <string name="error_invalid_pin">Incorrect Pin</string>
@@ -84,6 +88,7 @@
     <string name="tv_set_broadcast_schedule">ट्रेलर प्रसारण का समय चुने</string>
     <string name="tv_timeline_start">0</string>
     <string name="tv_timeline_end">1</string>
+    <string name="tv_play_previous">अभी तक की विकल्प सूची की रेकॉर्डिंग सुनें</string>
 
     <!-- Content Description -->
     <string name="cd_date_chooser">तिथि चुनिए </string>
@@ -104,6 +109,8 @@
     <string name="action_delete_all">सब हंटाए</string>
     <string name="action_play_prerecorded">रेकॉर्डिंग</string>
     <string name="action_browse">खोजें</string>
+    <string name="action_play_previous">सुनें</string>
+    <string name="action_close">अंत करे</string>
 
     <!-- Radio Buttons -->
     <string name="rb_mock_show">रिहर्सल शो</string>
@@ -175,6 +182,9 @@
 
     <!-- Content Description Strings -->
     <string name="cd_timeline">TimelineLinearLayout</string>
+    <string name="cd_play_previous">Play previous recorded ivr</string>
+    <string name="cd_record_ivr">Record ivr library intro</string>
+    <string name="cd_delete_ivr">Delete ivr library intro</string>
 
     <!-- new -->
     <string name="edit_recording_title">Edit recordings</string>

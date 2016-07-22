@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="uk.ac.openlab.radio.activities.IvrLibraryActivity">
+
+    <include layout="@layout/checklist_toolbar"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/tv_play_previous"
+            android:textSize="20sp"/>
+
+        <Button
+            android:id="@+id/btn_play_previous_ivr"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/action_play_previous"
+            android:drawableRight="@drawable/ic_play_arrow_black_24dp"
+            android:drawableEnd="@drawable/ic_play_arrow_black_24dp"
+            android:layout_marginTop="10dp"
+            android:contentDescription="@string/cd_play_previous" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="40dp">
+
+            <ImageButton
+                android:id="@+id/ib_record_ivr"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_record_mic"
+                android:contentDescription="@string/cd_record_ivr"/>
+
+            <ImageButton
+                android:id="@+id/ib_play_previous_ivr"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_play_arrow_black_24dp"
+                android:contentDescription="@string/cd_play_previous"/>
+
+            <ImageButton
+                android:id="@+id/ib_delete_ivr"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_delete_forever_black_24px"
+                android:contentDescription="@string/cd_delete_ivr"/>
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btn_close"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/action_close"
+            android:layout_marginTop="40dp"/>
+
+    </LinearLayout>
+
+</LinearLayout>

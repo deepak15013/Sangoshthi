@@ -82,7 +82,54 @@ public class MainActivity extends AppCompatActivity implements IRecyclerViewItem
 
         if(getIntent().getBooleanExtra("EXIT",false)) {
             GlobalUtils.shared().setCallDisconnected(false);
-            finish();
+
+            // This alertDialog is used to add the show to ivr library for later hearing.
+            // Yes will take control to new activity where you can play the previous ivr or add new show to the ivr
+            // No will exit the app
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+            builder.setMessage(R.string.dialog_add_ivr_library);
+            builder.setPositiveButton(R.string.dialog_yes, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+
+                    FreeSwitchApi.shared().addIvrLibrary(new IMessageListener() {
+                        @Override
+                        public void success() {
+                            Intent intent = new Intent(MainActivity.this, IvrLibraryActivity.class);
+                            startActivity(intent);
+                            finish();
+                        }
+
+                        @Override
+                        public void fail() {
+                            Toast.makeText(MainActivity.this, R.string.toast_fail, Toast.LENGTH_SHORT).show();
+                        }
+
+                        @Override
+                        public void error() {
+
+                        }
+
+                        @Override
+                        public void message(String message) {
+
+                        }
+                    });
+
+                }
+            });
+
+            builder.setNegativeButton(R.string.dialog_no, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    finish();
+                }
+            });
+
+            AlertDialog ivrDialog = builder.create();
+            ivrDialog.show();
+
         }
 
         MessageHelper.shared().init(getApplicationContext());
@@ -271,7 +318,7 @@ public class MainActivity extends AppCompatActivity implements IRecyclerViewItem
                     i.putExtra(EXTRA_TITLE_ITEM_TEXT, item.getTitle());
                     i.putExtra(EXTRA_TITLE_ITEM_ICON, item.getIcon());
                     i.putExtra(EXTRA_TITLE_ITEM_STATE, item.isComplete());
-                    options = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this, new Pair<View, String>(view, getString(R.string.transition_name_listitem)));
+                    options = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this, new Pair<>(view, getString(R.string.transition_name_listitem)));
                     ActivityCompat.startActivity(MainActivity.this, i, options.toBundle());
 
                     break;
@@ -345,7 +392,7 @@ public class MainActivity extends AppCompatActivity implements IRecyclerViewItem
                     i.putExtra(EXTRA_TITLE_ITEM_TEXT,item.getTitle());
                     i.putExtra(EXTRA_TITLE_ITEM_ICON,item.getIcon());
                     i.putExtra(EXTRA_TITLE_ITEM_STATE,item.isComplete());
-                    options = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this, new Pair<View, String>(view, getString(R.string.transition_name_listitem)));
+                    options = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this, new Pair<>(view, getString(R.string.transition_name_listitem)));
                     ActivityCompat.startActivity(MainActivity.this, i, options.toBundle());
                     break;
 
@@ -358,7 +405,7 @@ public class MainActivity extends AppCompatActivity implements IRecyclerViewItem
                     i.putExtra(EXTRA_TITLE_ITEM_TEXT,item.getTitle());
                     i.putExtra(EXTRA_TITLE_ITEM_ICON,item.getIcon());
                     i.putExtra(EXTRA_TITLE_ITEM_STATE,item.isComplete());
-                    options = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this, new Pair<View, String>(view, getString(R.string.transition_name_listitem)));
+                    options = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this, new Pair<>(view, getString(R.string.transition_name_listitem)));
                     ActivityCompat.startActivity(MainActivity.this, i, options.toBundle());
                     break;
 
@@ -371,7 +418,7 @@ public class MainActivity extends AppCompatActivity implements IRecyclerViewItem
                     i.putExtra(EXTRA_TITLE_ITEM_TEXT,item.getTitle());
                     i.putExtra(EXTRA_TITLE_ITEM_ICON,item.getIcon());
                     i.putExtra(EXTRA_TITLE_ITEM_STATE,item.isComplete());
-                    options = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this, new Pair<View, String>(view, getString(R.string.transition_name_listitem)));
+                    options = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this, new Pair<>(view, getString(R.string.transition_name_listitem)));
                     ActivityCompat.startActivity(MainActivity.this, i, options.toBundle());
                     break;
             }
@@ -395,7 +442,7 @@ public class MainActivity extends AppCompatActivity implements IRecyclerViewItem
                     i.putExtra(EXTRA_TITLE_ITEM_TEXT,item.getTitle());
                     i.putExtra(EXTRA_TITLE_ITEM_ICON,item.getIcon());
                     i.putExtra(EXTRA_TITLE_ITEM_STATE,item.isComplete());
-                    options = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this, new Pair<View, String>(view, getString(R.string.transition_name_listitem)));
+                    options = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this, new Pair<>(view, getString(R.string.transition_name_listitem)));
                     ActivityCompat.startActivityForResult(MainActivity.this,i,NumberInputActivity.REQUEST_CODE,options.toBundle());
                     break;
 
@@ -429,7 +476,7 @@ public class MainActivity extends AppCompatActivity implements IRecyclerViewItem
                     i.putExtra(EXTRA_TITLE_ITEM_TEXT,item.getTitle());
                     i.putExtra(EXTRA_TITLE_ITEM_ICON,item.getIcon());
                     i.putExtra(EXTRA_TITLE_ITEM_STATE,item.isComplete());
-                    options = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this, new Pair<View, String>(view, getString(R.string.transition_name_listitem)));
+                    options = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this, new Pair<>(view, getString(R.string.transition_name_listitem)));
                     ActivityCompat.startActivity(MainActivity.this, i, options.toBundle());
 
                     break;
@@ -444,7 +491,7 @@ public class MainActivity extends AppCompatActivity implements IRecyclerViewItem
                     i.putExtra(EXTRA_TITLE_ITEM_TEXT,item.getTitle());
                     i.putExtra(EXTRA_TITLE_ITEM_ICON,item.getIcon());
                     i.putExtra(EXTRA_TITLE_ITEM_STATE,item.isComplete());
-                    options = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this, new Pair<View, String>(view, getString(R.string.transition_name_listitem)));
+                    options = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this, new Pair<>(view, getString(R.string.transition_name_listitem)));
                     ActivityCompat.startActivity(MainActivity.this, i, options.toBundle());
 
                     break;
@@ -731,7 +778,7 @@ public class MainActivity extends AppCompatActivity implements IRecyclerViewItem
                     i.putExtra(EXTRA_TITLE_ITEM_ICON,item.getIcon());
                     i.putExtra(EXTRA_TITLE_ITEM_STATE,item.isComplete());
                     i.putExtra("RADIO",false);
-                    options = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this, new Pair<View, String>(view, getString(R.string.transition_name_listitem)));
+                    options = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this, new Pair<>(view, getString(R.string.transition_name_listitem)));
                     ActivityCompat.startActivityForResult(MainActivity.this,i,NumberInputActivity.REQUEST_CODE,options.toBundle());
 
                     break;
