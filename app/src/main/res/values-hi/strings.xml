@@ -173,8 +173,8 @@
     </string-array>
 
     <string-array name="record_topics_icons">
-        <item>@drawable/ic_box</item>
-        <item>@drawable/ic_box</item>
+        <item>@drawable/ic_add</item>
+        <item>@drawable/ic_show_guests</item>
     </string-array>
 
     <!-- Extras -->

@@ -11,35 +11,26 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
+        android:gravity="center_horizontal"
         android:orientation="vertical">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/tv_play_previous"
-            android:textSize="20sp"/>
-
-        <Button
-            android:id="@+id/btn_play_previous_ivr"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/action_play_previous"
-            android:drawableRight="@drawable/ic_play_arrow_black_24dp"
-            android:drawableEnd="@drawable/ic_play_arrow_black_24dp"
-            android:layout_marginTop="10dp"
-            android:contentDescription="@string/cd_play_previous" />
+            android:textSize="25sp"
+            android:layout_marginTop="30dp"/>
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginTop="40dp">
+            android:layout_marginTop="60dp">
 
             <ImageButton
                 android:id="@+id/ib_record_ivr"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
                 android:layout_marginRight="20dp"
                 android:layout_marginEnd="20dp"
                 android:scaleType="fitCenter"
@@ -48,16 +39,16 @@
 
             <ImageButton
                 android:id="@+id/ib_play_previous_ivr"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
                 android:scaleType="fitCenter"
                 android:src="@drawable/ic_play_arrow_black_24dp"
-                android:contentDescription="@string/cd_play_previous"/>
+                android:contentDescription="@string/cd_play_previous" />
 
             <ImageButton
                 android:id="@+id/ib_delete_ivr"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginStart="20dp"
                 android:scaleType="fitCenter"
@@ -71,7 +62,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/action_close"
-            android:layout_marginTop="40dp"/>
+            android:layout_marginTop="60dp"/>
 
     </LinearLayout>
 

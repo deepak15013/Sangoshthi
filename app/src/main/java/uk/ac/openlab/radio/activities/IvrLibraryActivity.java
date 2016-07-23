@@ -24,7 +24,6 @@ public class IvrLibraryActivity extends AppCompatActivity implements View.OnClic
 
     private ChecklistItemView toolbarItemView;
 
-    private Button btnPlayPreviousIvr;
     private ImageButton ibRecordIvr;
     private ImageButton ibPlayPreviousIvr;
     private ImageButton ibDeleteIvr;
@@ -43,13 +42,11 @@ public class IvrLibraryActivity extends AppCompatActivity implements View.OnClic
         toolbarItemView.setTitle(getResources().getString(R.string.ivr_library_title));
         toolbarItemView.setIcon(R.drawable.ic_person);
 
-        btnPlayPreviousIvr = (Button) findViewById(R.id.btn_play_previous_ivr);
         ibRecordIvr = (ImageButton) findViewById(R.id.ib_record_ivr);
         ibPlayPreviousIvr = (ImageButton) findViewById(R.id.ib_play_previous_ivr);
         ibDeleteIvr = (ImageButton) findViewById(R.id.ib_delete_ivr);
         btnClose = (Button) findViewById(R.id.btn_close);
 
-        btnPlayPreviousIvr.setOnClickListener(this);
         ibRecordIvr.setOnClickListener(this);
         ibPlayPreviousIvr.setOnClickListener(this);
         ibDeleteIvr.setOnClickListener(this);
@@ -59,10 +56,6 @@ public class IvrLibraryActivity extends AppCompatActivity implements View.OnClic
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.btn_play_previous_ivr:
-                playPreviousIvr();
-                break;
-
             case R.id.ib_record_ivr:
                 recordIvrLibraryIntro();
                 break;

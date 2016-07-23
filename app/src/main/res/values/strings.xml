@@ -88,7 +88,7 @@
     <string name="tv_set_broadcast_schedule">ट्रेलर प्रसारण का समय चुने</string>
     <string name="tv_timeline_start">0</string>
     <string name="tv_timeline_end">1</string>
-    <string name="tv_play_previous">अभी तक की विकल्प सूची की रेकॉर्डिंग सुनें</string>
+    <string name="tv_play_previous">IVR लाइब्ररी क लिए विषय सूची तैयार करें</string>
 
     <!-- Content Description -->
     <string name="cd_date_chooser">तिथि चुनिए </string>
