@@ -38,22 +38,29 @@
 
             <ImageButton
                 android:id="@+id/ib_record_ivr"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginEnd="20dp"
+                android:scaleType="fitCenter"
                 android:src="@drawable/ic_record_mic"
                 android:contentDescription="@string/cd_record_ivr"/>
 
             <ImageButton
                 android:id="@+id/ib_play_previous_ivr"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:scaleType="fitCenter"
                 android:src="@drawable/ic_play_arrow_black_24dp"
                 android:contentDescription="@string/cd_play_previous"/>
 
             <ImageButton
                 android:id="@+id/ib_delete_ivr"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginStart="20dp"
+                android:scaleType="fitCenter"
                 android:src="@drawable/ic_delete_forever_black_24px"
                 android:contentDescription="@string/cd_delete_ivr"/>
 

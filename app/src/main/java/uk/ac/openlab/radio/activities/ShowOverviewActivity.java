@@ -152,7 +152,7 @@ public class ShowOverviewActivity extends AppCompatActivity {
             }
         });
 
-        startStopButton = (Button)findViewById(R.id.start_stop_button);
+        startStopButton = (Button) findViewById(R.id.start_stop_button);
         startStopButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -365,12 +365,14 @@ public class ShowOverviewActivity extends AppCompatActivity {
 
 
 
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     private void startStop() {
 
         if(startStopButton.getText().toString().equalsIgnoreCase(getResources().getString(R.string.action_start_show))) {
             Toast.makeText(ShowOverviewActivity.this, getString(R.string.action_start_show), Toast.LENGTH_SHORT).show();
 
             startStopButton.setText(getString(R.string.action_stop_show));
+            startStopButton.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.ic_phone_muted, 0, 0);
 
             FreeSwitchApi.shared().startShow(new IMessageListener() {
                 @Override
@@ -406,6 +408,7 @@ public class ShowOverviewActivity extends AppCompatActivity {
                     chronometerRunning = false;
 
                     startStopButton.setText(getString(R.string.action_show_done));
+                    startStopButton.setCompoundDrawablesWithIntrinsicBounds(null, getDrawable(R.drawable.ic_phone_muted), null, null);
 
                     SharedPreferences.Editor e = PreferenceManager.getDefaultSharedPreferences(getBaseContext()).edit();
                     e.putBoolean("firstStart", true);

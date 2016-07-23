@@ -31,6 +31,7 @@ public class IvrLibraryActivity extends AppCompatActivity implements View.OnClic
     private Button btnClose;
 
     public static AlertDialog ivrAlertDialog;
+    public static Thread failThread;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,20 +93,21 @@ public class IvrLibraryActivity extends AppCompatActivity implements View.OnClic
         ivrAlertDialog.show();
         ivrAlertDialog.setCancelable(false);
 
-        new Thread(new Runnable() {
+        failThread = new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
                     Thread.sleep(TWENTY_SECOND_CLOCK);
                     if(ivrAlertDialog.isShowing()) {
                         ivrAlertDialog.dismiss();
-                        Toast.makeText(IvrLibraryActivity.this, R.string.toast_fail, Toast.LENGTH_SHORT).show();
                     }
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
             }
-        }).start();
+        });
+
+        failThread.start();
 
         FreeSwitchApi.shared().playPreviousIvrIntro(new IMessageListener() {
             @Override
@@ -151,20 +153,20 @@ public class IvrLibraryActivity extends AppCompatActivity implements View.OnClic
         ivrAlertDialog.show();
         ivrAlertDialog.setCancelable(false);
 
-        new Thread(new Runnable() {
+        failThread = new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
                     Thread.sleep(TWENTY_SECOND_CLOCK);
                     if(ivrAlertDialog.isShowing()) {
                         ivrAlertDialog.dismiss();
-                        Toast.makeText(IvrLibraryActivity.this, R.string.toast_fail, Toast.LENGTH_SHORT).show();
                     }
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
             }
-        }).start();
+        });
+        failThread.start();
 
         FreeSwitchApi.shared().recordIvrLibraryIntro(new IMessageListener() {
             @Override

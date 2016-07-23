@@ -76,6 +76,7 @@ public class CallReceiver extends PhoneCallReceiver {
 
                 if(IvrLibraryActivity.ivrAlertDialog != null && IvrLibraryActivity.ivrAlertDialog.isShowing()) {
                     IvrLibraryActivity.ivrAlertDialog.dismiss();
+                    IvrLibraryActivity.failThread.interrupt();
                 }
             }
         }
