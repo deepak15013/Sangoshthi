@@ -61,6 +61,7 @@
     <string name="dialog_add_ivr_library">क्या आप इस शो की रेकॉर्डिंग को IVR लाइब्ररी मे डालना चाहते हैं</string>
     <string name="dialog_call_waiting_ivr_dialog">कृपया कॉल की प्रतीक्षा करे</string>
     <string name="dialog_no_previous_recording">यह पहला शो हैं, नयी रेकॉर्डिंग बनाये</string>
+    <string name="dialog_start_show_first">पहले सभी श्रोता को शो मे जोड़े</string>
 
     <!-- Error -->
     <string name="error_invalid_pin">Incorrect Pin</string>

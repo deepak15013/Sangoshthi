@@ -3,7 +3,9 @@ package uk.ac.openlab.radio.activities;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
@@ -50,8 +52,9 @@ public class ShowOverviewActivity extends AppCompatActivity {
     private static final long ONE_MINUTE_CLOCK = 60*1000;
     private static final long TWENTY_SECOND_CLOCK = 20 *1000;
 
-    Button startStopButton;
+    private Button startStopButton;
     public static Chronometer chronometer;
+    private boolean showStarted = false;
 
     ImageButton ibFlush;
 
@@ -233,38 +236,52 @@ public class ShowOverviewActivity extends AppCompatActivity {
             @TargetApi(Build.VERSION_CODES.LOLLIPOP)
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked) {
-                    Toast.makeText(ShowOverviewActivity.this, "Started playing audio", Toast.LENGTH_SHORT).show();
-                    tbPlayPrerecorded.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.ic_stop_black_24dp, 0, 0);
-                    tbPlayPrerecorded.setBackgroundColor(context.getResources().getColor(R.color.green));
 
-                    FreeSwitchApi.shared().playPrerecordedMaterial(new IMessageListener() {
+                if(showStarted) {
+                    if(isChecked) {
+                        Toast.makeText(ShowOverviewActivity.this, "Started playing audio", Toast.LENGTH_SHORT).show();
+                        tbPlayPrerecorded.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.ic_stop_black_24dp, 0, 0);
+                        tbPlayPrerecorded.setBackgroundColor(context.getResources().getColor(R.color.green));
+
+                        FreeSwitchApi.shared().playPrerecordedMaterial(new IMessageListener() {
+                            @Override
+                            public void success() {
+
+                            }
+
+                            @Override
+                            public void fail() {
+
+                            }
+
+                            @Override
+                            public void error() {
+
+                            }
+
+                            @Override
+                            public void message(String message) {
+
+                            }
+                        });
+
+                    } else {
+                        Toast.makeText(ShowOverviewActivity.this, "End playing audio", Toast.LENGTH_SHORT).show();
+                        tbPlayPrerecorded.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.ic_play_arrow_black_24dp, 0, 0);
+
+                        tbPlayPrerecorded.setBackgroundColor(context.getResources().getColor(R.color.red));
+                    }
+                } else {
+                    AlertDialog.Builder startShow = new AlertDialog.Builder(ShowOverviewActivity.this);
+                    startShow.setMessage(getString(R.string.dialog_start_show_first));
+                    startShow.setNegativeButton(R.string.dialog_ok, new DialogInterface.OnClickListener() {
                         @Override
-                        public void success() {
-
-                        }
-
-                        @Override
-                        public void fail() {
-
-                        }
-
-                        @Override
-                        public void error() {
-
-                        }
-
-                        @Override
-                        public void message(String message) {
+                        public void onClick(DialogInterface dialog, int which) {
 
                         }
                     });
-
-                } else {
-                    Toast.makeText(ShowOverviewActivity.this, "End playing audio", Toast.LENGTH_SHORT).show();
-                    tbPlayPrerecorded.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.ic_play_arrow_black_24dp, 0, 0);
-
-                    tbPlayPrerecorded.setBackgroundColor(context.getResources().getColor(R.color.red));
+                    AlertDialog startShowDialog = startShow.create();
+                    startShowDialog.show();
                 }
             }
         });
@@ -370,6 +387,8 @@ public class ShowOverviewActivity extends AppCompatActivity {
 
         if(startStopButton.getText().toString().equalsIgnoreCase(getResources().getString(R.string.action_start_show))) {
             Toast.makeText(ShowOverviewActivity.this, getString(R.string.action_start_show), Toast.LENGTH_SHORT).show();
+
+            showStarted = true;
 
             startStopButton.setText(getString(R.string.action_stop_show));
             startStopButton.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.ic_phone_muted, 0, 0);
