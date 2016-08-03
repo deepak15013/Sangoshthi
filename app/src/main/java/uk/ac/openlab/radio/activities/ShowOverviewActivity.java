@@ -79,6 +79,9 @@ public class ShowOverviewActivity extends AppCompatActivity {
 
     private static Context context;
     private static Activity activity;
+
+    public static Thread dismissThread;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -115,7 +118,7 @@ public class ShowOverviewActivity extends AppCompatActivity {
         callerListRecyclerView.setAdapter(callerListAdapter);
 
         tvTotalCallers = (TextView) findViewById(R.id.tv_total_callers);
-        tvTotalCallers.setText(getResources().getString(R.string.string_total_callers,0,(ShowGuestsActivity.getNumOfGuests()+ShowListenersActivity.getAshaListeners()+ShowListenersActivity.getOtherListeners())));
+        tvTotalCallers.setText(getResources().getString(R.string.string_total_callers,String.valueOf(0),String.valueOf(ShowGuestsActivity.getNumOfGuests()+ShowListenersActivity.getAshaListeners()+ShowListenersActivity.getOtherListeners())));
 
         tbPlayPrerecorded = (ToggleButton) findViewById(R.id.tb_play_prerecorded);
 
@@ -202,7 +205,7 @@ public class ShowOverviewActivity extends AppCompatActivity {
             alertDialog.show();
             alertDialog.setCancelable(false);
 
-            new Thread(new Runnable() {
+            dismissThread = new Thread(new Runnable() {
                 @Override
                 public void run() {
                     try {
@@ -214,10 +217,12 @@ public class ShowOverviewActivity extends AppCompatActivity {
                         }
 
                     } catch (InterruptedException e) {
+                        Log.d("dks","thread stopped because incoming call received");
                         e.printStackTrace();
                     }
                 }
-            }).start();
+            });
+            dismissThread.start();
         }
 
         //initTimelineThread();
@@ -310,7 +315,7 @@ public class ShowOverviewActivity extends AppCompatActivity {
                         @Override
                         public void run() {
                             callerListAdapter.notifyDataSetChanged();
-                            tvTotalCallers.setText(context.getResources().getString(R.string.string_total_callers,result.getListeners()-1,(ShowGuestsActivity.getNumOfGuests()+ShowListenersActivity.getAshaListeners()+ShowListenersActivity.getOtherListeners())));
+                            tvTotalCallers.setText(context.getResources().getString(R.string.string_total_callers,String.valueOf(result.getListeners()-1),String.valueOf(ShowGuestsActivity.getNumOfGuests()+ShowListenersActivity.getAshaListeners()+ShowListenersActivity.getOtherListeners())));
                         }
                     });
                 }
@@ -319,7 +324,7 @@ public class ShowOverviewActivity extends AppCompatActivity {
                     callerListRecyclerView.post(new Runnable() {
                         @Override
                         public void run() {
-                            tvTotalCallers.setText(Resources.getSystem().getString(R.string.string_total_callers,result.getListeners()-1,(ShowGuestsActivity.getNumOfGuests()+ShowListenersActivity.getAshaListeners()+ShowListenersActivity.getOtherListeners())));
+                            tvTotalCallers.setText(Resources.getSystem().getString(R.string.string_total_callers,String.valueOf(result.getListeners()-1),String.valueOf(ShowGuestsActivity.getNumOfGuests()+ShowListenersActivity.getAshaListeners()+ShowListenersActivity.getOtherListeners())));
                         }
                     });
                 }

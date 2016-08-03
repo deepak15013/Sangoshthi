@@ -18,6 +18,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.util.Pair;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -829,6 +830,14 @@ public class MainActivity extends AppCompatActivity implements IRecyclerViewItem
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
+
+        // if fragment is not present in backstack then exit using finishActivity
+        // or just pop the fragment and display previous fragment
+        if (getSupportFragmentManager().getBackStackEntryCount() == 1){
+            finish();
+        }
+        else {
+            super.onBackPressed();
+        }
     }
 }
