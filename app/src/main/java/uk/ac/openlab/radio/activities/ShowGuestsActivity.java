@@ -1,19 +1,13 @@
 package uk.ac.openlab.radio.activities;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import uk.ac.openlab.radio.R;
 import uk.ac.openlab.radio.adapters.ShowGuestsAdapter;
@@ -23,7 +17,7 @@ import uk.ac.openlab.radio.network.IMessageListener;
 
 public class ShowGuestsActivity extends AppCompatActivity {
 
-    private ArrayList<String> guestArrayList;
+    private static ArrayList<String> guestArrayList;
     private RecyclerView showGuestsRecyclerView;
 
     ChecklistItemView toolbarItemView;
@@ -104,6 +98,13 @@ public class ShowGuestsActivity extends AppCompatActivity {
     private void showGuests() {
         ShowGuestsAdapter showGuestsAdapter = new ShowGuestsAdapter(guestArrayList);
         showGuestsRecyclerView.setAdapter(showGuestsAdapter);
+    }
+
+    public static int getNumOfGuests() {
+        if(guestArrayList == null) {
+            return 0;
+        }
+        return guestArrayList.size();
     }
 
     @Override

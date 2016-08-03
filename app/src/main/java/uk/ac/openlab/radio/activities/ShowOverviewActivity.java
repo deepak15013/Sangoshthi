@@ -3,7 +3,6 @@ package uk.ac.openlab.radio.activities;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -116,7 +115,7 @@ public class ShowOverviewActivity extends AppCompatActivity {
         callerListRecyclerView.setAdapter(callerListAdapter);
 
         tvTotalCallers = (TextView) findViewById(R.id.tv_total_callers);
-        tvTotalCallers.setText(getResources().getString(R.string.string_total_callers,0));
+        tvTotalCallers.setText(getResources().getString(R.string.string_total_callers,0,(ShowGuestsActivity.getNumOfGuests()+ShowListenersActivity.getAshaListeners()+ShowListenersActivity.getOtherListeners())));
 
         tbPlayPrerecorded = (ToggleButton) findViewById(R.id.tb_play_prerecorded);
 
@@ -311,7 +310,7 @@ public class ShowOverviewActivity extends AppCompatActivity {
                         @Override
                         public void run() {
                             callerListAdapter.notifyDataSetChanged();
-                            tvTotalCallers.setText(context.getResources().getString(R.string.string_total_callers,result.getListeners()-1));
+                            tvTotalCallers.setText(context.getResources().getString(R.string.string_total_callers,result.getListeners()-1,(ShowGuestsActivity.getNumOfGuests()+ShowListenersActivity.getAshaListeners()+ShowListenersActivity.getOtherListeners())));
                         }
                     });
                 }
@@ -320,7 +319,7 @@ public class ShowOverviewActivity extends AppCompatActivity {
                     callerListRecyclerView.post(new Runnable() {
                         @Override
                         public void run() {
-                            tvTotalCallers.setText(Resources.getSystem().getString(R.string.string_total_callers,result.getListeners()-1));
+                            tvTotalCallers.setText(Resources.getSystem().getString(R.string.string_total_callers,result.getListeners()-1,(ShowGuestsActivity.getNumOfGuests()+ShowListenersActivity.getAshaListeners()+ShowListenersActivity.getOtherListeners())));
                         }
                     });
                 }

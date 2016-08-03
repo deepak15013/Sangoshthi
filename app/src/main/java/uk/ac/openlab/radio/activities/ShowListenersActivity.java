@@ -22,13 +22,13 @@ import uk.ac.openlab.radio.network.IMessageListener;
 
 public class ShowListenersActivity extends AppCompatActivity {
 
-    ArrayList<String> ashaArrayList, othersArrayList;
+    private static ArrayList<String> ashaArrayList, othersArrayList;
 
-    ChecklistItemView toolbarItemView;
+    private ChecklistItemView toolbarItemView;
 
-    ListView lvAshaListeners, lvOtherListeners;
+    private ListView lvAshaListeners, lvOtherListeners;
 
-    ShowListenersAdapter ashaAdapter, othersAdapter;
+    private ShowListenersAdapter ashaAdapter, othersAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -235,6 +235,20 @@ public class ShowListenersActivity extends AppCompatActivity {
 
             }
         }, "OTHERS");
+    }
+
+    public static int getAshaListeners() {
+        if(ashaArrayList == null) {
+            return 0;
+        }
+        return ashaArrayList.size();
+    }
+
+    public static int getOtherListeners() {
+        if(othersArrayList == null) {
+            return 0;
+        }
+        return othersArrayList.size();
     }
 
 }

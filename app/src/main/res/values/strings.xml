@@ -39,7 +39,7 @@
     <string name="ivr_library_title">IVR लाइब्ररी</string>
 
     <!-- Strings -->
-    <string name="string_total_callers">कुल श्रोता %1$s</string>
+    <string name="string_total_callers">कुल श्रोता %1$s/%2$s </string>
     <string name="string_all">सबको</string>
     <string name="string_asha">आशा</string>
     <string name="string_others">अन्य</string>
