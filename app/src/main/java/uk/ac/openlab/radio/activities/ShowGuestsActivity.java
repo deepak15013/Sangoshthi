@@ -17,7 +17,7 @@ import uk.ac.openlab.radio.network.IMessageListener;
 
 public class ShowGuestsActivity extends AppCompatActivity {
 
-    private static ArrayList<String> guestArrayList;
+    public static ArrayList<String> guestArrayList;
     private RecyclerView showGuestsRecyclerView;
 
     ChecklistItemView toolbarItemView;
@@ -72,7 +72,7 @@ public class ShowGuestsActivity extends AppCompatActivity {
         });
     }
 
-    private void parse(String message) {
+    public void parse(String message) {
 
         guestArrayList.clear();
 

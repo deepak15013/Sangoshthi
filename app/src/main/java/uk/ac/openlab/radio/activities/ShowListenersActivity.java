@@ -14,6 +14,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import uk.ac.openlab.radio.GlobalUtils;
 import uk.ac.openlab.radio.R;
 import uk.ac.openlab.radio.adapters.ShowListenersAdapter;
 import uk.ac.openlab.radio.drawables.ChecklistItemView;
@@ -144,7 +145,7 @@ public class ShowListenersActivity extends AppCompatActivity {
 
     }
 
-    private void parse(String message) {
+    public static void parse(String message) {
         try {
             JSONObject rootObj = new JSONObject(message);
 
@@ -160,6 +161,8 @@ public class ShowListenersActivity extends AppCompatActivity {
                         JSONObject listenerObject = ashaListenersArr.getJSONObject(j);
                         String phoneNum = listenerObject.optString("phone");
                         Log.v("dks", phoneNum);
+                        if(ashaArrayList == null)
+                            ashaArrayList = new ArrayList<>();
                         ashaArrayList.add(phoneNum);
                     }
                 }
@@ -169,6 +172,8 @@ public class ShowListenersActivity extends AppCompatActivity {
                         JSONObject listenerObject = otherListenersArr.getJSONObject(j);
                         String phoneNum = listenerObject.optString("phone");
                         Log.v("dks", phoneNum);
+                        if(othersArrayList == null)
+                            othersArrayList = new ArrayList<>();
                         othersArrayList.add(phoneNum);
                     }
                 }

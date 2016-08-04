@@ -51,7 +51,6 @@ public class ZMQSubscriber {
                         TopicInfoResult callerObjects = gson.fromJson(result[1],TopicInfoResult.class);
 
                         if(callerObjects != null) {
-
                             ShowOverviewActivity.setCallerObjects(callerObjects);
 
                         }

@@ -26,6 +26,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
+import com.google.android.gms.common.api.GoogleApiClient;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -48,8 +50,7 @@ import uk.ac.openlab.radio.network.MessageHelper;
 public class ShowOverviewActivity extends AppCompatActivity {
 
     public static String EXTRA_SHOULD_DIAL = "EXTRA_SHOULD_DIAL";
-    private static final long ONE_MINUTE_CLOCK = 60*1000;
-    private static final long TWENTY_SECOND_CLOCK = 20 *1000;
+    private static final long TWENTY_SECOND_CLOCK = 20 * 1000;
 
     private Button startStopButton;
     public static Chronometer chronometer;
@@ -62,6 +63,10 @@ public class ShowOverviewActivity extends AppCompatActivity {
     private ChecklistItemView toolbarItemView;
 
     public static List<Callers> callersArrayList;
+
+    // for retaining the old list of callers.
+    public static List<Callers> oldCallersArrayList;
+
     public static CallerListAdapter callerListAdapter;
 
     private static TextView tvTotalCallers;
@@ -81,6 +86,11 @@ public class ShowOverviewActivity extends AppCompatActivity {
     private static Activity activity;
 
     public static Thread dismissThread;
+    /**
+     * ATTENTION: This was auto-generated to implement the App Indexing API.
+     * See https://g.co/AppIndexing/AndroidStudio for more information.
+     */
+    private GoogleApiClient client;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,17 +118,18 @@ public class ShowOverviewActivity extends AppCompatActivity {
         btnSaveTimestamp = (Button) findViewById(R.id.btn_save_timestamp);
 
         callerListRecyclerView = (RecyclerView) findViewById(R.id.callerList);
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 2);
-        gridLayoutManager.setOrientation(GridLayoutManager.VERTICAL);
-        callerListRecyclerView.setLayoutManager(gridLayoutManager);
+        //GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 2);
+        //gridLayoutManager.setOrientation(GridLayoutManager.VERTICAL);
+        callerListRecyclerView.setLayoutManager(new WrapContentGridLayoutManager(this, 2));
 
         callersArrayList = new ArrayList<>();
+        oldCallersArrayList = new ArrayList<>();
 
         callerListAdapter = new CallerListAdapter(callersArrayList);
         callerListRecyclerView.setAdapter(callerListAdapter);
 
         tvTotalCallers = (TextView) findViewById(R.id.tv_total_callers);
-        tvTotalCallers.setText(getResources().getString(R.string.string_total_callers,String.valueOf(0),String.valueOf(ShowGuestsActivity.getNumOfGuests()+ShowListenersActivity.getAshaListeners()+ShowListenersActivity.getOtherListeners())));
+        tvTotalCallers.setText(getResources().getString(R.string.string_total_callers, String.valueOf(0), String.valueOf(ShowGuestsActivity.getNumOfGuests() + ShowListenersActivity.getAshaListeners() + ShowListenersActivity.getOtherListeners())));
 
         tbPlayPrerecorded = (ToggleButton) findViewById(R.id.tb_play_prerecorded);
 
@@ -167,11 +178,11 @@ public class ShowOverviewActivity extends AppCompatActivity {
 
         boolean shouldDial = true;
         Bundle extras = getIntent().getExtras();
-        if(extras!=null){
-            shouldDial = extras.getBoolean(EXTRA_SHOULD_DIAL,true);
+        if (extras != null) {
+            shouldDial = extras.getBoolean(EXTRA_SHOULD_DIAL, true);
         }
 
-        if(shouldDial) {
+        if (shouldDial) {
             MessageHelper.shared().init(this);
             FreeSwitchApi.shared().initShow(new IMessageListener() {
                 @Override
@@ -196,7 +207,7 @@ public class ShowOverviewActivity extends AppCompatActivity {
             });
         }
 
-        if(!callReceived) {
+        if (!callReceived) {
 
             AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
             alertDialogBuilder.setMessage(getResources().getString(R.string.dialog_call_waiting_show_overview));
@@ -211,13 +222,13 @@ public class ShowOverviewActivity extends AppCompatActivity {
                     try {
                         Thread.sleep(TWENTY_SECOND_CLOCK);
 
-                        if(alertDialog.isShowing()) {
+                        if (alertDialog.isShowing()) {
                             alertDialog.dismiss();
                             finishActivity();
                         }
 
                     } catch (InterruptedException e) {
-                        Log.d("dks","thread stopped because incoming call received");
+                        Log.d("dks", "thread stopped because incoming call received");
                         e.printStackTrace();
                     }
                 }
@@ -241,8 +252,8 @@ public class ShowOverviewActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
-                if(showStarted) {
-                    if(isChecked) {
+                if (showStarted) {
+                    if (isChecked) {
                         Toast.makeText(ShowOverviewActivity.this, "Started playing audio", Toast.LENGTH_SHORT).show();
                         tbPlayPrerecorded.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.ic_stop_black_24dp, 0, 0);
                         tbPlayPrerecorded.setBackgroundColor(context.getResources().getColor(R.color.green));
@@ -289,7 +300,22 @@ public class ShowOverviewActivity extends AppCompatActivity {
                 }
             }
         });
+    }
 
+    public class WrapContentGridLayoutManager extends GridLayoutManager {
+
+        public WrapContentGridLayoutManager(ShowOverviewActivity showOverviewActivity, int i) {
+            super(showOverviewActivity, i);
+        }
+
+        @Override
+        public void onLayoutChildren(RecyclerView.Recycler recycler, RecyclerView.State state) {
+            try {
+                super.onLayoutChildren(recycler, state);
+            } catch (IndexOutOfBoundsException e) {
+                Log.e("dks", "meet a IOOBE in RecyclerView");
+            }
+        }
     }
 
     @Override
@@ -297,46 +323,64 @@ public class ShowOverviewActivity extends AppCompatActivity {
         super.onPause();
     }
 
-    public static void setCallerObjects (TopicInfoResult callers) {
+    public static void setCallerObjects(TopicInfoResult callers) {
+
 
         final TopicInfoResult result = new TopicInfoResult(callers.getListeners(), callers.getCallers());
-        Log.v("dks","result object"+result);
+        Log.v("dks", "result object" + result);
 
         try {
-            if(callers.getCallers() != null) {
-                if(callersArrayList != null) {
-                    callersArrayList.clear();
+            if (callers.getCallers() != null) {
+                if (callersArrayList != null && oldCallersArrayList != null) {
 
-                    callersArrayList.addAll(result.getCallers());
+                    oldCallersArrayList.clear();
 
-                    callerListRecyclerView.setRecycledViewPool(new RecyclerView.RecycledViewPool());
+                    oldCallersArrayList.addAll(result.getCallers());
+
+                    for (Callers i : oldCallersArrayList) {
+                        boolean callerFound = false;
+                        for (Callers j : callersArrayList) {
+                            if (j.getPhone_number().equals(i.getPhone_number())) {
+                                callerFound = true;
+                            }
+                        }
+                        if (!callerFound) {
+                            callersArrayList.add(i);
+                            Log.d("dks", "new caller added");
+                        }
+                    }
+
+                    //callersArrayList.addAll(result.getCallers());
+
+                    //callerListRecyclerView.setRecycledViewPool(new RecyclerView.RecycledViewPool());
 
                     callerListRecyclerView.post(new Runnable() {
                         @Override
                         public void run() {
-                            callerListAdapter.notifyDataSetChanged();
-                            tvTotalCallers.setText(context.getResources().getString(R.string.string_total_callers,String.valueOf(result.getListeners()-1),String.valueOf(ShowGuestsActivity.getNumOfGuests()+ShowListenersActivity.getAshaListeners()+ShowListenersActivity.getOtherListeners())));
+                            //callerListAdapter.notifyDataSetChanged();
+                            callerListAdapter.notifyItemInserted(callersArrayList.size() - 1);
+                            tvTotalCallers.setText(context.getResources().getString(R.string.string_total_callers, String.valueOf(result.getListeners() - 1), String.valueOf(ShowGuestsActivity.getNumOfGuests() + ShowListenersActivity.getAshaListeners() + ShowListenersActivity.getOtherListeners())));
                         }
                     });
                 }
             } else {
-                if(callers.getListeners() >= 0) {
+                if (callers.getListeners() >= 0) {
                     callerListRecyclerView.post(new Runnable() {
                         @Override
                         public void run() {
-                            tvTotalCallers.setText(Resources.getSystem().getString(R.string.string_total_callers,String.valueOf(result.getListeners()-1),String.valueOf(ShowGuestsActivity.getNumOfGuests()+ShowListenersActivity.getAshaListeners()+ShowListenersActivity.getOtherListeners())));
+                            tvTotalCallers.setText(Resources.getSystem().getString(R.string.string_total_callers, String.valueOf(result.getListeners() - 1), String.valueOf(ShowGuestsActivity.getNumOfGuests() + ShowListenersActivity.getAshaListeners() + ShowListenersActivity.getOtherListeners())));
                         }
                     });
                 }
             }
-        } catch (NullPointerException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     public static void startTimers() {
 
-        if(!chronometerRunning) {
+        if (!chronometerRunning) {
 
             ShowOverviewActivity.chronometer.post(new Runnable() {
                 @Override
@@ -385,11 +429,10 @@ public class ShowOverviewActivity extends AppCompatActivity {
     }*/
 
 
-
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     private void startStop() {
 
-        if(startStopButton.getText().toString().equalsIgnoreCase(getResources().getString(R.string.action_start_show))) {
+        if (startStopButton.getText().toString().equalsIgnoreCase(getResources().getString(R.string.action_start_show))) {
             Toast.makeText(ShowOverviewActivity.this, getString(R.string.action_start_show), Toast.LENGTH_SHORT).show();
 
             showStarted = true;
@@ -420,8 +463,7 @@ public class ShowOverviewActivity extends AppCompatActivity {
 
                 }
             });
-        }
-        else {
+        } else {
             Toast.makeText(ShowOverviewActivity.this, getResources().getString(R.string.action_stop_show), Toast.LENGTH_SHORT).show();
 
             FreeSwitchApi.shared().endShow(new IMessageListener() {
@@ -439,7 +481,7 @@ public class ShowOverviewActivity extends AppCompatActivity {
 
                     Intent intent = new Intent(ShowOverviewActivity.this, MainActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    intent.putExtra("EXIT",true);
+                    intent.putExtra("EXIT", true);
                     startActivity(intent);
                     finish();
                 }
@@ -465,14 +507,15 @@ public class ShowOverviewActivity extends AppCompatActivity {
     Button btnStartQuiz;
     Chronometer chronoQuizTimer;
     LinearLayout llShowTimer;
+
     public void overviewActivityStartQuiz(View view) {
 
-        if(btnStartQuiz.getText().toString().equalsIgnoreCase(getString(R.string.action_start_quiz))) {
+        if (btnStartQuiz.getText().toString().equalsIgnoreCase(getString(R.string.action_start_quiz))) {
 
             Toast.makeText(ShowOverviewActivity.this, "Quiz starting", Toast.LENGTH_SHORT).show();
 
             String timeStamp = new SimpleDateFormat("dd_MM_yyyy_hh_mm").format(new Date());
-            String quizId = "quiz_"+timeStamp;
+            String quizId = "quiz_" + timeStamp;
 
             String startTime = new SimpleDateFormat("hh:mm:ss").format(new Date());
 
@@ -502,8 +545,7 @@ public class ShowOverviewActivity extends AppCompatActivity {
 
                 }
             }, quizId, startTime);
-        }
-        else if(btnStartQuiz.getText().toString().equalsIgnoreCase(getString(R.string.action_stop_quiz))) {
+        } else if (btnStartQuiz.getText().toString().equalsIgnoreCase(getString(R.string.action_stop_quiz))) {
 
             String stopTime = new SimpleDateFormat("hh:mm:ss").format(new Date());
 
@@ -530,7 +572,7 @@ public class ShowOverviewActivity extends AppCompatActivity {
             }, stopTime);
 
             chronoQuizTimer.stop();
-        } else if(btnStartQuiz.getText().toString().equalsIgnoreCase(getString(R.string.action_results))) {
+        } else if (btnStartQuiz.getText().toString().equalsIgnoreCase(getString(R.string.action_results))) {
 
             FreeSwitchApi.shared().showResults(new IMessageListener() {
                 @Override
@@ -551,7 +593,7 @@ public class ShowOverviewActivity extends AppCompatActivity {
                 @Override
                 public void message(String message) {
                     Intent intent = new Intent(ShowOverviewActivity.this, ShowResultsActivity.class);
-                    intent.putExtra("MESSAGE",message);
+                    intent.putExtra("MESSAGE", message);
                     startActivity(intent);
                 }
             });
@@ -561,8 +603,8 @@ public class ShowOverviewActivity extends AppCompatActivity {
     }
 
     public static void finishActivity() {
-        Log.v("dks","finish activiy");
-        if(activity != null) {
+        Log.v("dks", "finish activiy");
+        if (activity != null) {
             activity.finish();
         }
 
@@ -575,7 +617,7 @@ public class ShowOverviewActivity extends AppCompatActivity {
         // if app closed then last state of the callers is retained in recycler view
         // this is used to stop that and flush the old callers
 
-        if(callerListRecyclerView != null) {
+        if (callerListRecyclerView != null) {
             callerListRecyclerView.setRecycledViewPool(new RecyclerView.RecycledViewPool());
         }
 

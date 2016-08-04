@@ -32,6 +32,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import java.io.File;
+import java.util.ArrayList;
 
 import uk.ac.openlab.radio.GlobalUtils;
 import uk.ac.openlab.radio.R;
@@ -175,6 +176,10 @@ public class MainActivity extends AppCompatActivity implements IRecyclerViewItem
 
         FreeSwitchApi.shared().init(getApplicationContext());
         AWSHandler.shared().init(getApplicationContext());
+
+        getListeners();
+        getGuests();
+
     }
 
     @Override
@@ -826,6 +831,73 @@ public class MainActivity extends AppCompatActivity implements IRecyclerViewItem
         }
 
         super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    private void getListeners() {
+        FreeSwitchApi.shared().showListeners(new IMessageListener() {
+            @Override
+            public void success() {
+                Log.v("tag", "listener list received");
+            }
+
+            @Override
+            public void fail() {
+                Log.v("tag", "failed");
+            }
+
+            @Override
+            public void error() {
+                Log.v("tag", "error");
+            }
+
+            @Override
+            public void message(String message) {
+                Log.v("tag", "message: "+message);
+                ShowListenersActivity.parse(message);
+
+            }
+        });
+    }
+
+    private void getGuests() {
+        FreeSwitchApi.shared().showGuests(new IMessageListener() {
+            @Override
+            public void success() {
+
+            }
+
+            @Override
+            public void fail() {
+
+            }
+
+            @Override
+            public void error() {
+
+            }
+
+            @Override
+            public void message(String message) {
+                parse(message);
+            }
+        });
+    }
+
+    public void parse(String message) {
+        String[] guestNames = message.split(",");
+
+        if(ShowGuestsActivity.guestArrayList == null)
+            ShowGuestsActivity.guestArrayList = new ArrayList<>();
+        ShowGuestsActivity.guestArrayList.clear();
+
+        if(!(guestNames.length == 1 && guestNames[0].equals(""))) {
+            for(String names: guestNames) {
+                if(names.equalsIgnoreCase("") || names.equalsIgnoreCase(" ")) {
+                    continue;
+                }
+                ShowGuestsActivity.guestArrayList.add(names);
+            }
+        }
     }
 
     @Override

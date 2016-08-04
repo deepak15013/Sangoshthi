@@ -1,24 +1,22 @@
 package uk.ac.openlab.radio.adapters;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.os.SystemClock;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import uk.ac.openlab.radio.R;
-import uk.ac.openlab.radio.datatypes.Caller;
 import uk.ac.openlab.radio.datatypes.Callers;
 import uk.ac.openlab.radio.network.FreeSwitchApi;
 import uk.ac.openlab.radio.network.IMessageListener;
@@ -29,6 +27,7 @@ import uk.ac.openlab.radio.network.IMessageListener;
 public class CallerListAdapter extends RecyclerView.Adapter<CallerListAdapter.ViewHolder> {
 
     private List<Callers> callersList;
+    private Context context;
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
@@ -57,6 +56,7 @@ public class CallerListAdapter extends RecyclerView.Adapter<CallerListAdapter.Vi
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        context = parent.getContext();
         View itemView = LayoutInflater.
                 from(parent.getContext()).
                 inflate(R.layout.caller_list_item, parent, false);
@@ -69,6 +69,12 @@ public class CallerListAdapter extends RecyclerView.Adapter<CallerListAdapter.Vi
         final Callers callers = callersList.get(position);
         String phoneNum = callers.getPhone_number();
         holder.tvUserPhoneId.setText(phoneNum.substring(phoneNum.length() - 3));
+
+        // start the timer as soon as the card is inflated, for setting the waiting timer.
+        holder.cmTalk.setVisibility(View.VISIBLE);
+        holder.cmTalk.setTextColor(ContextCompat.getColor(context, R.color.red));
+        holder.cmTalk.setBase(SystemClock.elapsedRealtime());
+        holder.cmTalk.start();
 
         holder.ibMuteUnmute.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,6 +94,7 @@ public class CallerListAdapter extends RecyclerView.Adapter<CallerListAdapter.Vi
                             callers.setMute_state(false);
 
                             holder.cmTalk.setVisibility(View.VISIBLE);
+                            holder.cmTalk.setTextColor(ContextCompat.getColor(context, R.color.black));
                             holder.cmTalk.setBase(SystemClock.elapsedRealtime());
                             holder.cmTalk.start();
                         }
@@ -119,6 +126,7 @@ public class CallerListAdapter extends RecyclerView.Adapter<CallerListAdapter.Vi
                             callers.setMute_state(true);
 
                             holder.cmTalk.setVisibility(View.GONE);
+                            holder.cmTalk.setTextColor(ContextCompat.getColor(context, R.color.black));
                             holder.ibMuteUnmute.setImageResource(R.drawable.ic_phone_muted);
                             holder.cmTalk.stop();
                         }

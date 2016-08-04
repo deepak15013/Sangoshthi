@@ -170,7 +170,6 @@ public class GlobalUtils {
         return this.lang;
     }
 
-
     public static Drawable iconWithTint(Context context, @DrawableRes int iconRes, @ColorRes int tintColor){
         return GlobalUtils.iconWithTint(context,ContextCompat.getDrawable(context, iconRes).mutate(),tintColor);
     }
