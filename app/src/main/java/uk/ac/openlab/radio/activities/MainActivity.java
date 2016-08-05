@@ -76,6 +76,9 @@ public class MainActivity extends AppCompatActivity implements IRecyclerViewItem
 
     public static boolean uploadTrailer = false;
 
+    // this thread is for getting the correct count of listeners and guests before starting the show.
+    private Thread sleepThread;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -176,9 +179,6 @@ public class MainActivity extends AppCompatActivity implements IRecyclerViewItem
 
         FreeSwitchApi.shared().init(getApplicationContext());
         AWSHandler.shared().init(getApplicationContext());
-
-        getListeners();
-        getGuests();
 
     }
 
@@ -305,6 +305,7 @@ public class MainActivity extends AppCompatActivity implements IRecyclerViewItem
         }
     }
 
+
     IRecyclerViewItemClickedListener mainMenuListener = new IRecyclerViewItemClickedListener() {
         @Override
         public void recyclerViewItemClicked(View view, int position) {
@@ -366,12 +367,32 @@ public class MainActivity extends AppCompatActivity implements IRecyclerViewItem
 
                 case 2:
                     //run show
+
+                    getListeners();
+                    getGuests();
+
                     ZMQSubscriber zmqSubscriber = new ZMQSubscriber();
                     zmqSubscriber.startSubscriber();
 
-                    i = new Intent(MainActivity.this, ShowOverviewActivity.class);
+                    sleepThread = new Thread(new Runnable() {
+                        @Override
+                        public void run() {
 
-                    startActivity(i);
+                            try {
+                                Thread.sleep(2000);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                            finally {
+                                Log.d("dks","Start Show Activity started");
+                                Intent intent = new Intent(MainActivity.this, ShowOverviewActivity.class);
+                                startActivity(intent);
+                            }
+
+                        }
+                    });
+                    sleepThread.start();
+
                     break;
             }
         }
@@ -898,6 +919,8 @@ public class MainActivity extends AppCompatActivity implements IRecyclerViewItem
                 ShowGuestsActivity.guestArrayList.add(names);
             }
         }
+
+        sleepThread.interrupt();
     }
 
     @Override

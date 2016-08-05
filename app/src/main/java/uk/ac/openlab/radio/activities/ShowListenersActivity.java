@@ -146,6 +146,20 @@ public class ShowListenersActivity extends AppCompatActivity {
     }
 
     public static void parse(String message) {
+        if(ashaArrayList == null) {
+            ashaArrayList = new ArrayList<>();
+        }
+        else {
+            ashaArrayList.clear();
+        }
+
+        if(othersArrayList == null) {
+            othersArrayList = new ArrayList<>();
+        }
+        else {
+            othersArrayList.clear();
+        }
+
         try {
             JSONObject rootObj = new JSONObject(message);
 
@@ -161,8 +175,6 @@ public class ShowListenersActivity extends AppCompatActivity {
                         JSONObject listenerObject = ashaListenersArr.getJSONObject(j);
                         String phoneNum = listenerObject.optString("phone");
                         Log.v("dks", phoneNum);
-                        if(ashaArrayList == null)
-                            ashaArrayList = new ArrayList<>();
                         ashaArrayList.add(phoneNum);
                     }
                 }
@@ -172,8 +184,6 @@ public class ShowListenersActivity extends AppCompatActivity {
                         JSONObject listenerObject = otherListenersArr.getJSONObject(j);
                         String phoneNum = listenerObject.optString("phone");
                         Log.v("dks", phoneNum);
-                        if(othersArrayList == null)
-                            othersArrayList = new ArrayList<>();
                         othersArrayList.add(phoneNum);
                     }
                 }

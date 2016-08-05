@@ -22,6 +22,8 @@ import java.util.ArrayList;
 
 import uk.ac.openlab.radio.R;
 import uk.ac.openlab.radio.drawables.ChecklistItemView;
+import uk.ac.openlab.radio.network.FreeSwitchApi;
+import uk.ac.openlab.radio.network.IMessageListener;
 
 public class ShowResultsActivity extends AppCompatActivity {
 
@@ -45,6 +47,7 @@ public class ShowResultsActivity extends AppCompatActivity {
         btnCreateResults = (Button) findViewById(R.id.btn_create_results);
 
         final String resultsJson = getIntent().getStringExtra("MESSAGE");
+        final String quizId = getIntent().getStringExtra("QUIZ_ID");
 
         btnCreateResults.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,7 +60,7 @@ public class ShowResultsActivity extends AppCompatActivity {
                 if(numOfOptionString != null && correctOptionString != null) {
                     numOfOption = Integer.parseInt(numOfOptionString);
                     correctOption = Integer.parseInt(correctOptionString);
-                    Log.v("dks","numOfOption: "+numOfOption+"corect: "+correctOption);
+                    Log.v("dks","numOfOption: "+numOfOption+"correct: "+correctOption);
 
                     ArrayList<Integer> values = new ArrayList<>();
                     try {
@@ -81,7 +84,7 @@ public class ShowResultsActivity extends AppCompatActivity {
                         entries.add(new BarEntry(values.get(i),i));
                     }
 
-                    BarDataSet dataSet = new BarDataSet(entries, "Num of persons");
+                    BarDataSet dataSet = new BarDataSet(entries, getResources().getString(R.string.result_x_axis));
                     dataSet.setColors(ColorTemplate.COLORFUL_COLORS);
 
                     ArrayList<String> labels = new ArrayList<>();
@@ -99,6 +102,28 @@ public class ShowResultsActivity extends AppCompatActivity {
                     rightAxis.setAxisMinValue(0);
                     quizChart.notifyDataSetChanged();
                     quizChart.invalidate();
+
+                    FreeSwitchApi.shared().quizDetails(new IMessageListener() {
+                        @Override
+                        public void success() {
+
+                        }
+
+                        @Override
+                        public void fail() {
+
+                        }
+
+                        @Override
+                        public void error() {
+
+                        }
+
+                        @Override
+                        public void message(String message) {
+
+                        }
+                    }, quizId, numOfOptionString, correctOptionString);
 
                 }
                 else {

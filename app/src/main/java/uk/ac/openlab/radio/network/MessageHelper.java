@@ -38,6 +38,7 @@ public class MessageHelper {
     private final String FS_START_QUIZ = "start_quiz";
     private final String FS_STOP_QUIZ = "stop_quiz";
     private final String FS_SHOW_RESULTS = "show_results";
+    private final String FS_QUIZ_DETAILS = "quiz_details";
     private final String FS_START_LISTENER_RATING = "start_listener_rating";
     private final String FS_STOP_LISTENER_RATING = "stop_listener_rating";
     private final String FS_CALL_REJECTED = "call_rejected";
@@ -175,6 +176,10 @@ public class MessageHelper {
 
     public String showResults() {
         return String.format("{\"cmd\":\"%s\", \"studio\" : \"%s\"}", FS_SHOW_RESULTS, this.studio_id);
+    }
+
+    public String quizDetails(String quizId, String countOption, String correctOption) {
+        return String.format("{\"cmd\":\"%s\", \"studio\" : \"%s\", \"quiz_id\": \"%s\", \"count_option\" : \"%s\", \"correct_option\" : \"%s\" }", FS_QUIZ_DETAILS, this.studio_id, quizId, countOption, correctOption);
     }
 
     public String startListenerRating(String phoneNum) {

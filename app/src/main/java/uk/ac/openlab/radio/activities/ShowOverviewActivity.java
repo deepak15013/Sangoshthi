@@ -507,6 +507,7 @@ public class ShowOverviewActivity extends AppCompatActivity {
     Button btnStartQuiz;
     Chronometer chronoQuizTimer;
     LinearLayout llShowTimer;
+    String quizId;
 
     public void overviewActivityStartQuiz(View view) {
 
@@ -515,7 +516,7 @@ public class ShowOverviewActivity extends AppCompatActivity {
             Toast.makeText(ShowOverviewActivity.this, "Quiz starting", Toast.LENGTH_SHORT).show();
 
             String timeStamp = new SimpleDateFormat("dd_MM_yyyy_hh_mm").format(new Date());
-            String quizId = "quiz_" + timeStamp;
+            quizId = "quiz_" + timeStamp;
 
             String startTime = new SimpleDateFormat("hh:mm:ss").format(new Date());
 
@@ -594,6 +595,7 @@ public class ShowOverviewActivity extends AppCompatActivity {
                 public void message(String message) {
                     Intent intent = new Intent(ShowOverviewActivity.this, ShowResultsActivity.class);
                     intent.putExtra("MESSAGE", message);
+                    intent.putExtra("QUIZ_ID", quizId);
                     startActivity(intent);
                 }
             });

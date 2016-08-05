@@ -101,6 +101,10 @@ public class FreeSwitchApi {
         sendMessage(callback, MessageHelper.shared().showResults());
     }
 
+    public void quizDetails(IMessageListener callback, String quizId, String countOption, String correctOption) {
+        sendMessage(callback, MessageHelper.shared().quizDetails(quizId, countOption, correctOption));
+    }
+
     public void startListenerRating(IMessageListener callback, String phoneNum) {
         sendMessage(callback, MessageHelper.shared().startListenerRating(phoneNum));
     }

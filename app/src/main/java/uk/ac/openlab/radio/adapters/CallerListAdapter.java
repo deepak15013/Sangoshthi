@@ -208,6 +208,13 @@ public class CallerListAdapter extends RecyclerView.Adapter<CallerListAdapter.Vi
     }
 
     @Override
+    public long getItemId(int position) {
+        //return super.getItemId(position);
+        return position;
+        //return callersList.get(position);
+    }
+
+    @Override
     public int getItemCount() {
         return callersList.size();
     }
