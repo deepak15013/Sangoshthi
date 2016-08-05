@@ -171,7 +171,7 @@ public class MessageHelper {
     }
 
     public String stopQuiz(String stopTime) {
-        return String.format("{\"cmd\":\"%s\", \"quiz_stop_time\" : \"%s\"}", FS_STOP_QUIZ, stopTime);
+        return String.format("{\"cmd\":\"%s\", \"studio\" : \"%s\", \"quiz_stop_time\" : \"%s\"}", FS_STOP_QUIZ, this.studio_id, stopTime);
     }
 
     public String showResults() {
@@ -183,11 +183,11 @@ public class MessageHelper {
     }
 
     public String startListenerRating(String phoneNum) {
-        return String.format("{\"cmd\":\"%s\", \"phone_number\" : \"%s\"}", FS_START_LISTENER_RATING, phoneNum);
+        return String.format("{\"cmd\":\"%s\", \"studio\" : \"%s\", \"phone_number\" : \"%s\"}", FS_START_LISTENER_RATING, this.studio_id, phoneNum);
     }
 
     public String stopListenerRating(String phoneNum) {
-        return String.format("{\"cmd\":\"%s\", \"phone_number\" : \"%s\"}", FS_STOP_LISTENER_RATING, phoneNum);
+        return String.format("{\"cmd\":\"%s\", \"studio\" : \"%s\", \"phone_number\" : \"%s\"}", FS_STOP_LISTENER_RATING, this.studio_id, phoneNum);
     }
 
     public String callRejected() {
