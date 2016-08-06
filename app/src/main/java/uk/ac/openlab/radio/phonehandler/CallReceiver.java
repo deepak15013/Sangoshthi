@@ -26,10 +26,11 @@ public class CallReceiver extends PhoneCallReceiver {
         super.onIncomingCallStarted(ctx, number, start);
         Log.v("dks","call incoming: "+number+" date start: "+start);
 
-        if(ShowOverviewActivity.dismissThread.isAlive()) {
-            ShowOverviewActivity.dismissThread.interrupt();
+        if(ShowOverviewActivity.dismissThread != null) {
+            if(ShowOverviewActivity.dismissThread.isAlive()) {
+                ShowOverviewActivity.dismissThread.interrupt();
+            }
         }
-
     }
 
     @Override

@@ -597,6 +597,7 @@ public class ShowOverviewActivity extends AppCompatActivity {
                     intent.putExtra("MESSAGE", message);
                     intent.putExtra("QUIZ_ID", quizId);
                     startActivity(intent);
+                    btnStartQuiz.setText(getString(R.string.action_start_quiz));
                 }
             });
 
