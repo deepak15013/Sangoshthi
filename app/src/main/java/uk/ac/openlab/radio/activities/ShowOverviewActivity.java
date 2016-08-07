@@ -511,97 +511,113 @@ public class ShowOverviewActivity extends AppCompatActivity {
 
     public void overviewActivityStartQuiz(View view) {
 
-        if (btnStartQuiz.getText().toString().equalsIgnoreCase(getString(R.string.action_start_quiz))) {
+        // check is show is started or not. If started then let the user click the startQuiz
+        // otherwise interrupt the user using dialog box.
 
-            Toast.makeText(ShowOverviewActivity.this, "Quiz starting", Toast.LENGTH_SHORT).show();
+        if(showStarted) {
+            if (btnStartQuiz.getText().toString().equalsIgnoreCase(getString(R.string.action_start_quiz))) {
 
-            String timeStamp = new SimpleDateFormat("dd_MM_yyyy_hh_mm").format(new Date());
-            quizId = "quiz_" + timeStamp;
+                Toast.makeText(ShowOverviewActivity.this, "Quiz starting", Toast.LENGTH_SHORT).show();
 
-            String startTime = new SimpleDateFormat("hh:mm:ss").format(new Date());
+                String timeStamp = new SimpleDateFormat("dd_MM_yyyy_hh_mm").format(new Date());
+                quizId = "quiz_" + timeStamp;
 
-            FreeSwitchApi.shared().startQuiz(new IMessageListener() {
+                String startTime = new SimpleDateFormat("hh:mm:ss").format(new Date());
+
+                FreeSwitchApi.shared().startQuiz(new IMessageListener() {
+                    @Override
+                    public void success() {
+                        btnStartQuiz.setText(getString(R.string.action_stop_quiz));
+
+                        llShowTimer.setVisibility(LinearLayout.VISIBLE);
+
+                        chronoQuizTimer.setBase(SystemClock.elapsedRealtime());
+                        chronoQuizTimer.start();
+                    }
+
+                    @Override
+                    public void fail() {
+
+                    }
+
+                    @Override
+                    public void error() {
+
+                    }
+
+                    @Override
+                    public void message(String message) {
+
+                    }
+                }, quizId, startTime);
+            } else if (btnStartQuiz.getText().toString().equalsIgnoreCase(getString(R.string.action_stop_quiz))) {
+
+                String stopTime = new SimpleDateFormat("hh:mm:ss").format(new Date());
+
+                FreeSwitchApi.shared().stopQuiz(new IMessageListener() {
+                    @Override
+                    public void success() {
+                        btnStartQuiz.setText(getString(R.string.action_results));
+                    }
+
+                    @Override
+                    public void fail() {
+
+                    }
+
+                    @Override
+                    public void error() {
+
+                    }
+
+                    @Override
+                    public void message(String message) {
+
+                    }
+                }, stopTime);
+
+                chronoQuizTimer.stop();
+            } else if (btnStartQuiz.getText().toString().equalsIgnoreCase(getString(R.string.action_results))) {
+
+                FreeSwitchApi.shared().showResults(new IMessageListener() {
+                    @Override
+                    public void success() {
+
+                    }
+
+                    @Override
+                    public void fail() {
+
+                    }
+
+                    @Override
+                    public void error() {
+
+                    }
+
+                    @Override
+                    public void message(String message) {
+                        Intent intent = new Intent(ShowOverviewActivity.this, ShowResultsActivity.class);
+                        intent.putExtra("MESSAGE", message);
+                        intent.putExtra("QUIZ_ID", quizId);
+                        startActivity(intent);
+                        btnStartQuiz.setText(getString(R.string.action_start_quiz));
+                    }
+                });
+
+                llShowTimer.setVisibility(LinearLayout.INVISIBLE);
+            }
+        } else {
+            AlertDialog.Builder startShow = new AlertDialog.Builder(ShowOverviewActivity.this);
+            startShow.setMessage(getString(R.string.dialog_start_show_first));
+            startShow.setNegativeButton(R.string.dialog_ok, new DialogInterface.OnClickListener() {
                 @Override
-                public void success() {
-                    btnStartQuiz.setText(getString(R.string.action_stop_quiz));
+                public void onClick(DialogInterface dialog, int which) {
 
-                    llShowTimer.setVisibility(LinearLayout.VISIBLE);
-
-                    chronoQuizTimer.setBase(SystemClock.elapsedRealtime());
-                    chronoQuizTimer.start();
-                }
-
-                @Override
-                public void fail() {
-
-                }
-
-                @Override
-                public void error() {
-
-                }
-
-                @Override
-                public void message(String message) {
-
-                }
-            }, quizId, startTime);
-        } else if (btnStartQuiz.getText().toString().equalsIgnoreCase(getString(R.string.action_stop_quiz))) {
-
-            String stopTime = new SimpleDateFormat("hh:mm:ss").format(new Date());
-
-            FreeSwitchApi.shared().stopQuiz(new IMessageListener() {
-                @Override
-                public void success() {
-                    btnStartQuiz.setText(getString(R.string.action_results));
-                }
-
-                @Override
-                public void fail() {
-
-                }
-
-                @Override
-                public void error() {
-
-                }
-
-                @Override
-                public void message(String message) {
-
-                }
-            }, stopTime);
-
-            chronoQuizTimer.stop();
-        } else if (btnStartQuiz.getText().toString().equalsIgnoreCase(getString(R.string.action_results))) {
-
-            FreeSwitchApi.shared().showResults(new IMessageListener() {
-                @Override
-                public void success() {
-
-                }
-
-                @Override
-                public void fail() {
-
-                }
-
-                @Override
-                public void error() {
-
-                }
-
-                @Override
-                public void message(String message) {
-                    Intent intent = new Intent(ShowOverviewActivity.this, ShowResultsActivity.class);
-                    intent.putExtra("MESSAGE", message);
-                    intent.putExtra("QUIZ_ID", quizId);
-                    startActivity(intent);
-                    btnStartQuiz.setText(getString(R.string.action_start_quiz));
                 }
             });
-
-            llShowTimer.setVisibility(LinearLayout.INVISIBLE);
+            AlertDialog startShowDialog = startShow.create();
+            startShowDialog.show();
         }
     }
 
