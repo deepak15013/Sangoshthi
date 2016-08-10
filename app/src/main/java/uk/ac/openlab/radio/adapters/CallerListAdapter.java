@@ -46,7 +46,6 @@ public class CallerListAdapter extends RecyclerView.Adapter<CallerListAdapter.Vi
             cmTalk = (Chronometer) v.findViewById(R.id.cm_talk);
 
             cardViewItem = (CardView) v.findViewById(R.id.card_view_item);
-
         }
     }
 
@@ -70,6 +69,8 @@ public class CallerListAdapter extends RecyclerView.Adapter<CallerListAdapter.Vi
         String phoneNum = callers.getPhone_number();
         holder.tvUserPhoneId.setText(phoneNum.substring(phoneNum.length() - 3));
 
+        int cardDefaultColor = Color.parseColor("#FFFFFFFF");
+        holder.cardViewItem.setCardBackgroundColor(cardDefaultColor);
         // start the timer as soon as the card is inflated, for setting the waiting timer.
         holder.cmTalk.setVisibility(View.VISIBLE);
         holder.cmTalk.setTextColor(ContextCompat.getColor(context, R.color.red));

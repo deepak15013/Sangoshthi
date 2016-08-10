@@ -44,6 +44,7 @@ public class MessageHelper {
     private final String FS_CALL_REJECTED = "call_rejected";
 
     private final String FS_PLAY_PRERECORDED_MATERIAL = "play_recording";
+    private final String FS_STOP_MEDIA = "stop_media";
     private final String FS_TRAILER_UPLOAD = "trailer_upload";
     private final String FS_CONTENT_UPLOAD = "content_upload";
     private final String FS_PLAY_CONTENT = "play_content";
@@ -200,6 +201,13 @@ public class MessageHelper {
      */
     public String playPrerecordedMaterial() {
         return String.format("{\"cmd\":\"%s\", \"studio\" : \"%s\"}", FS_PLAY_PRERECORDED_MATERIAL, this.studio_id);
+    }
+
+    /**
+     *  Stop the preRecorded material play.
+     */
+    public String stopMedia() {
+        return String.format("{\"cmd\":\"%s\", \"studio\" : \"%s\"}", FS_STOP_MEDIA, this.studio_id);
     }
 
     /**

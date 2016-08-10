@@ -160,6 +160,14 @@ public class FreeSwitchApi {
     }
 
     /**
+     *  Tell FreeSwitch to stop the playing of prerecorded material to the listeners
+     * @param callback
+     */
+    public void stopMedia(IMessageListener callback) {
+        sendMessage(callback, MessageHelper.shared().stopMedia());
+    }
+
+    /**
      *  Tell FreeSwitch that the trailer has been uploaded to s3
      * @param callback
      */

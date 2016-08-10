@@ -62,6 +62,7 @@
     <string name="dialog_call_waiting_ivr_dialog">कृपया कॉल की प्रतीक्षा करे</string>
     <string name="dialog_no_previous_recording">यह पहला शो हैं, नयी रेकॉर्डिंग बनाये</string>
     <string name="dialog_start_show_first">पहले सभी श्रोता को शो मे जोड़े</string>
+    <string name="dialog_error_playing_content">कृपया, यह चेक करले कि सही फाइल उपलोड हुई हैं, और फाइल फॉर्मॅट .mp3 या .wav हैं|</string>
 
     <!-- Error -->
     <string name="error_invalid_pin">Incorrect Pin</string>
@@ -69,13 +70,16 @@
 
     <!-- Toasts -->
     <string name="toast_create_show_radio_error">कृपया शो का प्रकार चुने</string>
-    <string name="toast_trailer_deleted">ट्रेलर मिटा दिया गया ह</string>
+    <string name="toast_trailer_deleted">ट्रेलर मिटा दिया गया हैं</string>
+    <string name="toast_content_deleted">रेकॉर्डिंग मिटा दिया गया हैं</string>
     <string name="toast_listener_added">सफल</string>
     <string name="toast_quiz_results_error">कृपया विकल्प गिनती और सही विकल्प चुने</string>
     <string name="toast_add_more">और जोड़े</string>
     <string name="toast_broadcast_time_saved">सफल</string>
     <string name="toast_submit">जमा करें</string>
     <string name="toast_fail">असफल, कृपया दुबारा कोशिश करे</string>
+    <string name="toast_recording_play_stopped">End playing audio</string>
+
     <!-- Edit texts -->
     <string name="number_input_enter_guest_number">गेस्ट का नंबर डाले</string>
     <string name="number_input_enter_listener_number">श्रोता का फोन नंबर डाले</string>

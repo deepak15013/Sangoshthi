@@ -81,6 +81,7 @@ public class ShowOverviewActivity extends AppCompatActivity {
     private Button btnSaveTimestamp;
 
     private ToggleButton tbPlayPrerecorded;
+    private boolean contentPlayingStarted = false;
 
     private static Context context;
     private static Activity activity;
@@ -141,10 +142,14 @@ public class ShowOverviewActivity extends AppCompatActivity {
                     public void success() {
                         callersArrayList.clear();
 
+                        // after flush the state should be flushed of callers.
+                        if (callerListRecyclerView != null) {
+                            callerListRecyclerView.setRecycledViewPool(new RecyclerView.RecycledViewPool());
+                        }
+
                         callerListRecyclerView.post(new Runnable() {
                             @Override
                             public void run() {
-
                                 callerListAdapter.notifyDataSetChanged();
                             }
                         });
@@ -254,19 +259,29 @@ public class ShowOverviewActivity extends AppCompatActivity {
 
                 if (showStarted) {
                     if (isChecked) {
-                        Toast.makeText(ShowOverviewActivity.this, "Started playing audio", Toast.LENGTH_SHORT).show();
-                        tbPlayPrerecorded.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.ic_stop_black_24dp, 0, 0);
-                        tbPlayPrerecorded.setBackgroundColor(context.getResources().getColor(R.color.green));
 
                         FreeSwitchApi.shared().playPrerecordedMaterial(new IMessageListener() {
                             @Override
                             public void success() {
-
+                                tbPlayPrerecorded.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.ic_stop_black_24dp, 0, 0);
+                                tbPlayPrerecorded.setBackgroundColor(context.getResources().getColor(R.color.green));
+                                tbPlayPrerecorded.setChecked(true);
+                                contentPlayingStarted = true;
                             }
 
                             @Override
                             public void fail() {
+                                tbPlayPrerecorded.setChecked(false);
+                                AlertDialog.Builder errorPlay = new AlertDialog.Builder(ShowOverviewActivity.this);
+                                errorPlay.setMessage(getString(R.string.dialog_error_playing_content));
+                                errorPlay.setNegativeButton(R.string.dialog_ok, new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
 
+                                    }
+                                });
+                                AlertDialog startShowDialog = errorPlay.create();
+                                startShowDialog.show();
                             }
 
                             @Override
@@ -281,10 +296,33 @@ public class ShowOverviewActivity extends AppCompatActivity {
                         });
 
                     } else {
-                        Toast.makeText(ShowOverviewActivity.this, "End playing audio", Toast.LENGTH_SHORT).show();
-                        tbPlayPrerecorded.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.ic_play_arrow_black_24dp, 0, 0);
 
-                        tbPlayPrerecorded.setBackgroundColor(context.getResources().getColor(R.color.red));
+                        if(contentPlayingStarted) {
+                            FreeSwitchApi.shared().stopMedia(new IMessageListener() {
+                                @Override
+                                public void success() {
+                                    tbPlayPrerecorded.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.ic_play_arrow_black_24dp, 0, 0);
+
+                                    tbPlayPrerecorded.setBackgroundColor(context.getResources().getColor(R.color.red));
+                                    contentPlayingStarted = false;
+                                }
+
+                                @Override
+                                public void fail() {
+
+                                }
+
+                                @Override
+                                public void error() {
+
+                                }
+
+                                @Override
+                                public void message(String message) {
+
+                                }
+                            });
+                        }
                     }
                 } else {
                     AlertDialog.Builder startShow = new AlertDialog.Builder(ShowOverviewActivity.this);
@@ -324,7 +362,6 @@ public class ShowOverviewActivity extends AppCompatActivity {
     }
 
     public static void setCallerObjects(TopicInfoResult callers) {
-
 
         final TopicInfoResult result = new TopicInfoResult(callers.getListeners(), callers.getCallers());
         Log.v("dks", "result object" + result);

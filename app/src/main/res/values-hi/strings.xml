@@ -65,6 +65,7 @@
     <string name="dialog_create_trailer_first">Please create a trailer first</string>
     <string name="dialog_call_disconnected_error">Call Disconnected</string>
     <string name="dialog_call_disconnected">Sorry! the host\'s call is disconnected! Please run show again</string>
+    <string name="dialog_error_playing_content">Error playing content</string>
 
     <!-- Error -->
     <string name="error_invalid_pin">Incorrect Pin</string>
@@ -73,13 +74,14 @@
     <!-- Toasts -->
     <string name="toast_create_show_radio_error">Please select show type</string>
     <string name="toast_trailer_deleted">Trailer deleted</string>
-
+    <string name="toast_content_deleted">Content deleted</string>
     <string name="toast_listener_added">Listener added successfully</string>
     <string name="toast_quiz_results_error">Please enter number of option and the correct option</string>
     <string name="toast_add_more">add more</string>
     <string name="toast_broadcast_time_saved">Broadcast time saved</string>
     <string name="toast_submit">submit</string>
     <string name="toast_fail">Fail! Please try again!</string>
+    <string name="toast_recording_play_stopped">End playing audio</string>
 
     <!-- Edit texts -->
     <string name="number_input_enter_guest_number">Enter the Guest\'s telephone number</string>
