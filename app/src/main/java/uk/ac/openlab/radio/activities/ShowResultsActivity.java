@@ -95,11 +95,14 @@ public class ShowResultsActivity extends AppCompatActivity {
                     BarData data = new BarData(labels, dataSet);
 
                     quizChart.setData(data);
+                    quizChart.setDescription("");
                     YAxis leftAxis = quizChart.getAxisLeft();
                     YAxis rightAxis = quizChart.getAxisRight();
 
                     leftAxis.setAxisMinValue(0);
                     rightAxis.setAxisMinValue(0);
+                    leftAxis.setGranularity(1);
+                    rightAxis.setGranularity(1);
                     quizChart.notifyDataSetChanged();
                     quizChart.invalidate();
 
