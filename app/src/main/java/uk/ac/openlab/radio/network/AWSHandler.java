@@ -1,5 +1,6 @@
 package uk.ac.openlab.radio.network;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
@@ -34,6 +35,8 @@ public class AWSHandler {
 
     private Context context;
 
+    private AlertDialog uploadingDialog;
+
     private static final String BUCKET_NAME = "sehatkivaani";
 
     private TransferUtility transferUtility;
@@ -58,7 +61,13 @@ public class AWSHandler {
         transferUtility = new TransferUtility(s3, this.context);
     }
 
-    public void storeAwsFile(File fileToUpload, String fileKey) {
+    public void storeAwsFile(File fileToUpload, String fileKey, Context context) {
+
+        AlertDialog.Builder uploadingDialogBuilder = new AlertDialog.Builder(context);
+        uploadingDialogBuilder.setMessage(R.string.dialog_uploading);
+        uploadingDialogBuilder.setCancelable(false);
+        uploadingDialog = uploadingDialogBuilder.create();
+        uploadingDialog.show();
 
         fileName = fileKey;
 
@@ -79,6 +88,11 @@ public class AWSHandler {
             public void onStateChanged(int id, TransferState state) {
                 Log.e("statechange", state+"");
                 if(state.toString().equalsIgnoreCase("COMPLETED")) {
+
+                    if(uploadingDialog != null && uploadingDialog.isShowing()) {
+                        uploadingDialog.dismiss();
+                    }
+
                     if(MainActivity.uploadTrailer) {
                         FreeSwitchApi.shared().trailerUpload(new IMessageListener() {
                             @Override

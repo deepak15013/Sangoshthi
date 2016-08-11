@@ -839,12 +839,11 @@ public class MainActivity extends AppCompatActivity implements IRecyclerViewItem
                         fileKey = GlobalUtils.shared().getStudioId()+"/content/"+fileToUpload.getName();
                     }
 
-                    AWSHandler.shared().storeAwsFile(fileToUpload, fileKey);
+                    AWSHandler.shared().storeAwsFile(fileToUpload, fileKey, MainActivity.this);
                 }
                 else {
                     Log.v("dks","file not found");
                 }
-                Toast.makeText(MainActivity.this, R.string.toast_file_uploading, Toast.LENGTH_SHORT).show();
 
             } else {
                 Toast.makeText(MainActivity.this, R.string.toast_fail, Toast.LENGTH_SHORT).show();
