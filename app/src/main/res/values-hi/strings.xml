@@ -67,6 +67,7 @@
     <string name="dialog_call_disconnected">Sorry! the host\'s call is disconnected! Please run show again</string>
     <string name="dialog_error_playing_content">Error playing content</string>
     <string name="dialog_uploading">Uploading files, Please wait.</string>
+    <string name="dialog_please_wait">Please wait.</string>
 
     <!-- Error -->
     <string name="error_invalid_pin">Incorrect Pin</string>

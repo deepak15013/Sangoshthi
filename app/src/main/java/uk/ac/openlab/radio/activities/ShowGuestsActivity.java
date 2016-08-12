@@ -1,5 +1,6 @@
 package uk.ac.openlab.radio.activities;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -20,11 +21,13 @@ public class ShowGuestsActivity extends AppCompatActivity {
     public static ArrayList<String> guestArrayList;
     private RecyclerView showGuestsRecyclerView;
 
-    ChecklistItemView toolbarItemView;
+    private ChecklistItemView toolbarItemView;
 
-    LinearLayoutManager linearLayoutManager;
+    private LinearLayoutManager linearLayoutManager;
 
-    TextView tvNoGuest;
+    private TextView tvNoGuest;
+
+    private AlertDialog waitDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +52,13 @@ public class ShowGuestsActivity extends AppCompatActivity {
     }
 
     private void getGuests() {
+
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+        alertDialogBuilder.setMessage(R.string.dialog_please_wait);
+        alertDialogBuilder.setCancelable(false);
+        waitDialog = alertDialogBuilder.create();
+        waitDialog.show();
+
         FreeSwitchApi.shared().showGuests(new IMessageListener() {
             @Override
             public void success() {
@@ -77,6 +87,10 @@ public class ShowGuestsActivity extends AppCompatActivity {
         guestArrayList.clear();
 
         String[] guestNames = message.split(",");
+
+        if(waitDialog.isShowing()) {
+            waitDialog.dismiss();
+        }
 
         if(guestNames.length == 1 && guestNames[0].equals("")) {
             tvNoGuest.setVisibility(View.VISIBLE);

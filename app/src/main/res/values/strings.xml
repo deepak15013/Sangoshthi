@@ -64,6 +64,7 @@
     <string name="dialog_start_show_first">पहले सभी श्रोता को शो मे जोड़े</string>
     <string name="dialog_error_playing_content">कृपया, यह चेक करले कि सही फाइल उपलोड हुई हैं, और फाइल फॉर्मॅट .mp3 या .wav हैं|</string>
     <string name="dialog_uploading">फाइल जमा हो रही है, कृपया प्रतीक्षा करे|</string>
+    <string name="dialog_please_wait">कृपया प्रतीक्षा करे|</string>
 
     <!-- Error -->
     <string name="error_invalid_pin">Incorrect Pin</string>

@@ -1,5 +1,6 @@
 package uk.ac.openlab.radio.activities;
 
+import android.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -51,6 +52,13 @@ public class ShowListenersActivity extends AppCompatActivity {
     }
 
     private void getListeners() {
+
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+        alertDialogBuilder.setMessage(R.string.dialog_please_wait);
+        alertDialogBuilder.setCancelable(false);
+        final AlertDialog waitDialog = alertDialogBuilder.create();
+        waitDialog.show();
+
         FreeSwitchApi.shared().showListeners(new IMessageListener() {
             @Override
             public void success() {
@@ -71,6 +79,11 @@ public class ShowListenersActivity extends AppCompatActivity {
             public void message(String message) {
                 Log.v("tag", "message: "+message);
                 parse(message);
+
+                if(waitDialog.isShowing()) {
+                    waitDialog.dismiss();
+                }
+
                 showListView();
 
             }

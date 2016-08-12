@@ -58,7 +58,7 @@
         <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_date_range_black_24px"
+            android:src="@drawable/ic_access_time_black_24dp"
             android:onClick="timeChooser"
             android:contentDescription="@string/cd_time_chooser"/>
 
