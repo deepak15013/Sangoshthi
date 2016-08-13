@@ -72,10 +72,10 @@ public class CallerListAdapter extends RecyclerView.Adapter<CallerListAdapter.Vi
         int cardDefaultColor = Color.parseColor("#FFFFFFFF");
         holder.cardViewItem.setCardBackgroundColor(cardDefaultColor);
         // start the timer as soon as the card is inflated, for setting the waiting timer.
-        holder.cmTalk.setVisibility(View.VISIBLE);
+        /*holder.cmTalk.setVisibility(View.VISIBLE);
         holder.cmTalk.setTextColor(ContextCompat.getColor(context, R.color.red));
         holder.cmTalk.setBase(SystemClock.elapsedRealtime());
-        holder.cmTalk.start();
+        holder.cmTalk.start();*/
 
         holder.ibMuteUnmute.setOnClickListener(new View.OnClickListener() {
             @Override

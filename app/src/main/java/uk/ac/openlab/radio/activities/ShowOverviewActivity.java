@@ -64,9 +64,6 @@ public class ShowOverviewActivity extends AppCompatActivity {
 
     public static List<Callers> callersArrayList;
 
-    // for retaining the old list of callers.
-    public static List<Callers> oldCallersArrayList;
-
     public static CallerListAdapter callerListAdapter;
 
     private static TextView tvTotalCallers;
@@ -124,7 +121,6 @@ public class ShowOverviewActivity extends AppCompatActivity {
         callerListRecyclerView.setLayoutManager(new WrapContentGridLayoutManager(this, 2));
 
         callersArrayList = new ArrayList<>();
-        oldCallersArrayList = new ArrayList<>();
 
         callerListAdapter = new CallerListAdapter(callersArrayList);
         callerListRecyclerView.setAdapter(callerListAdapter);
@@ -368,37 +364,22 @@ public class ShowOverviewActivity extends AppCompatActivity {
 
         try {
             if (callers.getCallers() != null) {
-                if (callersArrayList != null && oldCallersArrayList != null) {
+                if (callersArrayList != null) {
 
-                    oldCallersArrayList.clear();
+                    callersArrayList.clear();
 
-                    oldCallersArrayList.addAll(result.getCallers());
+                    callersArrayList.addAll(result.getCallers());
 
-                    for (Callers i : oldCallersArrayList) {
-                        boolean callerFound = false;
-                        for (Callers j : callersArrayList) {
-                            if (j.getPhone_number().equals(i.getPhone_number())) {
-                                callerFound = true;
-                            }
-                        }
-                        if (!callerFound) {
-                            callersArrayList.add(i);
-                            Log.d("dks", "new caller added");
-                        }
-                    }
-
-                    //callersArrayList.addAll(result.getCallers());
-
-                    //callerListRecyclerView.setRecycledViewPool(new RecyclerView.RecycledViewPool());
+                    callerListRecyclerView.setRecycledViewPool(new RecyclerView.RecycledViewPool());
 
                     callerListRecyclerView.post(new Runnable() {
                         @Override
                         public void run() {
-                            //callerListAdapter.notifyDataSetChanged();
-                            callerListAdapter.notifyItemInserted(callersArrayList.size() - 1);
-                            tvTotalCallers.setText(context.getResources().getString(R.string.string_total_callers, String.valueOf(result.getListeners() - 1), String.valueOf(ShowGuestsActivity.getNumOfGuests() + ShowListenersActivity.getAshaListeners() + ShowListenersActivity.getOtherListeners())));
+                            callerListAdapter.notifyDataSetChanged();
+                            tvTotalCallers.setText(context.getResources().getString(R.string.string_total_callers,String.valueOf(result.getListeners()-1),String.valueOf(ShowGuestsActivity.getNumOfGuests()+ShowListenersActivity.getAshaListeners()+ShowListenersActivity.getOtherListeners())));
                         }
                     });
+
                 }
             } else {
                 if (callers.getListeners() >= 0) {
