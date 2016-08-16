@@ -152,6 +152,20 @@ public class FreeSwitchApi {
     }
 
     /**
+     * Tell FreeSwitch that the app is closed and disconnect all the callers
+     */
+    public void endConference(IMessageListener callback) {
+        sendMessage(callback, MessageHelper.shared().endConference());
+    }
+
+    /**
+     * Tell FreeSwitch to cancel the current show.
+     */
+    public void cancelShow(IMessageListener callback) {
+        sendMessage(callback, MessageHelper.shared().cancelShow());
+    }
+
+    /**
      *  Tell FreeSwitch to play the prerecorded material to callers from amazon S3.
      * @param callback
      */

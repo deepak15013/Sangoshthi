@@ -253,7 +253,47 @@ public class MainActivity extends AppCompatActivity implements IRecyclerViewItem
         View.OnClickListener buttonListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+
+                if(button.getText().equals(getString(R.string.action_quit))) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                    builder.setTitle(R.string.dialog_end_show_title);
+                    builder.setMessage(R.string.dialog_end_show_message);
+                    builder.setNegativeButton(R.string.dialog_no, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+                        }
+                    });
+                    builder.setPositiveButton(R.string.dialog_yes, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            FreeSwitchApi.shared().cancelShow(new IMessageListener() {
+                                @Override
+                                public void success() {
+                                    finish();
+                                }
+
+                                @Override
+                                public void fail() {
+                                    Toast.makeText(MainActivity.this, R.string.toast_fail, Toast.LENGTH_SHORT).show();
+                                }
+
+                                @Override
+                                public void error() {
+
+                                }
+
+                                @Override
+                                public void message(String message) {
+
+                                }
+                            });
+                        }
+                    });
+                    builder.create().show();
+                } else {
+                    finish();
+                }
             }
         };
         switch (id){

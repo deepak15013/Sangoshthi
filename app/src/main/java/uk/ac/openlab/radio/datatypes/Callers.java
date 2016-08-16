@@ -6,13 +6,14 @@ import java.util.ArrayList;
  * Created by deepaksood619 on 17/6/16.
  */
 public class Callers {
-    String uuid;
-    String phone_number;
-    String current_studio;
-    String conf_member_id;
-    boolean mute_state;
-    String current_role;
-    boolean voteStarted;
+    private String uuid;
+    private String phone_number;
+    private String current_studio;
+    private String conf_member_id;
+    private boolean mute_state;
+    private String current_role;
+    private boolean voteStarted;
+    private boolean clicked;
 
     public Callers(String uuid, String phone_number, String current_studio, String conf_member_id, boolean mute_state, String current_role) {
         this.uuid = uuid;
@@ -22,6 +23,7 @@ public class Callers {
         this.mute_state = mute_state;
         this.current_role = current_role;
         this.voteStarted = false;
+        this.clicked = false;
     }
 
     public String getUuid() {
@@ -78,5 +80,13 @@ public class Callers {
 
     public void setVoteStarted(boolean voteStarted) {
         this.voteStarted = voteStarted;
+    }
+
+    public boolean isClicked() {
+        return clicked;
+    }
+
+    public void setClicked(boolean clicked) {
+        this.clicked = clicked;
     }
 }

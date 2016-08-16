@@ -644,7 +644,20 @@ public class ShowOverviewActivity extends AppCompatActivity {
         if (activity != null) {
             activity.finish();
         }
+    }
 
+    @Override
+    public void onBackPressed() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(ShowOverviewActivity.this);
+        builder.setTitle(getString(R.string.dialog_end_show_first_title));
+        builder.setMessage(getString(R.string.dialog_end_show_first_message));
+        builder.setNegativeButton(R.string.dialog_ok, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+        builder.create().show();
     }
 
     @Override
@@ -657,6 +670,31 @@ public class ShowOverviewActivity extends AppCompatActivity {
         if (callerListRecyclerView != null) {
             callerListRecyclerView.setRecycledViewPool(new RecyclerView.RecycledViewPool());
         }
+
+        // If the app is closed directly from the app screen then if should notify
+        // freeswitch to end all the listeners.
+        Log.e("dks","App Destroyed");
+        FreeSwitchApi.shared().endConference(new IMessageListener() {
+            @Override
+            public void success() {
+
+            }
+
+            @Override
+            public void fail() {
+
+            }
+
+            @Override
+            public void error() {
+
+            }
+
+            @Override
+            public void message(String message) {
+
+            }
+        });
 
     }
 }

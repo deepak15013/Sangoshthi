@@ -24,6 +24,7 @@ import uk.ac.openlab.radio.network.IMessageListener;
 /**
  * Created by deepaksood619 on 17/6/16.
  */
+
 public class CallerListAdapter extends RecyclerView.Adapter<CallerListAdapter.ViewHolder> {
 
     private List<Callers> callersList;
@@ -66,11 +67,39 @@ public class CallerListAdapter extends RecyclerView.Adapter<CallerListAdapter.Vi
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         final Callers callers = callersList.get(position);
+
         String phoneNum = callers.getPhone_number();
         holder.tvUserPhoneId.setText(phoneNum.substring(phoneNum.length() - 3));
 
-        int cardDefaultColor = Color.parseColor("#FFFFFFFF");
-        holder.cardViewItem.setCardBackgroundColor(cardDefaultColor);
+        if(callers.isMute_state() && callers.isClicked()) {
+            int grayColor = Color.parseColor("#808080");
+            holder.cardViewItem.setCardBackgroundColor(grayColor);
+
+            holder.ibMuteUnmute.setImageResource(R.drawable.ic_phone_muted);
+        }
+
+        if(!callers.isMute_state()) {
+            int pinkColor = Color.parseColor("#e4bfef");
+            holder.cardViewItem.setCardBackgroundColor(pinkColor);
+
+            holder.ibMuteUnmute.setImageResource(R.drawable.ic_phone_active);
+
+            holder.cmTalk.setVisibility(View.VISIBLE);
+            holder.cmTalk.setTextColor(ContextCompat.getColor(context, R.color.black));
+            holder.cmTalk.setBase(SystemClock.elapsedRealtime());
+            holder.cmTalk.start();
+
+        }
+
+        if(callers.isMute_state() && !callers.isClicked()) {
+            int cardDefaultColor = Color.parseColor("#FFFFFFFF");
+            holder.cardViewItem.setCardBackgroundColor(cardDefaultColor);
+
+            holder.ibMuteUnmute.setImageResource(R.drawable.ic_phone_muted);
+        }
+
+        //int cardDefaultColor = Color.parseColor("#FFFFFFFF");
+        //holder.cardViewItem.setCardBackgroundColor(cardDefaultColor);
         // start the timer as soon as the card is inflated, for setting the waiting timer.
         /*holder.cmTalk.setVisibility(View.VISIBLE);
         holder.cmTalk.setTextColor(ContextCompat.getColor(context, R.color.red));
@@ -83,6 +112,8 @@ public class CallerListAdapter extends RecyclerView.Adapter<CallerListAdapter.Vi
                 Log.v("dks", "clicked phone: "+callers.getPhone_number());
 
                 if(callers.isMute_state()) {
+
+                    callers.setClicked(true);
 
                     FreeSwitchApi.shared().setCallerMute(new IMessageListener() {
                         @Override
@@ -207,6 +238,8 @@ public class CallerListAdapter extends RecyclerView.Adapter<CallerListAdapter.Vi
             }
         });
     }
+
+
 
     @Override
     public long getItemId(int position) {

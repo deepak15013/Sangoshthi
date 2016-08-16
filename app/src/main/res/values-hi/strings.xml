@@ -68,6 +68,10 @@
     <string name="dialog_error_playing_content">Error playing content</string>
     <string name="dialog_uploading">Uploading files, Please wait.</string>
     <string name="dialog_please_wait">Please wait.</string>
+    <string name="dialog_end_show_title">End Show Confirmation</string>
+    <string name="dialog_end_show_message">Do you really want to end the show? This will make the app restart for a new show.</string>
+    <string name="dialog_end_show_first_title">Show Exit Alert!</string>
+    <string name="dialog_end_show_first_message">Please end show first before exiting.</string>
 
     <!-- Error -->
     <string name="error_invalid_pin">Incorrect Pin</string>
@@ -104,7 +108,7 @@
     <string name="cd_time_chooser">Select time</string>
 
     <!-- Buttons action -->
-    <string name="action_quit">Quit</string>
+    <string name="action_quit">Quit Show</string>
     <string name="action_finished">Finished</string>
     <string name="action_start_show">start show</string>
     <string name="action_stop_show">stop show</string>

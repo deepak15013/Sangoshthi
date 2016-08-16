@@ -42,6 +42,8 @@ public class MessageHelper {
     private final String FS_START_LISTENER_RATING = "start_listener_rating";
     private final String FS_STOP_LISTENER_RATING = "stop_listener_rating";
     private final String FS_CALL_REJECTED = "call_rejected";
+    private final String FS_END_CONFERENCE = "end_conference";
+    private final String FS_CANCEL_SHOW = "cancel_show";
 
     private final String FS_PLAY_PRERECORDED_MATERIAL = "play_recording";
     private final String FS_STOP_MEDIA = "stop_media";
@@ -193,6 +195,22 @@ public class MessageHelper {
 
     public String callRejected() {
         return String.format("{\"cmd\":\"%s\", \"studio\" : \"%s\", \"phone_number\" : \"%s\"}", FS_CALL_REJECTED, this.studio_id, this.host_phone_num);
+    }
+
+    /**
+     * End conference if user directly closes the app from the recent screen and the show is running.
+     */
+    public String endConference() {
+        return String.format("{\"cmd\":\"%s\", \"studio\" : \"%s\"}", FS_END_CONFERENCE, this.studio_id);
+    }
+
+    /**
+     * Cancel the show when clicked on button in mainActivity for ending the show so that he can make a new show
+     * without starting the current show.
+     * This can arise if he has given wrong number while creating the show and then he didn't got call.
+     */
+    public String cancelShow() {
+        return String.format("{\"cmd\":\"%s\", \"studio\" : \"%s\"}", FS_CANCEL_SHOW, this.studio_id);
     }
 
     /**
