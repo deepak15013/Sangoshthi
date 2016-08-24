@@ -148,7 +148,7 @@ public class SpreadTheWordActivity extends AppCompatActivity {
                 Toast.makeText(SpreadTheWordActivity.this, getString(R.string.toast_broadcast_time_saved), Toast.LENGTH_SHORT).show();
                 etSpreadDate.setText("");
                 etSpreadTime.setText("");
-                onBackPressed();
+                finish();
             }
 
             @Override
