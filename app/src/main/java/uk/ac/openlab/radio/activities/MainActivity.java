@@ -29,6 +29,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import java.io.File;
@@ -62,6 +63,7 @@ public class MainActivity extends AppCompatActivity implements IRecyclerViewItem
 
     private final int REQUEST_CODE_PICK_FILE = 2;
 
+    private ProgressBar progressBar;
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
     private CheckListAdapter adapter;
@@ -142,6 +144,7 @@ public class MainActivity extends AppCompatActivity implements IRecyclerViewItem
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbarItemView = (ChecklistItemView)toolbar.findViewById(R.id.toolbar_item);
         recyclerView = (RecyclerView)findViewById(R.id.checkListView);
+        progressBar = (ProgressBar) findViewById(R.id.progress_bar);
 
         Bundle extras = getIntent().getExtras();
         if(extras !=null){
@@ -372,10 +375,23 @@ public class MainActivity extends AppCompatActivity implements IRecyclerViewItem
                 case 1:
                     //spread the word
 
+                    Log.d("dks","adding progress bar");
+                    progressBar.setVisibility(View.VISIBLE);
+
                     FreeSwitchApi.shared().checkTrailerStatus(new IMessageListener() {
                         @Override
                         public void success() {
                             Intent i;
+
+                            // remove progress bar when new activity is being loaded.
+                            progressBar.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Log.d("dks","removing progress bar");
+                                    progressBar.setVisibility(View.GONE);
+                                }
+                            });
+
                             i = new Intent(MainActivity.this, SpreadTheWordActivity.class);
                             startActivity(i);
                         }
@@ -408,6 +424,9 @@ public class MainActivity extends AppCompatActivity implements IRecyclerViewItem
                 case 2:
                     //run show
 
+                    Log.d("dks","adding progress bar");
+                    progressBar.setVisibility(View.VISIBLE);
+
                     getListeners();
                     getGuests();
 
@@ -425,6 +444,16 @@ public class MainActivity extends AppCompatActivity implements IRecyclerViewItem
                             }
                             finally {
                                 Log.d("dks","Start Show Activity started");
+
+                                // remove progress bar when new activity is being loaded.
+                                progressBar.post(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        Log.d("dks","removing progress bar");
+                                        progressBar.setVisibility(View.GONE);
+                                    }
+                                });
+
                                 Intent intent = new Intent(MainActivity.this, ShowOverviewActivity.class);
                                 startActivity(intent);
                             }

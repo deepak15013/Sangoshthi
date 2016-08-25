@@ -7,29 +7,50 @@
 
     <include layout="@layout/checklist_toolbar" />
 
-    <android.support.v7.widget.RecyclerView
-        android:layout_weight="1"
-        android:layout_marginTop="@dimen/activity_margin"
-        android:layout_marginLeft="@dimen/activity_margin"
-        android:layout_marginRight="@dimen/activity_margin"
-        android:paddingBottom="4dp"
-        android:id="@+id/checkListView"
-        android:orientation="vertical"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-    </android.support.v7.widget.RecyclerView>
+        android:layout_height="match_parent">
 
-    <Button
-        android:layout_weight="0"
-        android:id="@+id/bottomButton"
-        android:textColor="#3f3f3f"
-        android:textSize="@dimen/button_textSize"
-        android:padding="@dimen/button_padding"
-        android:layout_marginLeft="@dimen/activity_margin"
-        android:layout_marginRight="@dimen/activity_margin"
-        android:layout_marginBottom="@dimen/activity_margin"
-        android:text="@string/action_quit"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/progress_bar"
+            android:progressDrawable="@drawable/circular_progress_bar"
+            android:layout_gravity="center"
+            android:visibility="gone"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <android.support.v7.widget.RecyclerView
+                android:layout_weight="1"
+                android:layout_marginTop="@dimen/activity_margin"
+                android:layout_marginLeft="@dimen/activity_margin"
+                android:layout_marginRight="@dimen/activity_margin"
+                android:paddingBottom="4dp"
+                android:id="@+id/checkListView"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            </android.support.v7.widget.RecyclerView>
+
+            <Button
+                android:layout_weight="0"
+                android:id="@+id/bottomButton"
+                android:textColor="#3f3f3f"
+                android:textSize="@dimen/button_textSize"
+                android:padding="@dimen/button_padding"
+                android:layout_marginLeft="@dimen/activity_margin"
+                android:layout_marginRight="@dimen/activity_margin"
+                android:layout_marginBottom="@dimen/activity_margin"
+                android:text="@string/action_quit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+    </FrameLayout>
 
 </LinearLayout>
