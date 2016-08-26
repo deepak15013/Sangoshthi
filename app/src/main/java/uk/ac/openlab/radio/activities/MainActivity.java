@@ -29,6 +29,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -64,6 +65,7 @@ public class MainActivity extends AppCompatActivity implements IRecyclerViewItem
     private final int REQUEST_CODE_PICK_FILE = 2;
 
     private ProgressBar progressBar;
+    private FrameLayout progressBarContainer;
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
     private CheckListAdapter adapter;
@@ -145,6 +147,7 @@ public class MainActivity extends AppCompatActivity implements IRecyclerViewItem
         toolbarItemView = (ChecklistItemView)toolbar.findViewById(R.id.toolbar_item);
         recyclerView = (RecyclerView)findViewById(R.id.checkListView);
         progressBar = (ProgressBar) findViewById(R.id.progress_bar);
+        progressBarContainer = (FrameLayout) findViewById(R.id.progress_bar_container);
 
         Bundle extras = getIntent().getExtras();
         if(extras !=null){
@@ -376,7 +379,9 @@ public class MainActivity extends AppCompatActivity implements IRecyclerViewItem
                     //spread the word
 
                     Log.d("dks","adding progress bar");
-                    progressBar.setVisibility(View.VISIBLE);
+
+                    progressBarContainer.setVisibility(View.VISIBLE);
+//                    progressBar.setVisibility(View.VISIBLE);
 
                     FreeSwitchApi.shared().checkTrailerStatus(new IMessageListener() {
                         @Override
@@ -388,7 +393,8 @@ public class MainActivity extends AppCompatActivity implements IRecyclerViewItem
                                 @Override
                                 public void run() {
                                     Log.d("dks","removing progress bar");
-                                    progressBar.setVisibility(View.GONE);
+                                    progressBarContainer.setVisibility(View.GONE);
+//                                    progressBar.setVisibility(View.GONE);
                                 }
                             });
 
@@ -425,7 +431,8 @@ public class MainActivity extends AppCompatActivity implements IRecyclerViewItem
                     //run show
 
                     Log.d("dks","adding progress bar");
-                    progressBar.setVisibility(View.VISIBLE);
+//                    progressBar.setVisibility(View.VISIBLE);
+                    progressBarContainer.setVisibility(View.VISIBLE);
 
                     getListeners();
                     getGuests();
@@ -450,7 +457,8 @@ public class MainActivity extends AppCompatActivity implements IRecyclerViewItem
                                     @Override
                                     public void run() {
                                         Log.d("dks","removing progress bar");
-                                        progressBar.setVisibility(View.GONE);
+//                                        progressBar.setVisibility(View.GONE);
+                                        progressBarContainer.setVisibility(View.GONE);
                                     }
                                 });
 
