@@ -89,7 +89,7 @@ public class ShowResultsActivity extends AppCompatActivity {
 
                     ArrayList<String> labels = new ArrayList<>();
                     for(int i=0;i<numOfOption;i++) {
-                        labels.add(String.valueOf(i));
+                        labels.add(String.valueOf(i+1));
                     }
 
                     BarData data = new BarData(labels, dataSet);

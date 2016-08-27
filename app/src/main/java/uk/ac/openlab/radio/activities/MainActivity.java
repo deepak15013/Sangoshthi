@@ -267,14 +267,25 @@ public class MainActivity extends AppCompatActivity implements IRecyclerViewItem
                     builder.setPositiveButton(R.string.dialog_yes, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
+
+                            // This alertDialog will be used if there is a slow network and fetching the data from server takes time.
+                            // This will stop user from using the app until process is completed.
+                            AlertDialog.Builder alertDialogExitBuilder = new AlertDialog.Builder(MainActivity.this);
+                            alertDialogExitBuilder.setMessage(R.string.dialog_please_wait);
+                            alertDialogExitBuilder.setCancelable(false);
+                            final AlertDialog alertDialogExit = alertDialogExitBuilder.create();
+                            alertDialogExit.show();
+
                             FreeSwitchApi.shared().cancelShow(new IMessageListener() {
                                 @Override
                                 public void success() {
+                                    alertDialogExit.dismiss();
                                     finish();
                                 }
 
                                 @Override
                                 public void fail() {
+                                    alertDialogExit.dismiss();
                                     Toast.makeText(MainActivity.this, R.string.toast_fail, Toast.LENGTH_SHORT).show();
                                 }
 
@@ -372,16 +383,28 @@ public class MainActivity extends AppCompatActivity implements IRecyclerViewItem
                 case 1:
                     //spread the word
 
+                    // This alertDialog will be used if there is a slow network and fetching the data from server takes time.
+                    // This will stop user from using the app unitl process is completed.
+                    AlertDialog.Builder waitDialogSpreadBuilder = new AlertDialog.Builder(MainActivity.this);
+                    waitDialogSpreadBuilder.setMessage(R.string.dialog_please_wait);
+                    waitDialogSpreadBuilder.setCancelable(false);
+                    final AlertDialog waitDialogSpread = waitDialogSpreadBuilder.create();
+                    waitDialogSpread.show();
+
                     FreeSwitchApi.shared().checkTrailerStatus(new IMessageListener() {
                         @Override
                         public void success() {
                             Intent i;
                             i = new Intent(MainActivity.this, SpreadTheWordActivity.class);
+                            waitDialogSpread.dismiss();
                             startActivity(i);
                         }
 
                         @Override
                         public void fail() {
+
+                            waitDialogSpread.dismiss();
+
                             AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
                             builder.setTitle(R.string.dialog_create_trailer_first);
                             builder.setNegativeButton(R.string.dialog_ok, new DialogInterface.OnClickListener() {
@@ -408,6 +431,14 @@ public class MainActivity extends AppCompatActivity implements IRecyclerViewItem
                 case 2:
                     //run show
 
+                    // This alertDialog will be used if there is a slow network and fetching the data from server takes time.
+                    // This will stop user from using the app until process is completed.
+                    AlertDialog.Builder waitDialogRunShowBuilder = new AlertDialog.Builder(MainActivity.this);
+                    waitDialogRunShowBuilder.setMessage(R.string.dialog_please_wait);
+                    waitDialogRunShowBuilder.setCancelable(false);
+                    final AlertDialog waitDialogRunShow = waitDialogRunShowBuilder.create();
+                    waitDialogRunShow.show();
+
                     getListeners();
                     getGuests();
 
@@ -426,6 +457,8 @@ public class MainActivity extends AppCompatActivity implements IRecyclerViewItem
                             finally {
                                 Log.d("dks","Start Show Activity started");
                                 Intent intent = new Intent(MainActivity.this, ShowOverviewActivity.class);
+                                waitDialogRunShow.dismiss();
+                                waitDialogRunShow.dismiss();
                                 startActivity(intent);
                             }
 
