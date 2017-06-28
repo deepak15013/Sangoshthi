@@ -1,3 +1,4 @@
+# Sangoshthi
 Android application to support community radio shows via telephony and IVR.
 This is the phase-1 deployment to help community workers share knowledge with other peoples in common health related topics, using the mordern IVR technology and android mobile application for creating conferences and hosting broadcast shows.
 ## Paper published
@@ -22,3 +23,24 @@ The Healthcare system of India provides outreach services to the rural populatio
 6. RecyclerView
 7. RangeBar
 8. Spinner
+9. [AppIntro](https://github.com/apl-devs/AppIntro)
+
+## Screenshots
+![alt text](https://github.com/deepak15013/Sangoshthi/blob/master/Screenshots/Screenshot_1.0.jpeg "Sign up screen")
+![alt text](https://github.com/deepak15013/Sangoshthi/blob/master/Screenshots/Screenshot_1.1.jpeg "Alternate sign up")
+![alt text](https://github.com/deepak15013/Sangoshthi/blob/master/Screenshots/Screenshot_2.jpeg "Welcome app intro")
+![alt text](https://github.com/deepak15013/Sangoshthi/blob/master/Screenshots/Screenshot_3.0.0.0.jpeg "Home screen")
+![alt text](https://github.com/deepak15013/Sangoshthi/blob/master/Screenshots/Screenshot_3.1.0.0.jpeg "Show preparation screen")
+![alt text](https://github.com/deepak15013/Sangoshthi/blob/master/Screenshots/Screenshot_3.1.1.0.jpeg "Guests preparation screen")
+![alt text](https://github.com/deepak15013/Sangoshthi/blob/master/Screenshots/Screenshot_3.1.1.1.jpeg "Add new guest")
+![alt text](https://github.com/deepak15013/Sangoshthi/blob/master/Screenshots/Screenshot_3.1.1.2.jpeg "Show added guests")
+![alt text](https://github.com/deepak15013/Sangoshthi/blob/master/Screenshots/Screenshot_3.1.2.0.jpeg "Listeners preparation screen")
+![alt text](https://github.com/deepak15013/Sangoshthi/blob/master/Screenshots/Screenshot_3.1.2.1.jpeg "Add new listener")
+![alt text](https://github.com/deepak15013/Sangoshthi/blob/master/Screenshots/Screenshot_3.1.2.2.jpeg "Show added listeners")
+![alt text](https://github.com/deepak15013/Sangoshthi/blob/master/Screenshots/Screenshot_3.1.3.0.jpeg "Recording preparation screen")
+![alt text](https://github.com/deepak15013/Sangoshthi/blob/master/Screenshots/Screenshot_3.1.3.1.jpeg "Trailer preparation screen")
+![alt text](https://github.com/deepak15013/Sangoshthi/blob/master/Screenshots/Screenshot_3.1.3.2.jpeg "Show recording preparation screen")
+![alt text](https://github.com/deepak15013/Sangoshthi/blob/master/Screenshots/Screenshot_4.0.jpeg "Show screen")
+![alt text](https://github.com/deepak15013/Sangoshthi/blob/master/Screenshots/Screenshot_4.1.jpeg "Waiting to call host")
+![alt text](https://github.com/deepak15013/Sangoshthi/blob/master/Screenshots/Screenshot_4.2.jpeg "Listener added")
+![alt text](https://github.com/deepak15013/Sangoshthi/blob/master/Screenshots/Screenshot_4.3.jpeg "Listener unmuted")
